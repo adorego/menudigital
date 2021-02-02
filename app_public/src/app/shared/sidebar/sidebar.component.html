@@ -1,0 +1,8 @@
+<mat-nav-list *ngFor="let sidenavLink of sidebarLinks">
+    <mat-list-item routerLink="{{sidenavLink.routeLink}}" routerLinkActive="active">
+      <mat-icon>{{sidenavLink.icon}}</mat-icon> {{sidenavLink.label}}
+    </mat-list-item>
+
+    
+    
+</mat-nav-list>

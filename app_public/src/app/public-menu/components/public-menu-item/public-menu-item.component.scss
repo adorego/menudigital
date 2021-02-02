@@ -1,0 +1,94 @@
+.img_card{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 40vh;
+}
+
+.card_menuItem{
+    width: 90%;
+    padding-bottom: 20px;
+    margin-left: 20px;
+}
+
+
+.wrapper {
+    border: 2px #dcd3d3 solid;
+    width: 15vw;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    border-radius: 15px;
+  }
+
+  input {
+    text-align: center;  
+    border: 1px solid #6C757D;
+  } 
+
+  input[type="number"] {
+    -webkit-appearance: textfield !important;
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+    }
+  
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+  .plusminus {
+    height: 100%;
+    width: 30%;
+    background: white;
+    border: none;
+    font-size: 40px;
+    color: #5f5fce;
+  }
+      
+   .num {
+    height: 100%;
+    width: 39%;
+    border: none;
+    font-size: 30px;
+    }
+
+    
+    .button_agregar{
+      height: 100%;
+      width: 40%;
+      padding-top: 3%;
+      padding-bottom: 3%;
+        
+    }  
+
+    .precio_anterior{
+      text-decoration:line-through
+    }
+
+    span.green{
+      background: #5EA226;
+      border-radius: 1.8em;
+      -moz-border-radius: 1.8em;
+      -webkit-border-radius: 1.8em;
+      color: #ffffff;
+      display: inline-block;
+      font-weight: bold;
+      line-height: 2.2em;
+      margin-right: 15px;
+      text-align: center;
+      width: 5em;
+    }
+
+    .lista_contenido{
+      border: 2px solid red;
+    }
+
+    .lista_personalizar{
+      border: 2px solid blue;
+      padding: 10px;
+    }
+
+    .personalizar_button{
+      margin-bottom: 10px;
+    }

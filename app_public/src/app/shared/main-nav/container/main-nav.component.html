@@ -1,0 +1,12 @@
+<app-public-header></app-public-header>
+
+<mat-sidenav-container class="layout">
+  <mat-sidenav>
+    <app-sidebar [sidebarLinks]="sideBarLinks"></app-sidebar>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content class="layout-content">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>  

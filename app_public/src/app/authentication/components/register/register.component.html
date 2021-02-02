@@ -1,0 +1,22 @@
+<form class="form" [formGroup]="form" (ngSubmit)="sign()">
+    <mat-form-field class="form__input">
+      <input matInput placeholder="Nombre completo" formControlName="name">
+    </mat-form-field>
+  
+    <mat-form-field class="form__input">
+      <input matInput placeholder="Dirección de correo" type="email" formControlName="email">
+    </mat-form-field>
+  
+    <mat-form-field class="form__input">
+      <input matInput placeholder="Clave de acceso" type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field class="form__input">
+      <input matInput placeholder="Repite tu clave de acceso" type="password" formControlName="repassword">
+    </mat-form-field>
+  
+    <div class="form-actions">
+      <button class="form-actions__create" mat-raised-button color="primary" type="submit">Crea tu cuenta</button>
+    </div>
+</form>
+  

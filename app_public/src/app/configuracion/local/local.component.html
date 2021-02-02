@@ -1,0 +1,95 @@
+<app-layout [sideBarLinks]="getSideBarLinks() | async">
+  
+  <form 
+    [formGroup]="localForm" 
+    (ngSubmit)="onSubmit()">
+
+  <mat-spinner class="spinner" *ngIf="uiState.loading"></mat-spinner>
+ 
+  
+  <mat-card class="shipping-card">
+    <mat-card-header class="header-action">
+      <mat-card-title class="header-action-left">Información sobre Mi Local Gastronómico</mat-card-title>
+      
+    </mat-card-header>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Nombre del local:</mat-label>
+            <input matInput readonly="false" type="text" formControlName="nombreDelLocal">
+            <mat-error *ngIf="localForm.controls['nombreDelLocal'].hasError('required')">
+              Nombre del local es<strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>RUC:</mat-label>
+            <input  readonly="false" type="text" matInput  formControlName="ruc">
+            <mat-error *ngIf="localForm.controls['ruc'].hasError('required')">
+              RUC es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>  
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Dirección del local:</mat-label>
+              <input readonly="false" type="text" matInput formControlName="direccionDelLocal">
+              <mat-error *ngIf="localForm.controls['direccionDelLocal'].hasError('required')">
+                La dirección es <strong>obligatoria</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Nombre del contacto:</mat-label>
+            <input  readonly="false" type="text" matInput formControlName="nombreDelContacto">
+            <mat-error *ngIf="localForm.controls['nombreDelContacto'].hasError('required')">
+              El nombre del contacto es<strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Email del local:</mat-label>
+            <input  readonly="false" type="email" matInput formControlName="emailDelContacto">
+            <mat-error *ngIf="localForm.controls['emailDelContacto'].hasError('required')">
+              El email del contacto es<strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Celular del contacto:</mat-label>
+            <input  readonly="false" type="text" matInput formControlName="celularDelContacto">
+            <mat-error *ngIf="localForm.controls['celularDelContacto'].hasError('required')">
+              El número de celular del contacto es<strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-raised-button disabled="{{!localForm.valid}}" color="primary" type="submit">Guardar</button>
+    </mat-card-actions>
+   </mat-card>
+  </form>
+  
+  
+
+</app-layout>
