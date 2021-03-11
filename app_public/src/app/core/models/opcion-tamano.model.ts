@@ -1,3 +1,5 @@
+import { Topping } from "./topping.model";
+
 export interface OpcionTamano{
     _id?:string;
     tamano:string;
@@ -7,4 +9,5 @@ export interface OpcionTamano{
     cantsabores?:number;
     precio:number;
     predeterminado?:boolean;
+    toppings?:Topping[];
 }

@@ -106,7 +106,23 @@ export class PublicMenuFacade{
                                     comensales:3,
                                     cantsabores:2,
                                     precio:78000,
-                                    predeterminado:true
+                                    predeterminado:true,
+                                    toppings:[
+                                        {
+                                            _id:"5656565",
+                                            nombre:"borde relleno",
+                                            descripcion:"Exquisito borde de queso catupiri",
+                                            precio: 5000
+
+                                        },
+                                        {
+                                            _id:"5656567",
+                                            nombre:"Extra Queso",
+                                            descripcion:"300 gs de queso extra en tu Pizza",
+                                            precio: 5000
+                                        }
+
+                                    ]
                                 },
                                 {
                                     _id:"8989865",
@@ -116,7 +132,23 @@ export class PublicMenuFacade{
                                     comensales:4,
                                     cantsabores:3,
                                     precio:88000,
-                                    predeterminado:false
+                                    predeterminado:false,
+                                    toppings:[
+                                        {
+                                            _id:"5656565",
+                                            nombre:"Borde relleno",
+                                            descripcion:"Exquisito borde de queso catupiri",
+                                            precio: 6000
+
+                                        },
+                                        {
+                                            _id:"5656567",
+                                            nombre:"Extra Queso",
+                                            descripcion:"400 gramos adicionales de queso extra en tu Pizza",
+                                            precio: 6000
+                                        }
+
+                                    ]
                                 },
                                 {
                                     _id:"8989843",
@@ -126,7 +158,23 @@ export class PublicMenuFacade{
                                     comensales:4,
                                     cantsabores:3,
                                     precio:98000,
-                                    predeterminado:false
+                                    predeterminado:false,
+                                    toppings:[
+                                        {
+                                            _id:"5656565",
+                                            nombre:"Borde relleno",
+                                            descripcion:"Exquisito borde de queso catupiri",
+                                            precio: 6000
+
+                                        },
+                                        {
+                                            _id:"5656567",
+                                            nombre:"Extra Queso",
+                                            descripcion:"500 gs de queso extra en tu Pizza",
+                                            precio: 7000
+                                        }
+
+                                    ]
                                 }
                             ],
                             sabores:[
