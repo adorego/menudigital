@@ -1,29 +1,25 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
 import { AuthPageComponent } from './container/auth-page/auth-page.component';
-import {AuthenticationFacade} from './services/authentication.facade';
-import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import {PasswordMatchValidationService} from './services/passwordMatchValidation.service';
+import { RegisterComponent } from './components/register/register.component';
+import { PasswordMatchValidationService } from './services/passwordMatchValidation.service';
+import { AuthFacade } from './services/authFacade.service';
+
+
 
 @NgModule({
-  declarations: [
-    LoginComponent, RegisterComponent, AuthPageComponent
-  ],
+  declarations: [LoginComponent, AuthPageComponent, RegisterComponent],
   imports: [
-   ReactiveFormsModule,
-   SharedModule
-  
-  ],
-  exports:[
-    AuthPageComponent
-    
+    AuthenticationRoutingModule,
+    SharedModule,
   ],
   providers:[
-    AuthenticationFacade,
-    PasswordMatchValidationService
-
+    PasswordMatchValidationService,
+    AuthFacade
   ]
 })
 export class AuthenticationModule { }

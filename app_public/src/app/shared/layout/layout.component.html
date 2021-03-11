@@ -1,16 +1,18 @@
-<app-header (isShowSidebar)="sidenav.toggle($event)" [isMenuOpened]="isShowSidebar"></app-header>
-
-    <mat-sidenav-container class="layout">
+<app-header [userName$]="getUserName()" (signOutEvent)="signOut()" (menuClick)="toggleSideNav($event)"></app-header>
+<mat-sidenav-container color="primary" class="layout">
     <mat-sidenav
-        #sidenav
-        fixedInViewport
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        #sideNav
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="(isHandset$ | async) === false"
-        class="layout-sidebar">
-        <app-sidebar [sidebarLinks]="sideBarLinks"></app-sidebar>
+        >
+        <app-sidebar [sidebarLinks$]="navList$"></app-sidebar>
     </mat-sidenav>
     <mat-sidenav-content class="layout-content">
         <ng-content></ng-content>
     </mat-sidenav-content>
+
+
+
+
+
 </mat-sidenav-container>

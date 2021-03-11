@@ -1,0 +1,395 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<mat-tab-group dynamicHeight [selectedIndex]="tabindex" class="tabclass">
+    <mat-tab label="Menú Item">
+        <div class="container">
+            <form [formGroup]="formGroupMenuItem" (ngSubmit)="onSubmitMenuItem()" autocomplete="off">
+                <mat-card fxLayout="column" fxLayoutGap="10px">
+                    <h2 class="datosMenuItemHeader">Datos de tu Menú Item</h2>
+                    <mat-label for="idImagenMenuItem">1. Foto del Menú Item</mat-label>
+                    <img id="idImagenMenuItem" class="imagenMenuItem" mat-card-image src="{{imagenMenuItem}}">
+                    <div fxLayout="row" fxLayoutAlign="center">
+                        <!--mat-label for="idbuttonSubir">Subir foto:</mat-label-->
+                        <button id="idbuttonSubir" mat-fab matTooltip="Sube la foto de este Item" type="button" color="primary" (click)="subirFoto($event)">
+                            <mat-icon>backup</mat-icon>
+                        </button>
+                        <input hidden id="fileInput-menuItem" type="file" name="imagen" accept="images/*" (change)="showPreviewMenuItemFoto($event)">
+                    </div>   
+                    <div class="row">
+                        <div class="col">
+                          <mat-form-field class="full-width">
+                            <mat-label>2. Nombre:</mat-label>
+                            <input matInput readonly="false" type="text" formControlName="nombre">
+                            <mat-error *ngIf="formGroupMenuItem.controls['nombre'].hasError('required')">
+                              Es necesario incluir un nombre para mantener la concistencia del MenuDigital
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                          <mat-form-field class="full-width">
+                            <mat-label>3. Descripción:</mat-label>
+                            <textarea matInput readonly="false" type="text" formControlName="descripcion"></textarea>
+                            <mat-error *ngIf="formGroupMenuItem.controls['descripcion'].hasError('required')">
+                              Es necesario incluir la descripcion para mantener la concistencia del MenuDigital
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                          <mat-form-field class="full-width">
+                            <mat-label>4. Tamaño (Solo si aplica):</mat-label>
+                            <input matInput readonly="false" type="text" formControlName="tamano">
+                            
+                          </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                          <mat-form-field class="full-width">
+                            <mat-label>5. Precio(Gs):</mat-label>
+                            <input matInput readonly="false" currencyMask formControlName="precio">
+                            <mat-error *ngIf="formGroupMenuItem.controls['precio'].hasError('required')">
+                              Es necesario incluir el precio del Item para mantener la concistencia del MenuDigital
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-card-actions>
+                        <button mat-raised-button disabled="{{!formGroupMenuItem.valid}}" color="primary" type="submit">Guardar</button>
+                    </mat-card-actions>
+                </mat-card>    
+
+
+            </form>
+            
+        </div>
+    </mat-tab>  
+    <mat-tab  label="Personalización">
+        <div fxLayout="column" fxLayoutAlign="start start">
+            <h2 class="datosMenuItemHeader">Opciones de personalización</h2>
+            <h5 class="explicacionPersonalizacion">Utiliza estas opciones para personalizar tu Menú Item</h5>
+        </div>
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let opcion of opcionesPersonalizacion" (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{opcion.titulo}}
+                    </mat-panel-title>
+                    
+                </mat-expansion-panel-header>
+                <div [ngSwitch]="opcion.tipo">
+                    <ng-container *ngSwitchCase="1">
+                        <ng-container *ngTemplateOutlet="promocion"></ng-container>
+                    </ng-container> 
+                    <ng-container *ngSwitchCase="2">
+                        <ng-container *ngTemplateOutlet="tamano"></ng-container>
+                    </ng-container> 
+                    <ng-container *ngSwitchCase="3">
+                        <ng-container *ngTemplateOutlet="sabores"></ng-container>
+                    </ng-container>
+                    <ng-template #promocion>
+                        <h5 class="explicacionPersonalizacion">{{opcion.descripcion}}</h5>
+                            <div class="top_actions" fxLayout="row" fxLayoutAlign="end end">
+                                <button (click)="nuevaPromocion()" mat-raised-button color="accent">Nueva Promocion</button>
+                            </div>
+                            <mat-table *ngIf="promoArray.length>0 else sinpromo" [dataSource]="promoArray" fxLayout="column" class="menuItemTable mat-elevation-z8">
+                                <ng-container matColumnDef="descuento">
+                                    <mat-header-cell *matHeaderCellDef>Descuento</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.descuento}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="vigencia">
+                                    <mat-header-cell *matHeaderCellDef>Vigencia</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.precio}} </mat-cell>
+                                    
+                                </ng-container>
+                                <ng-container matColumnDef="acciones">  
+                                    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                                    <mat-cell *matCellDef = "let element">
+                                        <button mat-icon-button aria-label="Eliminar la Promocion" (click)="eliminar_promocion(element)" matTooltip="Eliminar la Promoción">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>  
+                                <mat-header-row *matHeaderRowDef="columnasDeLaPromocion"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: columnasDeLaPromocion;"></mat-row>  
+                            </mat-table>
+
+                            <div class="promocionForm" *ngIf="showNuevaPromocion">
+                                <div class="encabezadoNuevaPromo">
+                                    <mat-divider></mat-divider>
+                                    <h3>Nueva Promoción</h3>
+                                </div>
+                                <form [formGroup]="formGroupPromocion" (ngSubmit)="onSubmitPromocion()" autocomplete="off">
+                                    <h4 class="encabezado">Definición del descuento</h4>
+                                        <div class="row">
+                                            <div class="col">
+                                            <mat-form-field class="full-width">
+                                                <mat-label>1. Precio Actual:</mat-label>
+                                                <input matInput currencyMask readonly="true" formControlName="precioActual">
+                                                <mat-error *ngIf="formGroupPromocion.controls['precioActual'].hasError('required')">
+                                                Es necesario incluir el precio actual del Item
+                                                </mat-error>
+                                            </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                            <mat-form-field class="full-width">
+                                                <mat-label>2. Precio Anterior:</mat-label>
+                                                <input matInput currencyMask (change)="setPrecioAnterior()" readonly="false"  formControlName="precioAnterior">
+                                                <mat-error *ngIf="formGroupPromocion.controls['precioAnterior'].hasError('required')">
+                                                Es necesario incluir el precio anterior del Item para calcular el descuento
+                                                </mat-error>
+                                            </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                            <mat-form-field class="full-width">
+                                                <mat-label>3. Descuento:</mat-label>
+                                                <input matInput [value]="formGroupPromocion.get('descuento').value | percent" readonly="true"  formControlName="descuento">
+                                                <mat-error *ngIf="formGroupPromocion.controls['precioActual'].hasError('required')">
+                                                Es necesario incluir el precio actual del Item
+                                                </mat-error>
+                                            </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <section class="vigenciaDiasDeLaSemana">
+                                            <h4 class="encabezado">Vigencia de la Promoción (opcional)</h4>
+                                            <span class="listaDeDias">
+                                                <mat-checkbox (change)="changePromoDias($event)" formControlName="promoDias">
+                                                    Vigencia ciertos días de la semana
+                                                </mat-checkbox>
+                                                
+                                            </span>
+                                            <span class="listaDiasDeLaSemana">
+                                                <ul>
+                                                    <li>
+                                                        <mat-checkbox  formControlName="lunes">
+                                                            Lunes
+                                                        </mat-checkbox>
+                                                    </li>
+                                                    <li>
+                                                        <mat-checkbox disable="!vigenciaDiasDeLaSemana" formControlName="martes">
+                                                            Martes
+                                                        </mat-checkbox>
+                                                    </li>
+                                                    <li>
+                                                        <mat-checkbox disable="!vigenciaDiasDeLaSemana" formControlName="miercoles">
+                                                            Miercoles
+                                                        </mat-checkbox>
+                                                    </li>
+                                                    <li>
+                                                        <mat-checkbox disable="!vigenciaDiasDeLaSemana" formControlName="jueves">
+                                                            Jueves
+                                                        </mat-checkbox>
+                                                    </li>
+                                                    <li>
+                                                        <mat-checkbox disable="!vigenciaDiasDeLaSemana" formControlName="viernes">
+                                                            Viernes
+                                                        </mat-checkbox>
+                                                    </li>
+                                                    <li>
+                                                        <mat-checkbox disable="!vigenciaDiasDeLaSemana" formControlName="sabado">
+                                                            Sabado
+                                                        </mat-checkbox>
+                                                    </li>
+                                                    <li>
+                                                        <mat-checkbox disable="!vigenciaDiasDeLaSemana" formControlName="domingo">
+                                                            Domingo
+                                                        </mat-checkbox>
+                                                    </li>
+                                                </ul>
+
+                                            </span>
+                                        </section>
+                                        <section class="vigenciaPromoFechas">
+                                            <span class="promoFechas">
+                                                <div class="full-width">
+                                                    <mat-checkbox (change)="changePromoFechas($event)" formControlName="promoPorFechas">
+                                                        Vigencia por un periodo seguido
+                                                    </mat-checkbox>
+                                                </div>
+                                                <mat-form-field  class="full-width" appearance="fill">
+                                                    <mat-label>Fecha de Inicio:</mat-label>
+                                                    <input matInput formControlName="fechaInicio" [matDatepicker]="fechaInicio">
+                                                    <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+                                                    <mat-datepicker #fechaInicio></mat-datepicker>
+                                                </mat-form-field>
+                                                <mat-form-field  class="full-width" appearance="fill">
+                                                    <mat-label>Fecha Fin:</mat-label>
+                                                    <input matInput formControlName="fechaFin" [matDatepicker]="fechaFin">
+                                                    <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+                                                    <mat-datepicker #fechaFin></mat-datepicker>
+                                                </mat-form-field>
+                                            </span>
+                                        </section>
+
+                                        <mat-card-actions>
+                                            <button mat-raised-button disabled="{{!formGroupPromocion.valid}}" color="primary" type="submit">Crear</button>
+                                        </mat-card-actions>
+                                </form>
+                            </div> 
+
+                    </ng-template>
+                    <ng-template #tamano>
+                        <h5 class="explicacionPersonalizacion">{{opcion.descripcion}}</h5>
+                            <div class="top_actions" fxLayout="row" fxLayoutAlign="end end">
+                                <button (click)="nuevoTamano()" mat-raised-button color="accent">Nuevo Tamaño</button>
+                            </div>
+                            <div class="tamanoForm" *ngIf="showNuevoTamano">
+                                <div class="encabezadoNuevaPromo">
+                                    <mat-divider></mat-divider>
+                                    <h3>Nuevo Tamaño</h3>
+                                </div>
+                                <form [formGroup]="formGroupTamano" (ngSubmit)="onSubmitTamano()" autocomplete="off">
+                                    <h4 class="encabezado">Definición de nuevo Tamaño</h4>
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-form-field class="full-width">
+                                                    <mat-label>Tamaño:ej. Mediano, Grande, Familiar</mat-label>
+                                                    <input matInput readonly="false" formControlName="tamano">
+                                                    <mat-error *ngIf="formGroupTamano.controls['tamano'].hasError('required')">
+                                                    Es necesario el nombre del tamaño
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-form-field class="full-width">
+                                                    <mat-label>Pedazos (si aplica):</mat-label>
+                                                    <input matInput readonly="false" formControlName="pedazos">
+                                                    
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-form-field class="full-width">
+                                                    <mat-label>Cantidad de sabores(si aplica):</mat-label>
+                                                    <input matInput readonly="false" formControlName="cantsabores">
+                                                    
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-form-field class="full-width">
+                                                    <mat-label>Comensales:</mat-label>
+                                                    <input matInput readonly="false" formControlName="comensales">
+                                                    <mat-error *ngIf="formGroupTamano.controls['comensales'].hasError('required')">
+                                                        Es importante mostrar la cantidad de comensales
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-form-field class="full-width">
+                                                    <mat-label>Precio:</mat-label>
+                                                    <input matInput readonly="false" formControlName="precio">
+                                                    <mat-error *ngIf="formGroupTamano.controls['precio'].hasError('required')">
+                                                    Es necesario definir el precio del tamaño
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <mat-card-actions>
+                                            <button mat-raised-button disabled="{{!formGroupTamano.valid}}" color="primary" type="submit">Crear</button>
+                                        </mat-card-actions>
+
+                                </form>
+                            </div>  
+                            <mat-table *ngIf="itemInsertado.tamanos.length>0 else sintamano" [dataSource]="itemInsertado.tamanos" fxLayout="column" class="tamanoTable mat-elevation-z8">
+                                <ng-container matColumnDef="nombre">
+                                    <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.tamano}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="precio">
+                                    <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.precio | guaraniCurrency}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="acciones">  
+                                    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                                    <mat-cell *matCellDef = "let element">
+                                        <button mat-icon-button aria-label="Eliminar el Tamaño" (click)="eliminar_tamano(element)" matTooltip="Eliminar el Tamaño">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>  
+
+                                <mat-header-row *matHeaderRowDef="columnasDeTamano"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: columnasDeTamano;"></mat-row>
+                            </mat-table>     
+                                
+                    </ng-template>
+
+                    <ng-template #sabores>
+                        <h5>{{opcion.descripcion}}</h5>
+                        <div class="top_actions" fxLayout="row" fxLayoutAlign="end end">
+                            <button (click)="nuevoSabor()" mat-raised-button color="accent">Nuevo Sabor</button>
+                        </div>
+                        <div class="saborForm" *ngIf="showNuevoSabor">
+                            <div class="encabezadoNuevoSabor">
+                                <mat-divider></mat-divider>
+                                <h3>Nuevo Sabor</h3>
+                            </div>
+                            <form [formGroup]="formGroupSabor" (ngSubmit)="onSubmitSabor()" autocomplete="off">
+                                <h4 class="encabezado">Definición de nuevo Sabor</h4>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field class="full-width">
+                                                <mat-label>Nombre:</mat-label>
+                                                <input matInput readonly="false" formControlName="nombre">
+                                                <mat-error *ngIf="formGroupTamano.controls['tamano'].hasError('required')">
+                                                Es necesario el nombre del sabor
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field class="full-width">
+                                                <mat-label>Descripcion:</mat-label>
+                                                <input matInput readonly="false" formControlName="descripcion">
+                                                
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="costo_adicional_sabor">
+                                            <span class="costoAdicionalCheckBox">
+                                                <h4>Tiene costo adicional este sabor?</h4>
+                                                <mat-checkbox (change)="saborConCostoAdicional($event)" formControlName="costoAdicional">
+                                                    Si
+                                                </mat-checkbox>
+                                                
+                                            </span>
+                                            <div *ngIf="tieneCostoAdicional">
+                                                <h4>Nombre del sabor:</h4>
+                                                
+                                            </div>
+                                    </div>
+                                    <mat-card-actions>
+                                        <button mat-raised-button disabled="{{!formGroupSabor.valid}}" color="primary" type="submit">Crear</button>
+                                    </mat-card-actions>
+                            </form>
+                        </div>
+
+                    </ng-template>
+                    <ng-template #sinpromo>
+                        <h3>No tenés promoción vigente </h3>
+                    </ng-template>
+                    <ng-template #sintamano>
+                        <h3>No tenés tamaños configurados </h3>
+                    </ng-template>
+                </div>    
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-tab>  
+</mat-tab-group>
+

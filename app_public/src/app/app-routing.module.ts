@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import {AuthPageComponent} from './authentication/container/auth-page/auth-page.component';
 
 const routes:Routes = [
@@ -13,31 +13,17 @@ const routes:Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-  },
-  {
     path: 'configuracion',
-    loadChildren: () => import('./configuracion/configuracion.module').then(m => m.ConfiguracionModule)
+    loadChildren: () => import('./configuration/configuration.module').then(m => m.ConfigurationModule)
   },
   {
-    path: 'pedidos',
-    loadChildren: () => import('./pedidos/pedidos.module').then(m => m.PedidosModule)
-  },
-  {
-    path: 'menudigital',
+    path: 'menudigital/:nombrelocal',
     loadChildren: () => import('./public-menu/public-menu.module').then(m => m.PublicMenuModule)
-    
   }
-  
 ]
 
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [RouterModule],
-  providers: []
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

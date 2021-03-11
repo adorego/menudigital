@@ -1,14 +1,21 @@
-<form class="form" [formGroup]="form" (ngSubmit)="login()">
-    <mat-form-field class="form__input">
-      <input name="email" matInput placeholder="Email Address" type="email" formControlName="email">
-    </mat-form-field>
-  
-    <mat-form-field class="form__input">
-      <input name="password" matInput placeholder="Clave" type="password" formControlName="password">
-    </mat-form-field>
-  
-    <div class="form-actions">
-      <button class="form-actions__login" mat-raised-button color="primary" type="submit">Login</button>
-      <button class="form-actions__forget" mat-button>Olvide mi clave</button>
-    </div>
+<button class="close" mat-button (click)="onNoClick()">X</button>
+  <form [formGroup]="form" (ngSubmit)="login()" autocomplete="off">
+      <h4 class="header_login">Ingresa a tu MenuDigital</h4>
+      <mat-form-field class="input_field" appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input id="correo" matInput placeholder="Correo electrónico" type="email" autocomplete="off" formControlName="email">
+        </mat-form-field>
+      
+        <mat-form-field class="input_field" appearance="outline">
+          <mat-label>Clave</mat-label>
+          <input matInput placeholder="Clave" type="password" autocomplete="off" formControlName="password">
+        </mat-form-field>
+      
+        <div class="form-actions">
+          <button class="form-actions__login" mat-raised-button color="primary" type="submit">Ingresar</button>
+          <button class="form-actions__forget" mat-button>Olvide mi clave</button>
+          
+        </div>
+       
   </form>
+  

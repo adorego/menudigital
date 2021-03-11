@@ -22,20 +22,31 @@ const extraToppingSchema = new mongoose.Schema({
     constoAdicional:Number
 });
 
+const opcionPromocion = new mongoose.Schema({
+    precioActual:{type:Number, required:true},
+    precioAnterior:{type:Number, required:true},
+    descuento:{type:Number, required:true},
+   
+})
+
 const menuitemSchema = new mongoose.Schema({
     nombre:{type:String, required:true},
+    categoria:{type:Schema.Types.ObjectId, ref:'Category'},
     descripcion: String,
-    opcionesTamanos:[opcionTamanosSchema],
-    
-    
+    tamano:String,
+    precio:{type:Number, required:true},
+    imagenUrl:String,
+    promocion: opcionPromocion
 });
+
 const categoriaSchema = new mongoose.Schema({
-    iconPath: String,
-    iconUrl: String,
-    label: {type: String, required: true, unique: true},
+    titulo: {type: String, required: true, unique: true},
+    descripcion:String,
     puesto: {type:Number, unique: true},
     menuitems:[menuitemSchema]
 });
+
+
 
 const promocionSchema = new mongoose.Schema({
     iconPath: String,
@@ -76,10 +87,21 @@ const localSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    urlMenuDigital:{
+        type: String,
+        required: true,
+        unique: true
+    },
+    localNameUrl:{
+        type: String,
+        required: true,
+        unique: true
+    },
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-    categorias:[categoriaSchema],
-    promociones:[promocionSchema]    
+    categorias:[categoriaSchema]
+     
     
 });
 
 mongoose.model('Local', localSchema, 'locales');
+mongoose.model('Category', categoriaSchema, 'categorias');

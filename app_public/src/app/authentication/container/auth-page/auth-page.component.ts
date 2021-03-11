@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationFacade} from '../../services/authentication.facade';
-import {User} from '../../../core/models/user.model';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { LoginComponent } from '../../components/login/login.component';
+import { RegisterComponent } from '../../components/register/register.component';
+import { AuthFacade } from '../../services/authFacade.service';
 
 @Component({
   selector: 'app-auth-page',
@@ -8,44 +10,59 @@ import {User} from '../../../core/models/user.model';
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent implements OnInit {
-  public todayDate: Date = new Date();
-  errorMessage: string;
-  loginFailed: boolean = false;
-  isSuccessFul: boolean = false;
-  registerFailed: boolean = false;
 
-  constructor(private authFacade:AuthenticationFacade) { }
+  constructor(public dialog: MatDialog, private authFacade: AuthFacade) { }
 
-  ngOnInit(): void {
+  registrarme(){
+    console.log('AuthPage registrarme');
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position ={
+      'top': '20px',
+      'right': '30px'
+    };
+    dialogConfig.width = '70%';
+    dialogConfig.height = '80%';
+    const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
+    const sub = dialogRef.componentInstance.sendSignForm.subscribe(
+      (formData:any) => {
+        //console.log('Datos del login:', formData);
+        this.authFacade.register(formData);
+
+        
+      }
+    );
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log('AuthPageComponent registrarme closed');
+    })
     
   }
 
-  public sendLoginForm(user:User): void{
-      this.authFacade.login(user).subscribe(
-        data => {
-          //console.log(data);
-          this.isSuccessFul = data;
-        },
-        err => {
-          this.errorMessage = err;
-          this.loginFailed = true;
-        }
+  login(){
+    console.log('AuthPage Login');
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position ={
+      'top': '20px',
+      'right': '20px'
+    };
+    dialogConfig.width = '40%';
+    dialogConfig.height = '60%';
+    const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
+    const sub = dialogRef.componentInstance.sendLoginForm.subscribe(
+      (formData:any) => {
+        //console.log('Datos del login:', formData);
+        this.authFacade.login(formData);
+
         
-
-      )
-  }
-
-  public sendRegisterForm(user:User): void {
-    console.log('Before call', user);
-    this.authFacade.register(user).subscribe(
-      data => {
-        //console.log(data);
-        this.isSuccessFul = data;
-      },
-      err => {
-        this.errorMessage = err;
-        this.registerFailed = true;
       }
-    )
+    );
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log('AuthPageComponent registrarme closed');
+    })
   }
+  
+  
+
+  ngOnInit(): void {
+  }
+
 }

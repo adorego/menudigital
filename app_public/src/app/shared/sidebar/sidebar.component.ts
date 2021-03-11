@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {AuthenticationFacade} from '../../authentication/services/authentication.facade';
-import {SidebarLink} from '../../core/models/sidebarlink';
+import { Observable } from 'rxjs';
+import { SidebarLink } from 'src/app/core/models/sidebar.model';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -8,13 +9,12 @@ import {SidebarLink} from '../../core/models/sidebarlink';
 })
 export class SidebarComponent implements OnInit {
 
-  @Input() sidebarLinks: SidebarLink[];
+  @Input() sidebarLinks$: Observable<SidebarLink[]>;
+  //@Input() sidebarLinks: SidebarLink[];
 
   constructor() { }
 
   ngOnInit(): void {
-    //this.sidebarLinks = this.authFacade.getSidebarLinks();
-    //console.log('sidebar.component', this.sidebarLinks);
   }
 
 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ReportComponent } from './report/report.component';
+import { ReportDashboardComponent } from './report-dashboard/report-dashboard.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: ReportComponent
+    component: ReportDashboardComponent
   }
 ];
 

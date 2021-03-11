@@ -1,4 +1,3 @@
-const { response } = require('express');
 const mongoose = require('mongoose');
 const Local = mongoose.model('Local');
 
@@ -52,13 +51,13 @@ const categoriaReadOne = (req, res) => {
                 .json(err);
             }
             if(local.categorias && local.categorias.length > 0){
-                const categoria = local.categorias.id(req.params.categoriaid);
+                let categoria = local.categorias.id(req.params.categoriaid);
                 if(!categoria){
                     return res
                             .status(400)
                             .json({"message":"No se encontró la categoria"});
                 }else{
-                    response = {
+                    let response = {
                         local:{
                             nombreDelLocal: local.nombreDelLocal,
                             id: req.params.localid
@@ -215,16 +214,8 @@ const categoriaRemoveOne = (req, res) => {
        
 }
 
-const pruebaDelete = (req, res) =>{
-    console.log('PruebaDelete,localid y categoriaid', req.params.localid, req.params.categoriaid);
-    return res
-        .status(200)
-        .json({"message": "Delete recibido"});
-}
-
-
 const categoriaCreate = (req, res) => {
-    //console.log('Ingreso a categoriaCreate, parametros: req.params.localid, req.body.label ', req.params.localid, req.body.label);
+    console.log('Ingreso a categoriaCreate, parametros: req.params.localid, req.body.titulo ', req.params.localid, req.body.titulo);
     //console.log('categoriaCreate,file:', req.file);
     if(!req.params.localid){
         return res
@@ -232,7 +223,7 @@ const categoriaCreate = (req, res) => {
             .json({"message": "No se pudo encontrar el Local, falta el localId"});
 
     }
-    if(!req.body.label || !req.body.puesto){
+    if(!req.body.titulo || !req.body.puesto){
         return res
             .status(400)
             .json({"message": "Falta completar los campos obligatorios label/puesto de la Categoria!"});
@@ -259,30 +250,18 @@ const categoriaCreate = (req, res) => {
 }
 
 const doAddCategory = (req, res, local) => {
-    const {label, puesto} = req.body;
+    const {titulo, puesto, descripcion} = req.body;
     local.categorias.forEach((categoria) =>{
         if(categoria.puesto>=puesto){
             categoria.puesto++;
         }
     });
-    if(req.file){
-        const url = req.protocol + '://' + req.get('host');
-        const iconPath = url + '/public/uploads/' + req.file.filename;
-        const iconUrl = url + '/' + req.file.filename;
-        console.log('iconUrl:', iconUrl);
-        local.categorias.push({
-                iconPath,
-                iconUrl,
-                label,
-                puesto
-        });
-
-    }else{
-        local.categorias.push({
-            label,
-            puesto
-        });
-    }
+    local.categorias.push({
+            titulo,
+            puesto,
+            descripcion
+    });
+    
     
     local.save((err, local) => {
             if(err){
@@ -290,10 +269,10 @@ const doAddCategory = (req, res, local) => {
                     .status(400)
                     .json(err);
             }else{
-                const thisLocal = local.categorias.slice(-1).pop();
+                const newCategoria = local.categorias.slice(-1).pop();
                 res
                     .status(201)
-                    .json(thisLocal);
+                    .json(newCategoria);
             }
         });
 }
@@ -306,7 +285,7 @@ module.exports = {
     categoriaReadOne,
     categoriaUpdateOne,
     categoriaRemoveOne,
-    pruebaDelete
+    
     
     
 }

@@ -1,128 +1,129 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {LayoutModule} from '@angular/cdk/layout';
-import {MatButtonModule} from '@angular/material/button';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {LayoutComponent} from './layout/layout.component';
-import {HeaderComponent} from './header/container/header.component';
-import {UserComponent} from './header/components/user/user.component';
-import {MatMenuModule} from '@angular/material/menu';
-import {SidebarComponent} from './sidebar/sidebar.component';
-import {RouterModule} from '@angular/router';
-import {MainNavComponent} from './main-nav/container/main-nav.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatTableModule} from '@angular/material/table';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatSliderModule} from '@angular/material/slider';
-import {SafeBase64Pipe} from './pipes/safe-base64.pipe';
-import {FileUploadComponent} from './file-upload/file-upload.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {HeaderComponent} from './header/container/header.component';
+import {UserMenuComponent} from './header/components/user-menu/user-menu.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {LayoutComponent} from './layout/layout.component';
+import {RouterModule} from '@angular/router';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTabsModule} from '@angular/material/tabs';
 import {AlertDialogComponent} from './alert-dialog/alert-dialog.component';
-import {MatRadioModule } from '@angular/material/radio';
-import { MatCardModule } from '@angular/material/card';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {CurrencyPipe} from '@angular/common';
-import { PizzaConfigComponent } from './pizza-config/pizza-config.component';
-import {PublicHeaderComponent} from './main-nav/component/public-header/public-header.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {NgxCurrencyModule, CurrencyMaskInputMode} from 'ngx-currency';
+import { GuaraniCurrencyPipe } from './pipes/guarani-currency.pipe';
+
+
+
+export const customCurrencyMaskConfig = {
+  align: "left",
+  allowNegative: false,
+  allowZero: false,
+  decimal: ",",
+  precision: 0,
+  prefix: "Gs ",
+  suffix: "",
+  thousands: ".",
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.NATURAL
+};
+
 
 
 
 
 @NgModule({
-  declarations: [
-    LayoutComponent, 
+  declarations: 
+  [
     HeaderComponent, 
-    UserComponent, 
+    UserMenuComponent, 
     SidebarComponent, 
-    MainNavComponent,
-    SafeBase64Pipe,
-    FileUploadComponent,
+    LayoutComponent,
     AlertDialogComponent,
-    PizzaConfigComponent,
-    PublicHeaderComponent
+    GuaraniCurrencyPipe
     
   ],
-  imports: [
+  imports: 
+  [
     CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,//Module FlexLayout
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig), //Modulo para manejo de input de dinero
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     MatToolbarModule,
+    MatCardModule,
+    MatDialogModule,
+    MatMenuModule,
     MatIconModule,
     MatListModule,
     MatSidenavModule,
-    LayoutModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatMenuModule,
-    RouterModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    MatTableModule,
-    MatDialogModule,
-    FlexLayoutModule,
-    MatStepperModule,
     MatRadioModule,
-    MatSliderModule,
-    MatCardModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatBadgeModule,
+    MatTableModule,
+    MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MaterialFileInputModule,
-    MatAutocompleteModule,
-    MatCheckboxModule
-   
+    MatMomentDateModule
     
 
+
   ],
-  exports:[
+  exports:
+  [
     CommonModule,
+    LayoutComponent,
+    NgxCurrencyModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
     MatToolbarModule,
+    MatCardModule,
+    MatDialogModule,
+    MatMenuModule,
     MatIconModule,
     MatListModule,
     MatSidenavModule,
-    LayoutModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    LayoutComponent,
-    MainNavComponent,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    MatTableModule,
-    MatDialogModule,
-    SafeBase64Pipe,
-    FlexLayoutModule,
-    AlertDialogComponent,
-    MatStepperModule,
     MatRadioModule,
-    MatSliderModule,
-    MatCardModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatBadgeModule,
+    MatTableModule,
+    MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MaterialFileInputModule,
-    MatAutocompleteModule,
-    MatCheckboxModule
+    MatMomentDateModule,
+    GuaraniCurrencyPipe
     
-   
-  ],
-  providers:[
-    MatDatepickerModule,
-    CurrencyPipe
+    
+
   ]
 })
 export class SharedModule { }

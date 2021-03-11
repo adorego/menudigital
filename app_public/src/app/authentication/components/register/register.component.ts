@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { PasswordMatchValidationService } from '../../services/passwordMatchValidation.service';
 
 @Component({
@@ -8,10 +9,11 @@ import { PasswordMatchValidationService } from '../../services/passwordMatchVali
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  @Output() sendSignForm = new EventEmitter<any>();
-  public form: FormGroup;
 
-  constructor(private passwordMatchValidationService: PasswordMatchValidationService, ) { }
+  @Output() sendSignForm = new EventEmitter<any>();
+  form:FormGroup;
+
+  constructor(private passwordMatchValidationService: PasswordMatchValidationService, public dialogRef: MatDialogRef<RegisterComponent> ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -29,6 +31,10 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
       this.sendSignForm.emit(this.form.value);
     }
+  }
+
+  public onNoClick(){
+    this.dialogRef.close();
   }
 
 }

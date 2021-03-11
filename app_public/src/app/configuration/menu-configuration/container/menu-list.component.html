@@ -1,0 +1,122 @@
+<app-layout>
+    <div class="title">
+        <h2>En esta sección configuras tu MenuDigital</h2>
+    </div>
+    <p class="message-full-width" *ngIf="showMessage">{{message}}</p>
+    
+    <div class="header">
+        
+        <div class="top_actions">
+            <button (click)="nuevaCategoria()" mat-raised-button color="accent">Nueva Categoria</button>
+        </div>
+    </div>
+    <div *ngIf="showNewCategory" class="categoriaContainer">
+        <form [formGroup]="categoriaForm" (ngSubmit)="submitCategoria()">
+            <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <mat-label>Titulo de la Categoria:</mat-label>
+                    <input matInput readonly="false" type="text"  formControlName="titulo">
+                    <mat-error *ngIf="categoriaForm.controls['titulo'].hasError('required')">
+                      El titulo de la Categoria es <strong>obligatorio</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <mat-label>Descripcion de la Categoria:</mat-label>
+                    <textarea matInput readonly="false" type="text"  formControlName="descripcion"></textarea>
+                    
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <mat-label>Puesto en el Menú:</mat-label>
+                    <input matInput readonly="false" type="number"  formControlName="puesto">
+                    
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                    <div fxLayout="row" fxLayoutAlign="end" class=" categoria_submit full-width">
+                        <button disabled="{{!categoriaForm.valid}}" mat-raised-button color="accent">Guardar</button>
+                    </div>
+                </div>
+              </div> 
+
+        </form>
+    </div>
+    <mat-accordion *ngIf="categorias$ | async as categorias">
+        <mat-expansion-panel *ngFor="let categoria of categorias" (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <div fxLayout="row" class="panel_descrption" fxLayoutAlign="start">
+                <mat-panel-title fxFlex="1 1 5em">
+                    {{categoria.titulo}}
+                </mat-panel-title>
+                
+                <mat-panel-description fxFlex="1 1 20em" fxFlexOffset="40px">
+                    {{categoria.descripcion}}
+                </mat-panel-description>
+                <div class="category_actions" fxFlex>
+                    <button mat-icon-button aria-label="Editar detalles del Item" (click)="editarCategory(categoria)" matTooltip="Editar el Item">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                    <button mat-icon-button aria-label="Eliminar el Item" (click)="eliminarCategory(categoria)" matTooltip="Eliminar el Item">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-expansion-panel-header>
+            <div class="nuevoItemContainer" fxLayout="row" fxLayoutGap="10px">
+                <button (click)="nuevoItem(categoria)" mat-raised-button color="accent">Nuevo Item</button>
+            </div>
+            <div *ngIf="categoria.menuitems.length>0">
+                <mat-table [dataSource]="categoria.menuitems"  fxLayout="column" class="menuItemTable mat-elevation-z8">
+                    <ng-container matColumnDef="imagenUrl">
+                        <mat-header-cell *matHeaderCellDef>Foto</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> <img class="imagenMenuItem" src="{{element.imagenUrl}}"> </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="nombre">
+                        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="descripcion">
+                        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="precioActual">
+                        <mat-header-cell *matHeaderCellDef>Precio(Gs)</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.precio}} </mat-cell>
+                        
+                    </ng-container>
+                    <ng-container matColumnDef="acciones">  
+                        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                        <mat-cell *matCellDef = "let element">
+                            <button mat-icon-button aria-label="Ver detalles del Item" (click)="verDetallesItem(element)" matTooltip="Ver el Item">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            
+                            <button mat-icon-button aria-label="Editar detalles del Item" (click)="editarItem(element)" matTooltip="Editar el Item">
+                                <mat-icon>create</mat-icon>
+                            </button>
+                            <button mat-icon-button aria-label="Eliminar el Item" (click)="eliminarItem(element)" matTooltip="Eliminar el Item">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </mat-cell>
+                        
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="columnasDelMenuItem"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columnasDelMenuItem;"></mat-row>
+                </mat-table>
+            </div>    
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</app-layout>

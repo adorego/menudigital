@@ -23,22 +23,28 @@ const menuItemsReadAll = (req, res) => {
                 .status(404)
                 .json(err);
             }
-            if(!local.categorias && !local.categorias.length >0){
-                const thisCategoria = local.categorias.id(req.params.categoriaid); 
-                if(!thisCategoria){
+            if(local.categorias && local.categorias.length>0)
+            {
+                let thiscategoria = local.categorias.id(req.params.categoriaid);
+                if(!thiscategoria){
                     return res
                             .status(400)
                             .json({"message":"No se encontró la categoria"});
                 }else{
-                    res
-                        .status(200)
-                        .json(thisCategoria.menuitems);
+                    return res  
+                            .status(200)
+                            .json(thiscategoria.menuitems);
                 }
+                
+            }else{
+                return res
+                        .status(400)
+                        .json({"message":"No se encontraron categorias para este local"});
             }
         })
 }
 
-const menuitemReadOne = (req, res) => {
+const menuItemReadOne = (req, res) => {
     if(!req.params.localid || !req.params.categoriaid || !req.params.menuitemid){
         return res
             .status(404)
@@ -61,13 +67,13 @@ const menuitemReadOne = (req, res) => {
                 .json(err);
             }
             if(local.categorias && local.categorias.length > 0){
-                const categoria = local.categorias.id(req.params.categoriaid);
-                if(!categoria){
+                const thiscategoria = local.categorias.id(req.params.categoriaid);
+                if(!thiscategoria){
                     return res
                             .status(400)
                             .json({"message":"No se encontró la categoria"});
                 }else{
-                    const thisMenuItem = categoria.menuitems.id(req.params.menuitemid)
+                    const thisMenuItem = thiscategoria.menuitems.id(req.params.menuitemid);
                     if(!thisMenuItem){
                         return res
                             .status(400)
@@ -160,7 +166,7 @@ const menuitemUpdateOne = (req, res) => {
 }
 
 const menuitemRemoveOne = (req, res) => {
-    console.log('Parametro enviado:', req.params.localid);
+    console.log('Parametro enviado:', req.params.localid, ",", req.params.categoriaid, ",", req.params.menuitemid);
     if(!req.params.localid || !req.params.categoriaid || !req.params.menuitemid){
         return res
                 .status(404)
@@ -183,6 +189,7 @@ const menuitemRemoveOne = (req, res) => {
                 .status(404)
                 .json(err);
             }
+            console.log('Local encontrado:', local);
             if(local.categorias && local.categorias.length > 0){
                 
                 if(!local.categorias.id(req.params.categoriaid)){
@@ -190,13 +197,14 @@ const menuitemRemoveOne = (req, res) => {
                             .status(404)
                             .json({"message":"No se encontró la categoria"});
                 }else{
-
-                    if(!local.categorias.menuitems.id(req.params.menuitemid)){
+                    console.log('Categorias encontradas:', local.categorias);
+                    const categoria = local.categorias.id(req.params.categoriaid);
+                    if(!categoria.menuitems || !categoria.menuitems.id(req.params.menuitemid)){
                         return res
                             .status(404)
                             .json({"message":"No se encontró el menuitem"});
                     }else{
-                        local.categorias.menuitems.id(req.params.menuitemid).remove();
+                        categoria.menuitems.id(req.params.menuitemid).remove();
                         local.save((err, local) =>{
                             if (err){
                                 return res
@@ -213,7 +221,7 @@ const menuitemRemoveOne = (req, res) => {
             }else{
                 res
                     .status(404)
-                    .json({"message":"No se encontró la categoria para eliminar"});
+                    .json({"message":"No se encontró la categoria enviada"});
             }
         });
 
@@ -221,15 +229,18 @@ const menuitemRemoveOne = (req, res) => {
 
        
 }
-const menuItemCreate = (req, res) => {
 
+
+
+const menuItemCreate = (req, res) => {
+    console.log('MenuItemCreate, parametro enviado:', req.params.localid, req.params.categoriaid);
     if(!req.params.localid || !req.params.categoriaid){
         return res
             .status(404)
             .json({"message": "No se pudo encontrar el Local/Categoria, falta el localid/categoriaid"});
 
     }
-    if(!req.body.nombre){
+    if(!req.body.nombre || !req.body.precio || !req.body.categoria){
         return res
             .status(400)
             .json({"message": "Falta completar los campos obligatorios!"});
@@ -251,7 +262,7 @@ const menuItemCreate = (req, res) => {
             }
             if(local.categorias && local.categorias.length > 0){
                 const thisCategoria = local.categorias.id(req.params.categoriaid);
-                this.doAddMenuItem(req, res, local,thisCategoria);
+                doAddMenuItem(req, res, local,thisCategoria);
                 
 
             }
@@ -259,15 +270,24 @@ const menuItemCreate = (req, res) => {
 
 }
 
-const doAddMenuItem = (req, res, local,categoria) => {
-    if(!categoria){
+const doAddMenuItem = (req, res, local, thiscategoria) => {
+    console.log('doAddMenuItem.categoria', thiscategoria);
+    if(!thiscategoria){
         res
             .status(404)
             .json({"message":"No se encontró la Categoria"});
     }else{
-        const {nombre, imagenes, descripcion, precioAnterior, precioActual} = req.body;
-        categoria.menuitems.push({
-            nombre, imagenes, descripcion, precioAnterior, precioActual
+        const {nombre, descripcion, precio, tamano, categoria} = req.body;
+        let imagenUrl;
+        if(req.file){
+            const url = req.protocol + '://' + req.get('host');
+            imagenUrl = url + '/' + req.file.filename;
+        }else{
+            imagenUrl = '';
+        }
+
+        thiscategoria.menuitems.push({
+            nombre, descripcion, tamano, precio, categoria,imagenUrl
         });
         local.save((err, local) => {
             if(err){
@@ -275,7 +295,7 @@ const doAddMenuItem = (req, res, local,categoria) => {
                     .status(400)
                     .json(err);
             }else{
-                const thisMenuItem = categoria.menuitems.slice(-1).pop();
+                const thisMenuItem = thiscategoria.menuitems.slice(-1).pop();
                 res
                     .status(201)
                     .json(thisMenuItem);
@@ -284,12 +304,16 @@ const doAddMenuItem = (req, res, local,categoria) => {
     }
 }
 
+
+
+
 module.exports = {
     menuItemsReadAll,
     menuItemCreate,
-    menuitemReadOne,
+    menuItemReadOne,
     menuitemUpdateOne,
-    menuitemRemoveOne
+    menuitemRemoveOne,
+    
     
     
     

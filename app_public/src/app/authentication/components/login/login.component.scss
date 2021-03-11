@@ -1,27 +1,21 @@
-@import "src/app/styles/colors";
-@import "src/app/styles/font";
-
-.form{
+.form__input{
     width: 100%;
-
-    &__input{
-        width: 100%;
-        margin-top: 6px;
-    }
+}
+.input_field{
+    width: 100%;
 }
 
-.form-actions {
+.form-actions{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    &__login {
-        margin-right: 10px;
-      }
     
-    &__forget{
-        font-size: 12px;
-        font-weight: $fw-lighter;
-        color: $blue;
-      }
+    justify-content: space-between;
+}
+
+.header_login{
+    width: 100%;
+    text-align: center;
+}
+
+.button_registrarme{
+    width: 100%;
 }

@@ -1,0 +1,68 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="toolbar">
+    <h1 fxFlex="50%" class="toolbar_titulo">MenuDigital "{{nombrelocal}}"</h1>
+    <button mat-icon-button class="toolbar_cartButton" aria-label="Icono del carrito">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+    
+</div>
+<div class="container">
+        <div class="categoria" *ngFor="let categoria of categorias$ | async">
+            <h2>{{categoria.titulo}}</h2>
+            <div fxLayout="row wrap" fxLayoutGap="30px" class="menuitem" >
+                <ng-container *ngFor="let menuitem of categoria.menuitems">
+                    <mat-card fxFlex="25%" class="mat-elevation-z8">
+                        <mat-card-header>
+                            <mat-card-title>
+                                {{menuitem.nombre | titlecase}}
+                            </mat-card-title>
+                        </mat-card-header>
+                        <img mat-card-image src="{{ menuitem.imagenUrl && menuitem.imagenUrl.length > 0 ? menuitem.imagenUrl: imagenAlternativa}}">
+                        
+                        <mat-card-content class="seccion_tamanos" *ngIf="menuitem.tipo==1">
+                            <mat-accordion multi>
+                                <h4>Seleccioná tu tamaño</h4>
+                                <ng-container *ngFor="let item of menuitem.tamanos">
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                <mat-checkbox>{{item.tamano}}</mat-checkbox>
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                {{item.precio | guaraniCurrency}}
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        
+                                    </mat-expansion-panel>
+                                </ng-container>
+                            </mat-accordion>
+                        </mat-card-content>
+                        <mat-divider style="margin-top:10px;"></mat-divider>
+                        <mat-accordion>
+
+                        </mat-accordion>
+                        <mat-card-content class="contenido_menuitem">
+                           
+                            
+                            <div class="descripcion">
+                                <p>{{menuitem.descripcion}}</p>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div class="wrapper" fxFlex=50%>
+                                    <button class="plusminus" (click)="handleMinus()">-</button>
+                                    <input type="number" class="num" [value]="cantidad"  />
+                                    <button class="plusminus" (click)="handlePlus()">+</button>
+                                </div>
+                                <button fxFlex=50% class="button_agregar" (click)="agregar_carrito(menuitem)" mat-raised-button>Agregar</button>
+                            </div>    
+                              
+                        </mat-card-actions>
+                    </mat-card>
+                </ng-container>    
+            </div>
+             
+        </div>
+        
+    
+</div>

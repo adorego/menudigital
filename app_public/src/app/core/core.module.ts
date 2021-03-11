@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
-import {AuthenticationService} from './authentication/authentication-services';
-import {DataService} from './authentication/data-service';
-import {ConfigurationService} from './configuration/configuration-services';
-import {LocalStateService} from './state/local-state.service';
-import {CategoriesStateService} from './state/categories-state.service';
-import {PromocionesStateService} from './state/promocion-state.service';
-import { LocalService } from './configuration/local-services';
-import { UserSideBarLinksStateService } from './state/userSideBarLinks-state.service';
+import { httpInterceptorProviders } from './interceptors';
+import { AuthenticationService } from './http/authentication.service';
+import { UserStateService } from './state/user-state.service';
+import { LocalStateService } from './state/local-state.service';
+import { LocalConfigurationService } from './http/localConfiguration.service';
+import { CategoriasStateService } from './state/categorias-state.service';
+import { MenuItemsStateService } from './state/menuItems-state.service';
+import { MenuConfigurationService } from './http/menuConfiguracion.service';
+import { PublicMenuService } from './http/publicMenu.service';
+
 
 
 @NgModule({
@@ -17,16 +19,19 @@ import { UserSideBarLinksStateService } from './state/userSideBarLinks-state.ser
     CommonModule,
     HttpClientModule
   ],
-  providers:[
+  providers: [
+    httpInterceptorProviders,
     AuthenticationService,
-    DataService,
-    ConfigurationService,
+    LocalConfigurationService,
+    UserStateService,
     LocalStateService,
-    LocalService,
-    CategoriesStateService,
-    PromocionesStateService,
-    UserSideBarLinksStateService
-
+    CategoriasStateService,
+    MenuItemsStateService,
+    MenuConfigurationService,
+    PublicMenuService
+    
+    
+    
   ]
 })
 export class CoreModule { }

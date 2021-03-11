@@ -23,8 +23,9 @@ var upload = multer({ dest: './public/uploads/' });
 const ctrlAuth = require('../controllers/authentication');
 const ctrlLocales = require('../controllers/locales');
 const ctrlCategorias = require('../controllers/categorias');
-const ctrlMenuItems = require('../controllers/menuitems');
+const ctrlMenuitems = require('../controllers/menuitems');
 const ctrlPromociones = require('../controllers/promociones');
+const ctrlMenuDigital = require('../controllers/menudigital');
 
 
 //Delete prueba
@@ -48,6 +49,10 @@ router
     .route('/locales/byuser/:userid')
     .get(auth, ctrlLocales.localReadByUserId);
 
+router  
+    .route('/locales/byurlmenu/:urlmenu') 
+    .get(auth, ctrlLocales.localReadAllByUrlMenu);   
+
 //Categorias
 
 router
@@ -66,29 +71,28 @@ router
 
 router
     .route('/locales/:localid/categorias/:categoriaid/menuitems')
-    .get(auth, ctrlMenuItems.menuItemsReadAll)
-    .post(auth, ctrlMenuItems.menuItemCreate);
+    .get(auth, ctrlMenuitems.menuItemsReadAll)
+    .post(auth, upload.single('imagen'), ctrlMenuitems.menuItemCreate);
+
+
 
 router 
-    .route('locales/:localid/categorias/:categoriaid/menuitems/:menuitemid')
-    .get(auth, ctrlMenuItems.menuitemReadOne)
-    .put(auth, ctrlMenuItems.menuitemUpdateOne)
-    .delete(auth, ctrlMenuItems.menuitemRemoveOne);
+    .route('/locales/:localid/categorias/:categoriaid/menuitems/:menuitemid')
+    .get(auth, ctrlMenuitems.menuItemReadOne)
+    .put(auth, ctrlMenuitems.menuitemUpdateOne)
+    .delete(auth, ctrlMenuitems.menuitemRemoveOne);
 
+//MenuDigital
+router
+    .route('/menudigital/:localname')
+    .get(ctrlMenuDigital.menuDigitalRead);
 
 //Promociones
 router
-    .route('/prueba/promociones')
-    .post(upload.single('imagen'), ctrlPromociones.promocionPrueba);
+    .route('/locales/:localid/categorias/:categoriaid/menuitems/:menuitemid/promocion')
+    .post(auth, ctrlPromociones.promocionCreate);
 
-router
-    .route('/locales/:localid/promociones')
-    .get(auth, ctrlPromociones.promocionesReadAll)
-    .post(auth, upload.single('imagen'), ctrlPromociones.promocionCreate);
 
-router
-    .route('/locales/:localid/promociones/:promocionid')
-    .delete(auth, ctrlPromociones.promocionDeleteOne);
 
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);

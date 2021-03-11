@@ -1,0 +1,81 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<mat-card class="card_class">
+    <mat-card-header class="card_header_class">
+        <mat-card-title>
+            Datos de la PROMO
+        </mat-card-title>
+    </mat-card-header>
+    <form 
+        [formGroup]="formGroupPromo" 
+        (ngSubmit)="submitPromo()">
+        <div fxLayout="column" class="foto_promo_class">
+            <mat-label>Foto de la PROMO</mat-label>
+            <img mat-card-image style="width: 30%; height: 30%;" src="{{imagenPromo}}">
+            <button mat-fab  matTooltip="Sube la foto de esta PROMO" type="button" color="primary" (click)="openInputPromoFoto($event)">
+                <mat-icon>backup</mat-icon>
+            </button>
+            <input  hidden id="fileInput-promoFoto" type="file" name="imagen" accept="images/*" (change)="showPreviewPromo($event)">
+        </div>
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Nombre de la PROMO:</mat-label>
+                    <input matInput readonly="false" type="text" formControlName="nombreDeLaPromo">
+                    <mat-error *ngIf="formGroupPromo.controls['nombreDeLaPromo'].hasError('required')">
+                    Nombre de la PROMO es<strong>obligatorio</strong>
+                    </mat-error>
+                </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Descripción de la PROMO:</mat-label>
+                    <textarea formControlName="descripcion" matInput></textarea>
+                    <mat-error *ngIf="formGroupPromo.controls['nombreDeLaPromo'].hasError('required')">
+                    Nombre de la PROMO es<strong>obligatorio</strong>
+                    </mat-error>
+                </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Precio Anterior</mat-label>
+                    <input matInput type="text" (focusout)="formatPrecioAnterior()" formControlName="precioAnterior">
+                    <span matPrefix>&#8370;</span>
+                    <mat-hint>Cúal era el precio que tenía anteriormente este producto o productos?</mat-hint>
+                </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Precio Actual</mat-label>
+                    <input matInput type="text" (change)="onChangePrecioActual()" formControlName="precioActual">
+                    <span matPrefix>&#8370;</span>
+                    <mat-hint>Cúal es el precio actual que tiene este producto o productos con esta Promo?</mat-hint>
+                </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Descuento a mostrar</mat-label>
+                    <input matInput formControlName="descuento">
+                    <span matPrefix>&#8370;</span>
+                    <span matSuffix>%</span>
+                    <mat-hint>Este es el descuento que verá tu cliente de la PROMO</mat-hint>
+                </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button disabled="{{!formGroupPromo.valid}}" color="primary" type="submit">Guardar</button>
+        </mat-card-actions>
+    </form>
+
+    
+
+</mat-card>

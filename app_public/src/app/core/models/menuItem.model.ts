@@ -1,21 +1,20 @@
-import {Category} from './category.model';
-import {OpcionTamano} from './opcionTamano.model';
-import {CaracteristicasMenuItem} from './caracteristicasMenuItem.model';
-import {OpcionPersonalizacion} from './opcionPersonalizacion';
+import { OpcionTamano } from "./opcion-tamano.model";
+import { OpcionPromocion } from "./opcion-promocion.model";
+import { OpcionSabor } from "./opcion-sabor.model";
 
 export interface MenuItem{
-    id?: string;
-    categoria?:Category;
+    _id?: string;
+    categoria:string;
     nombre:string;
     descripcion:string;
+    imagen?:File;
+    imagenUrl?:string;
+    tipo:number;//1. Con tamaños, 2. Sin tamaños
+    tamano?:string;
+    precio:number;
+    promocion?:OpcionPromocion;
     tamanos?:OpcionTamano[];
-    imagenUrl:string;
-    tipo:number;
-    precioActual:number;
-    precioAnterior?:number;
-    descuento?:number;
-    caracteristicas:CaracteristicasMenuItem[];//Son las caracteristicas de este menuItem que deben mostrarse
-    tituloDePersonalizacion?:string; //Titulo de la sección de personalización
-    opcionesDePersonalizacion?:OpcionPersonalizacion[];
+    sabores?:OpcionSabor[];
+    
 
 }
