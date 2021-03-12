@@ -31,9 +31,30 @@
                                                 {{item.precio | guaraniCurrency}}
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
-                                        <div matExpansionPanelContent  *ngIf="item.toppings && item.toppings.length > 0">
+                                        <div matExpansionPanelContent class="sabores_container"  *ngIf="menuitem.sabores && menuitem.sabores.length > 0">
                                             <div fxLayout="column">
                                                 <div fxFlex class="full-width">
+                                                    <h4>Sabores disponibles</h4>
+                                                </div>
+                                                <div fxFlex *ngFor="let sabor of menuitem.sabores">
+                                                    <div class="toppings_list" fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="space-between">
+                                                        <mat-checkbox fxFlex>{{sabor.nombre }}</mat-checkbox>
+                                                        <div fxFlex *ngIf="costoAdicional(sabor, item._id) != null else sinCostoAdicional"><span>{{operacion(sabor, item._id)}}</span>{{costoAdicional(sabor, item._id).costo_adicional | guaraniCurrency}}</div>
+                                                        <div fxFlex>
+                                                            <ng-template #sinCostoAdicional>
+                                                                <span>Gs. 0</span>
+                                                            </ng-template>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div matExpansionPanelContent class="toppings_container" *ngIf="item.toppings && item.toppings.length > 0">
+                                            <div fxLayout="column">
+                                                <div fxFlex class="full-width">
+                                                    <mat-divider class="dividerclass"></mat-divider>
                                                     <h4>Toppings adicionales</h4>
                                                 </div>
                                                 <div fxFlex *ngFor="let topping of item.toppings">
