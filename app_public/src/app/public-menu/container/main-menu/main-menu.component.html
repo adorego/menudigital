@@ -16,10 +16,10 @@
                                 {{menuitem.nombre | titlecase}}
                             </mat-card-title>
                         </mat-card-header>
-                        <img mat-card-image src="{{ menuitem.imagenUrl && menuitem.imagenUrl.length > 0 ? menuitem.imagenUrl: imagenAlternativa}}">
+                        <img mat-card-image src="{{menuitem.imagenUrl && menuitem.imagenUrl.length > 0 ? menuitem.imagenUrl: imagenAlternativa}}">
                         
                         <mat-card-content class="seccion_tamanos" *ngIf="menuitem.tipo==1">
-                            <mat-accordion multi>
+                            <mat-accordion>
                                 <h4>Seleccioná tu tamaño</h4>
                                 <ng-container *ngFor="let item of menuitem.tamanos">
                                     <mat-expansion-panel>
@@ -31,9 +31,23 @@
                                                 {{item.precio | guaraniCurrency}}
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
-                                        <ng-container *ngIf="">
-                                            
-                                        </ng-container>
+                                        <div matExpansionPanelContent  *ngIf="item.toppings && item.toppings.length > 0">
+                                            <div fxLayout="column">
+                                                <div fxFlex class="full-width">
+                                                    <h4>Toppings adicionales</h4>
+                                                </div>
+                                                <div fxFlex *ngFor="let topping of item.toppings">
+                                                    <div class="toppings_list" fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="space-between">
+                                                        <mat-checkbox fxFlex>{{topping.nombre }}</mat-checkbox>
+                                                        <div fxFlex>{{topping.precio | guaraniCurrency}}</div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+
                                         
                                     </mat-expansion-panel>
                                 </ng-container>

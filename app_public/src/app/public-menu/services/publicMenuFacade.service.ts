@@ -110,7 +110,7 @@ export class PublicMenuFacade{
                                     toppings:[
                                         {
                                             _id:"5656565",
-                                            nombre:"borde relleno",
+                                            nombre:"Borde relleno",
                                             descripcion:"Exquisito borde de queso catupiri",
                                             precio: 5000
 

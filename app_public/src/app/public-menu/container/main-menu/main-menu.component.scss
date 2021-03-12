@@ -67,18 +67,17 @@
     margin: 0px;
     padding: 0px;
 }
-mat-card img{
-    margin-bottom: 0;
-    max-height: 250px;
-}
-mat-expansion-panel,
-mat-expansion-panel-header {
-  padding: 5px;
-  margin: 0;
-}
 
-.imagen_item{
-    margin-bottom:0;
+.full-width{
+    width: 100%;
+}
+.toppings{
+    display: flex;
+    justify-content: flex-start;
+}
+.toppings_list{
+    padding: 0;
+    margin: 0;
 }
 
 //Boton de cantidad y Agregar Item
