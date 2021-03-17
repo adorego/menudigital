@@ -90,8 +90,39 @@
 .toppings_list{
     padding: 0;
     margin: 0;
+    width: 100%;
+}
+mat-card{
+    padding: 5px;
+    min-width: 320px;
+}
+mat-card img{
+    max-width: 80%;
+}
+mat-card-content{
+    padding: 5px;
+}
+mat-expansion-panel{
+    min-width: 100%;
+    padding: 0;
+    
+}
+mat-expansion-panel-header{
+    padding: 5px;
 }
 
+mat-accordion{
+    padding: 0;
+}
+
+.panel-sabores{
+    padding: 0;
+    width: 100%;
+}
+.panel-toppings{
+    margin-top: 20px;
+    width: 100%;
+}
 //Boton de cantidad y Agregar Item
 
 .wrapper {

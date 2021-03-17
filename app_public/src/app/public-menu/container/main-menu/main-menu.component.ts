@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 import { CategoriaMenu } from 'src/app/core/models/categoria-menu.model';
 import { CostoAdicionalSabor } from 'src/app/core/models/costo-adicional-sabor.model';
 import { Local } from 'src/app/core/models/local.model';
@@ -16,6 +18,7 @@ import { PublicMenuFacade } from '../../services/publicMenuFacade.service';
 export class MainMenuComponent implements OnInit, OnDestroy {
   nombrelocal:string;
   private sub:Subscription;
+  private subCategories:Subscription;
   private subLocalState:Subscription;
 
   //Categorias del Menu
@@ -28,7 +31,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   cantidad:number=1;//Selector de cantidades de un MenuItem
   imagenAlternativa="../../../../assets/camara.png";
 
-  
+  //Seleccion de tamaños
+  tamanos:boolean[];
+  @ViewChildren('tamanocheckbox') components:QueryList<MatCheckbox>;
 
   constructor(private route: ActivatedRoute, private publicMenuFacade:PublicMenuFacade) {
 
@@ -43,7 +48,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       //this.publicMenuFacade.getMenuDigital(nombrelocalParam);
       this.publicMenuFacade.getCategoriasPrueba();
     });
-    this.categorias$ = this.publicMenuFacade.getCategoriesState();
+    this.tamanos = new Array<boolean>();
+    this.categorias$ = this.publicMenuFacade.getCategoriesState()
+                      .pipe(shareReplay(1));
+    
+    
     this.local$ = this.publicMenuFacade.getLocalState();
     this.subLocalState = this.local$.subscribe(
       (local) => {
@@ -54,6 +63,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     )
   }
 
+  ngAfterViewInit(){
+    console.log(this.components.toArray());
+  }
   public agregar_carrito(menuitem:MenuItem){
     console.log('Agregar a carrito,', menuitem, 'cantidad:', this.cantidad);
   }
@@ -63,7 +75,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     if(sabor.costoAdicional != null && sabor.costoAdicional.length>0){
         sabor.costoAdicional.find(
         (costoAdicional) => {
-          if(costoAdicional.tamano == tamanoid )
+          if(costoAdicional.tamano == tamanoid)
            encontrado = costoAdicional;
         });
       return encontrado;  
@@ -72,6 +84,20 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     }
 
   }
+
+  public selectTamano(indice:number){
+    console.log('Indice enviado:', indice);
+    this.tamanos.forEach((elemento, index, array)=>
+    {
+      if(index!=indice){
+        this.tamanos[index]=false;
+      }
+      this.tamanos[indice]=true;
+    });
+
+
+  }
+  //Metododo para devolver el simbolo de la operacion del costo adicional
   public operacion(sabor:OpcionSabor, tamanoid:string){
     let costoAdicionalSabor:CostoAdicionalSabor = this.costoAdicional(sabor, tamanoid);
     if(costoAdicionalSabor.operacion ==1){
@@ -81,6 +107,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     }else{
       return '';
     }
+  }
+
+  public siguienteTamano(indice:number):boolean{
+   this.tamanos[indice]=false;
+   return this.tamanos[indice];
   }
   public handleMinus() {
     this.cantidad--;  
