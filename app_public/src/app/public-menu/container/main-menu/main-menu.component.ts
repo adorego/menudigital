@@ -5,9 +5,12 @@ import { Observable, Subscription } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { CategoriaMenu } from 'src/app/core/models/categoria-menu.model';
 import { CostoAdicionalSabor } from 'src/app/core/models/costo-adicional-sabor.model';
+import { DetalleItem } from 'src/app/core/models/detalle-item.model';
 import { Local } from 'src/app/core/models/local.model';
+import { MenuItemPersonalizado } from 'src/app/core/models/menuitem-personalizado.model';
 import { MenuItem } from 'src/app/core/models/menuItem.model';
 import { OpcionSabor } from 'src/app/core/models/opcion-sabor.model';
+import { OpcionTamano } from 'src/app/core/models/opcion-tamano.model';
 import { PublicMenuFacade } from '../../services/publicMenuFacade.service';
 
 @Component({
@@ -18,7 +21,6 @@ import { PublicMenuFacade } from '../../services/publicMenuFacade.service';
 export class MainMenuComponent implements OnInit, OnDestroy {
   nombrelocal:string;
   private sub:Subscription;
-  private subCategories:Subscription;
   private subLocalState:Subscription;
 
   //Categorias del Menu
@@ -34,6 +36,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   //Seleccion de tamaños
   tamanos:boolean[];
   @ViewChildren('tamanocheckbox') components:QueryList<MatCheckbox>;
+
+  //
+  lista_detalles:MenuItemPersonalizado = {};
 
   constructor(private route: ActivatedRoute, private publicMenuFacade:PublicMenuFacade) {
 
@@ -85,17 +90,66 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   }
 
-  public selectTamano(indice:number){
-    console.log('Indice enviado:', indice);
-    this.tamanos.forEach((elemento, index, array)=>
+  public selectTamano(indice:number, menuItem:MenuItem,tamano:OpcionTamano){
+    console.log('Selected component:', this.components.get(indice));
+    let component:MatCheckbox = this.components.get(indice);
+    if(component.checked==true){
+      this.deseleccionar_checkboxes(indice);
+      let detalle_item:DetalleItem = {"principal":true,"detalle_item":this.crear_descripcion_detalle(menuItem, tamano), "precio":tamano.precio};
+      this.agregar_subitem(true, detalle_item);
+    }
+    
+
+
+  }
+
+  private crear_descripcion_detalle(menuItem:MenuItem, tamano:OpcionTamano):string{
+     let descripcion = menuItem.detalle_factura + " "+ tamano.tamano;
+      if(tamano.pedazos){
+        descripcion += " (" + tamano.pedazos + " "+ "pedazos" + ")";
+      }
+      return descripcion;
+  }
+
+  private agregar_subitem(item_principal:boolean, detalle:DetalleItem){
+    if(this.lista_detalles.item_principal && item_principal){
+      console.log('Agregar_subitem con item')
+      this.eliminar_subitem(true);
+      this.lista_detalles.item_principal = true;
+      if(!this.lista_detalles.detalle){
+        this.lista_detalles.detalle = new Array<DetalleItem>();
+      }
+      this.lista_detalles.detalle.push(detalle);
+    }
+    if(!this.lista_detalles.item_principal){
+      console.log('Agregar_subitem sin item');
+      this.lista_detalles.item_principal = true;
+      if(!this.lista_detalles.detalle){
+        this.lista_detalles.detalle = new Array<DetalleItem>();
+      }
+      this.lista_detalles.detalle.push(detalle);
+    }
+
+  }
+
+  public eliminar_subitem(principal:boolean, index?:number){
+    if(principal){
+      this.lista_detalles = {};
+    }
+    if(index){
+      this.lista_detalles.detalle.splice(index, 1);
+    }
+
+  }
+
+  private deseleccionar_checkboxes(indice:number){
+    this.components.forEach((elemento, index)=>
     {
       if(index!=indice){
-        this.tamanos[index]=false;
+       elemento.checked = false;
       }
-      this.tamanos[indice]=true;
+      
     });
-
-
   }
   //Metododo para devolver el simbolo de la operacion del costo adicional
   public operacion(sabor:OpcionSabor, tamanoid:string){

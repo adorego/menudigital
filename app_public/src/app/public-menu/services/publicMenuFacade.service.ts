@@ -57,6 +57,7 @@ export class PublicMenuFacade{
                             categoria:"76676",
                             nombre:"2x1 Familiar",
                             descripcion:"2 Pizzas familiares por 1",
+                            detalle_factura:"2 Pizzas tamaño familiar",
                             imagenUrl:"",
                             precio:78000,
                             tipo:2,
@@ -71,7 +72,8 @@ export class PublicMenuFacade{
                             _id: "8989898",
                             categoria:"76676",
                             nombre:"2x1 Calzones",
-                            descripcion:"2 Pizzas familiares por 1",
+                            descripcion:"2 Calzones de los sabores que desee",
+                            detalle_factura:"2 Calzones",
                             imagenUrl:"",
                             precio:68000,
                             tipo:2,
@@ -95,6 +97,7 @@ export class PublicMenuFacade{
                             categoria:"76677",
                             nombre:"Pepperoni",
                             descripcion:"Riquisima masa hecha de harina, con salsa de tomate y sabrosos pepperonis",
+                            detalle_factura:"Pizza",
                             precio:78000,
                             tipo:1,
                             tamanos:[
@@ -256,6 +259,7 @@ export class PublicMenuFacade{
                             categoria:"76678",
                             nombre:"Napolitano",
                             descripcion:"Riquisima masa hecha de harina, con salsa de tomate y sabrosos pepperonis",
+                            detalle_factura:"Calzone sabor napolitano",
                             precio:78000,
                             tipo:2
                         }

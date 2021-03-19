@@ -7,6 +7,7 @@ export interface MenuItem{
     categoria:string;
     nombre:string;
     descripcion:string;
+    detalle_factura:string; //El concepto que se escribe en la factura
     imagen?:File;
     imagenUrl?:string;
     tipo:number;//1. Con tamaños, 2. Sin tamaños

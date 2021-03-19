@@ -93,7 +93,7 @@
     width: 100%;
 }
 mat-card{
-    padding: 5px;
+    padding: 10px;
     min-width: 320px;
 }
 mat-card img{
@@ -104,11 +104,11 @@ mat-card-content{
 }
 mat-expansion-panel{
     min-width: 100%;
-    padding: 0;
+    padding: 5px;
     
 }
 mat-expansion-panel-header{
-    padding: 5px;
+    padding: 10px;
 }
 
 mat-accordion{
@@ -129,7 +129,7 @@ mat-accordion{
     border: 2px #dcd3d3 solid;
     width: 15vw;
     height: 100%;
-    padding: 15px;
+    padding: 5px;
     display: flex;
     border-radius: 15px;
   }

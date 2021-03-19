@@ -25,7 +25,7 @@
                                     <mat-expansion-panel>
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
-                                                <mat-checkbox #tamanocheckbox (click)="$event.stopPropagation()"  (change)="selectTamano(i)">{{item.tamano}}</mat-checkbox>
+                                                <mat-checkbox #tamanocheckbox  (change)="selectTamano(i,menuitem, item)">{{item.tamano}}</mat-checkbox>
                                             </mat-panel-title>
                                             <mat-panel-description>
                                                 {{item.precio | guaraniCurrency}}
@@ -100,7 +100,16 @@
                         </mat-card-content>
                         <mat-card-content>
                             <div class="pedido_final">
-                                <h4>Pedido final</h4>
+                                <ng-container *ngIf="lista_detalles">
+                                    <h4>Pedido Personalizado</h4>
+                                    <div fxLyout=row fxLayoutAlign="space-between" *ngFor="let item of lista_detalles.detalle">
+                                            <div flex>{{item.detalle_item}}</div>
+                                            <div flex>{{item.precio | guaraniCurrency}}</div>
+                                            <mat-icon flex>delete</mat-icon>
+
+                                    </div>
+                                </ng-container>   
+                                
                             </div>
                         </mat-card-content>
                         <mat-card-actions>
