@@ -1,19 +1,23 @@
-<div fxLayout="row" fxLayoutAlign="space-between">
+<div class="page">
+    <div class="container"> 
         <mat-toolbar>
-            <mat-toolbar-row fxLayoutGap="2vw">
-                <a mat-button href="" target="_blank">Cómo funciona?</a> 
-                <a mat-button href="" target="_blank">Cuanto cuesta?</a>
-                <a mat-button href="" target="_blank">Ventajas para mi Cliente</a> 
-                <button mat-raised-button (click)="registrarme()" color="primary">Registrarme</button>
-                <button mat-raised-button (click)="login()" color="accent">Ingresar</button>
+            <mat-toolbar-row fxLayout="row" class="toolbar_container" fxLayoutAlign="start">
+                <div fxFlex="2 1 auto" class="logo_container">
+                    <img  fxFlex class="logo_img" src="../../../../assets/imagenes/logo.png">
+                </div>
+                
+                <div fxFlex="1 2 auto" class="links_headers1">
+                    <a mat-button href="" target="_self">Cómo funciona?</a> 
+                    <a mat-button href="" target="_self">Cuánto cuesta?</a>
+                    <a mat-button href="" target="_self">Nosotros</a> 
+                </div>
+                <div fxFlex="1 1 auto" class="links_headers2">
+                    <a mat-button href=""  (click)="registrarme()">Registrarme</a> 
+                    <a mat-button href=""  (click)="login()">Ingresar</a>
+                </div>
+                
             </mat-toolbar-row>
         </mat-toolbar>
-    
-</div>
-<div class="jumbotron_section" fxLayout="row" fxLayoutAlign="center stretch">
-    <div fxFlex fxFlexAlign="center">
-        <mat-card class="jumbotron mat-elevation-z4" >
-            <h3>MenuDigital es una herramienta para locales Gastronóminos, les permite crear sus Menús en forma Digital y mejorar la experiencia del cliente</h3>
-        </mat-card>
+        
     </div>
 </div>

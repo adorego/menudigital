@@ -1,22 +1,59 @@
-.logo_img{
-    width: 60px;
-    height: 60px;
-    margin-left: 10px;
-    margin-top: 20px;
+*,*::after,*::before{
+    box-sizing: border-box;
 }
 
-.logo_section{
-    padding: 20px;  
+.page{
+    background-image: url('../../../../assets/imagenes/background_image_landing_page.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
-.jumbotron{
-    width: 80%;
-    height: 50vh;
-    margin: auto;
-    background-color:gray; 
+
+.container{
+    padding: 0;
+    padding-left: 7.5%;
+}
+
+mat-toolbar{
+    background-color: transparent;
+
+}
+
+mat-toolbar mat-toolbar-row{
+
+    padding: 0;
+    margin: 0;
     color: white;
+    
 }
 
-.jumbotron_section{
-    margin-top: 50px;
+.links_headers1{
+    padding: 0;
+    margin: 0;
+   
+}
+
+
+.links_headers2{
+    padding: 0;
+    margin: 0;
+   
+}
+
+.logo_container{
+    padding: 0;
 
 }
+.logo_img{
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+.img_container{
+    padding: 0;
+    
+   
+}
+
