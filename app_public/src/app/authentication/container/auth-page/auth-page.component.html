@@ -1,21 +1,39 @@
 <div class="page">
     <div class="container"> 
         <mat-toolbar>
-            <mat-toolbar-row fxLayout="row" class="toolbar_container" fxLayoutAlign="start">
-                <div fxFlex="2 1 auto" class="logo_container">
-                    <img  fxFlex class="logo_img" src="../../../../assets/imagenes/logo.png">
+            <mat-toolbar-row fxLayout="row" class="toolbar_container" fxLayoutAlign="start" fxLayoutAlign.lt-md="space-between">
+                <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.lt-md>
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <mat-menu #dropMenu="matMenu">
+                    <button mat-menu-item>
+                        Cómo funciona?
+                    </button>
+                    <button mat-menu-item>
+                        Cuánto cuesta?
+                    </button>
+                    <button mat-menu-item>
+                        Nosotros
+                    </button>
+                </mat-menu>
+                
+                <div fxFlex="1 1 auto" class="logo_container" fxHide.lt-md>
+                    <img  class="logo_img" src="../../../../assets/imagenes/logo.png">
                 </div>
                 
-                <div fxFlex="1 2 auto" class="links_headers1">
+                <div fxFlex="1 2 auto" class="links_headers1" fxHide.lt-md>
                     <a mat-button href="" target="_self">Cómo funciona?</a> 
                     <a mat-button href="" target="_self">Cuánto cuesta?</a>
                     <a mat-button href="" target="_self">Nosotros</a> 
                 </div>
-                <div fxFlex="1 1 auto" class="links_headers2">
+                <div fxFlex="1 1 auto" fxFlex.lt-md="2 1 100" class="links_headers2">
                     <a mat-button href=""  (click)="registrarme()">Registrarme</a> 
                     <a mat-button href=""  (click)="login()">Ingresar</a>
                 </div>
                 
+            </mat-toolbar-row>
+            <mat-toolbar-row fxHide fxShow.lt-md>
+                <img  class="logo_img_md" src="../../../../assets/imagenes/logo.png">
             </mat-toolbar-row>
         </mat-toolbar>
         
