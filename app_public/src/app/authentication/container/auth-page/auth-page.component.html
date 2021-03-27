@@ -1,7 +1,7 @@
 <div class="page">
     <div class="container"> 
         <mat-toolbar>
-            <mat-toolbar-row fxLayout="row" class="toolbar_container" fxLayoutAlign="start" fxLayoutAlign.lt-md="space-between">
+            <mat-toolbar-row fxLayout="row" class="toolbar_container" fxLayoutAlign="start end" fxLayoutAlign.lt-md="space-between end">
                 <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.lt-md>
                     <mat-icon>menu</mat-icon>
                 </button>
@@ -26,9 +26,9 @@
                     <a mat-button href="" target="_self">Cuánto cuesta?</a>
                     <a mat-button href="" target="_self">Nosotros</a> 
                 </div>
-                <div fxFlex="1 1 auto" fxFlex.lt-md="2 1 100" class="links_headers2">
-                    <a mat-button href=""  (click)="registrarme()">Registrarme</a> 
-                    <a mat-button href=""  (click)="login()">Ingresar</a>
+                <div fxFlex="1 1 auto" fxFlex.lt-md="2 1 100" class="links_headers2" ngClass.lt-md="links_headers2_md">
+                    <a mat-button   (click)="registrarme()">Registrarme</a> 
+                    <a mat-button   (click)="login()">Ingresar</a>
                 </div>
                 
             </mat-toolbar-row>
@@ -36,6 +36,21 @@
                 <img  class="logo_img_md" src="../../../../assets/imagenes/logo.png">
             </mat-toolbar-row>
         </mat-toolbar>
+        <h1 class="header_h1" ngClass.lt-md="header_h1_md">Tenés un local Gastronómico ?</h1>
+        <div fxLayout="row" fxLayout.lt-md="column" class="content_landing">
+            <div fxFlex class="content_propuestaValor">
+                <h3 class="h3_propuestaValor1" ngClass.lt-md="h3_propuestaValor1_md">
+                    Con MenúDigital incrementás tus ventas mejorando la experiencia de compra de tu cliente digital
+                </h3>
+                <h3 class="h3_propuestaValor2" ngClass.lt-md="h3_propuestaValor2_md">
+                    MenúDigital te permite crear tu Menú en dos simples pasos...<a ngClass.lt-md="h3_propuestaValor2-a" href="#como_funciona">Ver como funciona</a>
+                </h3>
+            </div>
+            <div fxFlex class="content_cta_button" ngClass.lt-md="content_cta_button_mt">
+                <button class="cta_button" ngClass.lt-md="cta_button_mt"  mat-raised-button>Crea tu cuenta hoy</button>
+            </div>
+        </div>
+        
         
     </div>
 </div>

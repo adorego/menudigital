@@ -17,11 +17,11 @@ export class AuthPageComponent implements OnInit {
     console.log('AuthPage registrarme');
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position ={
-      'top': '20px',
-      'right': '30px'
+      'top': '0',
+      'right': '0'
     };
-    dialogConfig.width = '70%';
-    dialogConfig.height = '80%';
+    dialogConfig.width = '320px';
+    dialogConfig.height = '450px';
     const dialogRef = this.dialog.open(RegisterComponent, dialogConfig);
     const sub = dialogRef.componentInstance.sendSignForm.subscribe(
       (formData:any) => {
@@ -41,11 +41,11 @@ export class AuthPageComponent implements OnInit {
     console.log('AuthPage Login');
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position ={
-      'top': '20px',
-      'right': '20px'
+      'top': '0',
+      'right': '0'
     };
-    dialogConfig.width = '40%';
-    dialogConfig.height = '60%';
+    dialogConfig.width = '320px';
+    dialogConfig.height = '450px';
     const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
     const sub = dialogRef.componentInstance.sendLoginForm.subscribe(
       (formData:any) => {

@@ -1,3 +1,5 @@
+@import '../../../styles/colors.scss';
+
 *,*::after,*::before{
     box-sizing: border-box;
 }
@@ -6,6 +8,7 @@
     background-image: url('../../../../assets/imagenes/background_image_landing_page.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-blend-mode: darken;
     height: 100%;
 }
 
@@ -16,6 +19,7 @@
 
 }
 
+//**********************Toolbar**********************************//
 mat-toolbar{
     background-color: transparent;
 
@@ -32,14 +36,23 @@ mat-toolbar mat-toolbar-row{
 .links_headers1{
     padding: 0;
     margin: 0;
-   
+    padding-bottom: 10px;
+    padding-right: 3.5%;
+    padding-left: 3.5%;
 }
 
 
 .links_headers2{
     padding: 0;
     margin: 0;
-   
+    padding-bottom: 10px;
+}
+
+.links_headers2_md{
+    padding: 0;
+    margin: 0;
+    padding-bottom: 0px;
+    text-align: end;
 }
 
 .logo_container{
@@ -60,4 +73,121 @@ mat-toolbar mat-toolbar-row{
     
    
 }
+
+//************************h1************************//
+
+
+.header_h1{
+    color: white;
+    font-size: 3.5vw;
+    font-weight: bold;
+    letter-spacing: 2.5px;
+    padding-top: 10vh;
+}
+
+.header_h1_md{
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding-top: 5vh;
+}
+
+@keyframes content_propuestaValor_animation{
+    from{background-color: transparent;}
+    to{background-color:rgba(255, 255, 255, 0.356);}
+}
+
+.content_propuestaValor{
+    text-align: justify;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    border-radius: 3px;
+    background-color: transparent;
+    animation-name: content_propuestaValor_animation;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes h3_propuestaValor_animation{
+    from{color: white;}
+    to{color:black;}
+}
+
+.h3_propuestaValor1{
+    width: 40vw;
+    color: white;
+    font-size: 2vw;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    font-weight: normal;
+    padding-top: 8vh;
+    
+    
+}
+
+.h3_propuestaValor1_md{
+    width: 100%;
+    font-size: 20px;
+}
+
+
+.h3_propuestaValor2{
+    width: 45vw;
+    color: white;
+    font-size: 2vw;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    font-weight: normal;
+    padding-top: 5vh;
+    
+    
+    
+}
+
+.h3_propuestaValor2 a{
+    color: white;
+    font-size: 2vw;
+    font-weight: normal;
+    
+}
+
+.h3_propuestaValor2-a{
+    color: white;
+    font-size: 20px !important;
+    
+    
+}
+
+.h3_propuestaValor2_md{
+    width: 100%;
+    font-size: 20px;
+}
+
+.content_cta_button{
+    margin: auto;
+    padding-left: 3vw;
+    
+}
+
+.content_cta_button_mt{
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 5%;
+}
+.cta_button{
+  width: 100%;
+  height: 10vh;
+  background-color: $menuDigital-secondary;
+  color: white;
+  font-size: 2.5vw;
+  letter-spacing: 0;
+}
+
+.cta_button_mt{
+    font-size: 25px;
+}
+
 
