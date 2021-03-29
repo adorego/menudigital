@@ -83,7 +83,7 @@ mat-toolbar mat-toolbar-row{
 .header_h1{
     width: 100vw;
     color: white;
-    font-size: 6vw;
+    font-size: clamp(1.5em, 4vw, 8em);
     margin-top: 3vh;
     
 }
@@ -95,7 +95,6 @@ mat-toolbar mat-toolbar-row{
 }
 
 .content_propuestaValor{
-    text-align: justify;
     padding-left: 2vw;
     padding-right: 2vw;
     border-radius: 3px;
@@ -113,8 +112,8 @@ mat-toolbar mat-toolbar-row{
 .h3_propuestaValor1{
     width: 40vw;
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    font-size: clamp(1em, 2.5vw, 4em);
+    
 
     
     
@@ -124,8 +123,8 @@ mat-toolbar mat-toolbar-row{
 .h3_propuestaValor1_md{
     width: 100%;
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    font-size: clamp(1em, 2.5vw, 4em);
+   
    
 }
 
@@ -133,31 +132,29 @@ mat-toolbar mat-toolbar-row{
 .h3_propuestaValor2{
     width: 45vw;
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
     margin-top: 3vh;
+    font-size: clamp(1em, 2.5vw, 4em);
 }
 
 
 .h3_propuestaValor2_md{
     width: 100%;
-    font-size: 4vw;
-    letter-spacing: 0vw;
     margin-top: 3vh;
+    font-size: clamp(1em, 2.5vw, 4em);
 }
 
 .h3_propuestaValor2 a{
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    font-size: clamp(1em, 2.5vw, 4em);
+    
     
     
 }
 
 .h3_propuestaValor2-a{
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    font-size: clamp(1em, 2.5vw, 4em);
+    
     
     
 }
@@ -182,11 +179,11 @@ mat-toolbar mat-toolbar-row{
   height: 10vh;
   background-color: $menuDigital-secondary;
   color: white;
-  font-size: 5vw;
+  font-size: clamp(1em, 3vw, 4em);
   letter-spacing: 0;
 }
 
 .cta_button_mt{
-    font-size: 5vw;
+    font-size: clamp(1em, 3vw, 4em);
 }
 
