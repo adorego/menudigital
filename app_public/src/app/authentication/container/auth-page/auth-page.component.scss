@@ -84,7 +84,7 @@ mat-toolbar mat-toolbar-row{
     width: 100vw;
     color: white;
     font-size: 6vw;
-    margin-top: 3vh;
+    margin-top: 10vh;
     
 }
 
@@ -113,8 +113,9 @@ mat-toolbar mat-toolbar-row{
 .h3_propuestaValor1{
     width: 40vw;
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    font-size: 2vw;
+    letter-spacing: 0.3vw;
+    line-height: 5vh;
 
     
     
@@ -123,9 +124,7 @@ mat-toolbar mat-toolbar-row{
 
 .h3_propuestaValor1_md{
     width: 100%;
-    color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    
    
 }
 
@@ -133,31 +132,30 @@ mat-toolbar mat-toolbar-row{
 .h3_propuestaValor2{
     width: 45vw;
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
-    margin-top: 3vh;
+    font-size: 2vw;
+    letter-spacing: 0.3vw;
+    margin-top: 5vh;
+    line-height: 5vh;
 }
 
 
 .h3_propuestaValor2_md{
     width: 100%;
-    font-size: 4vw;
-    letter-spacing: 0vw;
-    margin-top: 3vh;
+   
 }
 
 .h3_propuestaValor2 a{
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    font-size: 2vw;
+    
     
     
 }
 
 .h3_propuestaValor2-a{
     color: white;
-    font-size: 4vw;
-    letter-spacing: 0vw;
+    font-size: 2vw;
+    
     
     
 }
@@ -182,7 +180,7 @@ mat-toolbar mat-toolbar-row{
   height: 10vh;
   background-color: $menuDigital-secondary;
   color: white;
-  font-size: 5vw;
+  font-size: 3vw;
   letter-spacing: 0;
 }
 
