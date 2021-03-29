@@ -1,5 +1,5 @@
 <app-header [userName$]="getUserName()" (signOutEvent)="signOut()" (menuClick)="toggleSideNav($event)"></app-header>
-<mat-sidenav-container color="primary" class="layout">
+<mat-sidenav-container  class="layout">
     <mat-sidenav
         #sideNav
         [mode]="(isHandset$ | async) ? 'over' : 'side'"

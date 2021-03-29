@@ -1,3 +1,11 @@
+
+@import "src/app/styles/colors";
+
 .central-stretchable-space{
     flex:1 1 auto
+}
+
+.header{
+    background-color: $menuDigital-primary;
+    color:white;
 }

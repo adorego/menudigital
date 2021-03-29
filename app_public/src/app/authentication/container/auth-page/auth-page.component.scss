@@ -39,6 +39,7 @@ mat-toolbar mat-toolbar-row{
     padding-bottom: 10px;
     padding-right: 3.5%;
     padding-left: 3.5%;
+    font-size: 1em;
 }
 
 
@@ -46,6 +47,7 @@ mat-toolbar mat-toolbar-row{
     padding: 0;
     margin: 0;
     padding-bottom: 10px;
+    font-size: 1em;
 }
 
 .links_headers2_md{
@@ -53,6 +55,7 @@ mat-toolbar mat-toolbar-row{
     margin: 0;
     padding-bottom: 0px;
     text-align: end;
+    font-size: 1em;
 }
 
 .logo_container{
@@ -78,20 +81,13 @@ mat-toolbar mat-toolbar-row{
 
 
 .header_h1{
+    width: 100vw;
     color: white;
-    font-size: 3.5vw;
-    font-weight: bold;
-    letter-spacing: 2.5px;
-    padding-top: 10vh;
+    font-size: 6vw;
+    margin-top: 3vh;
+    
 }
 
-.header_h1_md{
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    padding-top: 5vh;
-}
 
 @keyframes content_propuestaValor_animation{
     from{background-color: transparent;}
@@ -110,64 +106,67 @@ mat-toolbar mat-toolbar-row{
 }
 
 
-@keyframes h3_propuestaValor_animation{
-    from{color: white;}
-    to{color:black;}
+.content_landing{
+    margin-top: 10vh;
 }
 
 .h3_propuestaValor1{
     width: 40vw;
     color: white;
-    font-size: 2vw;
-    line-height: 1.5;
-    letter-spacing: 2px;
-    font-weight: normal;
-    padding-top: 8vh;
+    font-size: 4vw;
+    letter-spacing: 0vw;
+
+    
     
     
 }
 
 .h3_propuestaValor1_md{
     width: 100%;
-    font-size: 20px;
+    color: white;
+    font-size: 4vw;
+    letter-spacing: 0vw;
+   
 }
 
 
 .h3_propuestaValor2{
     width: 45vw;
     color: white;
-    font-size: 2vw;
-    line-height: 1.5;
-    letter-spacing: 2px;
-    font-weight: normal;
-    padding-top: 5vh;
-    
-    
-    
+    font-size: 4vw;
+    letter-spacing: 0vw;
+    margin-top: 3vh;
+}
+
+
+.h3_propuestaValor2_md{
+    width: 100%;
+    font-size: 4vw;
+    letter-spacing: 0vw;
+    margin-top: 3vh;
 }
 
 .h3_propuestaValor2 a{
     color: white;
-    font-size: 2vw;
-    font-weight: normal;
+    font-size: 4vw;
+    letter-spacing: 0vw;
+    
     
 }
 
 .h3_propuestaValor2-a{
     color: white;
-    font-size: 20px !important;
+    font-size: 4vw;
+    letter-spacing: 0vw;
     
     
 }
 
-.h3_propuestaValor2_md{
-    width: 100%;
-    font-size: 20px;
-}
 
 .content_cta_button{
     margin: auto;
     padding-left: 3vw;
+    margin-top: 10vh;
     
 }
 
@@ -175,19 +174,19 @@ mat-toolbar mat-toolbar-row{
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-    margin-top: 5%;
+    margin-top: 10vh;
+    
 }
 .cta_button{
   width: 100%;
   height: 10vh;
   background-color: $menuDigital-secondary;
   color: white;
-  font-size: 2.5vw;
+  font-size: 5vw;
   letter-spacing: 0;
 }
 
 .cta_button_mt{
-    font-size: 25px;
+    font-size: 5vw;
 }
-
 
