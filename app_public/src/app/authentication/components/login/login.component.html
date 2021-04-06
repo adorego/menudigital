@@ -1,21 +1,24 @@
 <button class="close" mat-button (click)="onNoClick()">X</button>
+<div class="mat-title">Ingresa a tu MenúDigital</div>
+<div mat-dialog-content>
   <form [formGroup]="form" (ngSubmit)="login()" autocomplete="off">
-      <h4 class="header_login">Ingresa a tu MenuDigital</h4>
-      <mat-form-field class="input_field" appearance="outline">
-          <mat-label>Correo</mat-label>
-          <input id="correo" matInput placeholder="Correo electrónico" type="email" autocomplete="off" formControlName="email">
-        </mat-form-field>
-      
+        <!--h4 class="header_login">Ingresa a tu MenuDigital</h4-->
         <mat-form-field class="input_field" appearance="outline">
-          <mat-label>Clave</mat-label>
-          <input matInput placeholder="Clave" type="password" autocomplete="off" formControlName="password">
-        </mat-form-field>
-      
-        <div fxLayout="column" fxLayoutGap="3vh" class="form-actions">
-          <button class="boton_ingresar" mat-raised-button  type="submit">Ingresar</button>
-          <a class="enlace_olvide_clave" >Olvide mi clave</a>
-          
-        </div>
-       
-  </form>
+            <mat-label>Correo</mat-label>
+            <input id="correo" matInput placeholder="Correo electrónico" type="email" autocomplete="off" formControlName="email">
+          </mat-form-field>
+        
+          <mat-form-field class="input_field" appearance="outline">
+            <mat-label>Clave</mat-label>
+            <input matInput placeholder="Clave" type="password" autocomplete="off" formControlName="password">
+          </mat-form-field>
+        
+          <div fxLayout="column" fxLayoutGap="3vh" class="form-actions">
+            <button class="boton_ingresar" mat-raised-button  type="submit">Ingresar</button>
+            <a class="enlace_olvide_clave" >Olvide mi clave</a>
+            
+          </div>
+        
+    </form>
+  </div>
   

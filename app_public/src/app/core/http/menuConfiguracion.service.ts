@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { CategoriaMenu } from "../models/categoria-menu.model";
 import { Local } from "../models/local.model";
 import { MenuItem } from "../models/menuItem.model";
+import { SeccionMenu } from "../models/seccion-menu.model";
 import { API_URL } from "../state/storage";
 
 @Injectable()
@@ -11,24 +11,24 @@ export class MenuConfigurationService {
 
     constructor(@Inject(API_URL) private apiUrl: string, private http:HttpClient){}
 
-    public getCategorias(localId:string):Observable<CategoriaMenu[]>{
-        let url:string = `${this.apiUrl}/locales/${localId}/categorias/`;
-        return this.http.get<CategoriaMenu[]>(url);
+    public getSecciones(localId:string):Observable<SeccionMenu[]>{
+        let url:string = `${this.apiUrl}/locales/${localId}/secciones/`;
+        console.log('Url a llamar:', url);
+        return this.http.get<SeccionMenu[]>(url);
     }
     
-    public createCategoria(localId:string,categoria:CategoriaMenu):Observable<CategoriaMenu>{
-        console.log('CreateCategoria:', localId, categoria);
-        if(categoria){
-            let url:string = `${this.apiUrl}/locales/${localId}/categorias/`;
+    public createSeccion(localId:string,nuevaSeccion:SeccionMenu):Observable<SeccionMenu>{
+        if(nuevaSeccion){
+            let url:string = `${this.apiUrl}/locales/${localId}/secciones/`;
             //console.log('Url:', url);
-            return this.http.post<CategoriaMenu>(url, categoria);
+            return this.http.post<SeccionMenu>(url, nuevaSeccion);
         }
         return null;
     }
 
-    public deleteCategoria(localId:string, categoria:CategoriaMenu):Observable<{}>{
-        console.log('Categoria a eliminar:', categoria, " del local:", localId);
-        let url:string = `${this.apiUrl}/locales/${localId}/categorias/${categoria._id}`;
+    public deleteSeccion(localId:string, seccionId:string):Observable<{}>{
+        
+        let url:string = `${this.apiUrl}/locales/${localId}/secciones/${seccionId}`;
         console.log('Url a llamar con delete:', url);
         return this.http.delete(url);
     }
@@ -38,23 +38,21 @@ export class MenuConfigurationService {
         const formData = this.loadmenuItemFormData(menuitem);
         if(formData != null){
             console.log(formData.get('nombre')+","+ formData.get('descripcion')+","+formData.get('precio')+","+formData.get('imagen')+","+formData.get('tamano'));
-            let url:string = `${this.apiUrl}/locales/${localId}/categorias/${menuitem.categoria}/menuitems`;
+            let url:string = `${this.apiUrl}/locales/${localId}/secciones/${menuitem.seccion}/menuitems`;
             console.log('Url:', url);
             return this.http.post<MenuItem>(url, formData);
         }
         return null;
     }
     private loadmenuItemFormData(menuitem:MenuItem):FormData{
-        if(menuitem && menuitem.categoria && menuitem.categoria){
+        if(menuitem && menuitem.seccion && menuitem.seccion){
             let formData:any = new FormData();
             formData.append('nombre',menuitem.nombre);
             formData.append('descripcion',menuitem.descripcion);
             formData.append('precio', menuitem.precio);
-            formData.append('categoria', menuitem.categoria);
+            formData.append('seccion', menuitem.seccion);
             formData.append('imagen',menuitem.imagen);
-            if(menuitem.tamano!=null && menuitem.tamano!=undefined){
-                formData.append('tamano', menuitem.tamano);
-            }
+           
             return formData;
         }
         return null;
@@ -65,7 +63,7 @@ export class MenuConfigurationService {
         const formData = this.loadmenuItemFormData(menuitem);
         if(formData != null){
             console.log(formData.get('nombre')+","+ formData.get('descripcion')+","+formData.get('precio')+","+formData.get('imagen')+","+formData.get('tamano'));
-            let url:string = `${this.apiUrl}/locales/${localId}/categorias/${menuitem.categoria}/menuitems`;
+            let url:string = `${this.apiUrl}/locales/${localId}/secciones/${menuitem.seccion}/menuitems`;
             console.log('Url:', url);
             return this.http.put<MenuItem>(url, formData);
         }
@@ -74,7 +72,7 @@ export class MenuConfigurationService {
 
     public deleteItemMenu(localId:string, menuitem:MenuItem):Observable<{}>{
         console.log('MenuItem a eliminar:', menuitem, " del local:", localId);
-        let url:string = `${this.apiUrl}/locales/${localId}/categorias/${menuitem.categoria}/menuitems/${menuitem._id}`;
+        let url:string = `${this.apiUrl}/locales/${localId}/secciones/${menuitem.seccion}/menuitems/${menuitem._id}`;
         console.log('Url a llamar con delete:', url);
         return this.http.delete(url);
     }

@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RegisterComponent } from './components/register/register.component';
 import { PasswordMatchValidationService } from './services/passwordMatchValidation.service';
 import { AuthFacade } from './services/authFacade.service';
+import { ConfigurationModule } from '../configuration/configuration.module';
 
 
 
@@ -16,6 +17,7 @@ import { AuthFacade } from './services/authFacade.service';
   imports: [
     AuthenticationRoutingModule,
     SharedModule,
+    ConfigurationModule
   ],
   providers:[
     PasswordMatchValidationService,

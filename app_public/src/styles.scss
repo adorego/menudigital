@@ -4,22 +4,8 @@
 @import '@fontsource/libre-franklin';
 
 
-html {
-  font-size: 16px;
-}
-@media screen and (min-width: 320px) {
-  html {
-    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
-  }
-}
-@media screen and (min-width: 1000px) {
-  html {
-    font-size: 32px;
-  }
-} 
-
 html, body { height: 100%; }
-body { margin: 0; font-family: libre-franklin, sans-serif; }
+body { margin: 0; font-size: 16px; font-family: libre-franklin, sans-serif; }
 
 .cdk-overlay-pane.my-dialog {
     position: relative!important;

@@ -17,6 +17,10 @@ const routes:Routes = [
     loadChildren: () => import('./configuration/configuration.module').then(m => m.ConfigurationModule)
   },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
     path: 'menudigital/:nombrelocal',
     loadChildren: () => import('./public-menu/public-menu.module').then(m => m.PublicMenuModule)
   }

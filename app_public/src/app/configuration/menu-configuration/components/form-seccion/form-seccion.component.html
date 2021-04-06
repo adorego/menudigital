@@ -1,0 +1,19 @@
+<button class="close" mat-button (click)="onNoClick()">X</button>
+<form [formGroup]="seccionFormGroup" (ngSubmit)="crear_seccion()">
+    <div class="mat-headline">Nueva Sección</div>
+
+    <mat-form-field class="full_width" appearance="outline">
+        <mat-label>Titulo de la sección</mat-label>
+        <input matInput formControlName="titulo" placeholder="Titulo">
+    </mat-form-field>
+    <mat-form-field class="full_width" appearance="outline">
+        <mat-label>Descripción de la sección</mat-label>
+        <textarea  matInput formControlName="descripcion" placeholder="Descripción"></textarea>
+    </mat-form-field>
+    <mat-form-field class="full_width" appearance="outline">
+        <mat-label>Posición en el Menú</mat-label>
+        <input matInput formControlName="puesto" placeholder="Puesto">
+        <!--mat-hint align="start">En qué posición estará esta sección</mat-hint-->
+    </mat-form-field>
+    <button class="boton_guardar" mat-raised-button  type="submit">Crear</button>
+</form>

@@ -1,3 +1,4 @@
+@import '../../../styles/colors.scss';
 
 .input_field{
     width: 100%;
@@ -7,4 +8,10 @@
 .header_login{
     width: 100%;
     text-align: center;
+}
+
+.boton_crear{
+    background-color: $menuDigital-secondary;
+    color: white;
+    width: 100%;
 }

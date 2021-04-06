@@ -155,7 +155,8 @@ const localUpdateOne = (req, res) => {
                 });
     }
     if(!req.body.nombreDelLocal || !req.body.ruc || !req.body.direccionDelLocal || !req.body.nombreDelContacto || 
-        !req.body.emailDelContacto || !req.body.celularDelContacto || !req.body.urlMenuDigital  || !req.body.localNameUrl){
+        !req.body.emailDelContacto || !req.body.celularDelContacto || !req.body.urlMenuDigital  || !req.body.localNameUrl
+        ||!req.body.estatus){
         return res
                 .status(404)
                 .json({
@@ -187,6 +188,7 @@ const localUpdateOne = (req, res) => {
             local.celularDelContacto = req.body.celularDelContacto;
             local.urlMenuDigital = req.body.urlMenuDigital;
             local.localNameUrl = req.body.localNameUrl;
+            local.estatus = req.body.estatus;
             local.save((err, localUpdated) =>{
                 if(err){
                     res

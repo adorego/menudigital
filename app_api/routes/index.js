@@ -22,9 +22,8 @@ var upload = multer({ dest: './public/uploads/' });
 //Controller
 const ctrlAuth = require('../controllers/authentication');
 const ctrlLocales = require('../controllers/locales');
-const ctrlCategorias = require('../controllers/categorias');
+const ctrlSecciones = require('../controllers/secciones');
 const ctrlMenuitems = require('../controllers/menuitems');
-const ctrlPromociones = require('../controllers/promociones');
 const ctrlMenuDigital = require('../controllers/menudigital');
 
 
@@ -53,31 +52,30 @@ router
     .route('/locales/byurlmenu/:urlmenu') 
     .get(auth, ctrlLocales.localReadAllByUrlMenu);   
 
-//Categorias
+//Secciones
 
 router
-    .route('/locales/:localid/categorias')
-    .get(auth, ctrlCategorias.categoriasAll)
-    .post(auth, upload.single('icono'), ctrlCategorias.categoriaCreate);
+    .route('/locales/:localid/secciones')
+    .get(auth, ctrlSecciones.seccionesAll)
+    .post(auth, upload.single('icono'), ctrlSecciones.seccionCreate);
 
 router 
-    .route('/locales/:localid/categorias/:categoriaid')
-    .get(auth, ctrlCategorias.categoriaReadOne)
-    .put(auth, upload.single('icono'), ctrlCategorias.categoriaUpdateOne)
-    //.delete(ctrlCategorias.categoriaRemoveOne);
-    .delete(ctrlCategorias.categoriaRemoveOne);
+    .route('/locales/:localid/secciones/:seccionid')
+    .get(auth, ctrlSecciones.seccionReadOne)
+    .put(auth, upload.single('icono'), ctrlSecciones.seccionUpdateOne)
+    .delete(ctrlSecciones.seccionRemoveOne);
 
 //MenuItems
 
 router
-    .route('/locales/:localid/categorias/:categoriaid/menuitems')
+    .route('/locales/:localid/secciones/:seccionid/menuitems')
     .get(auth, ctrlMenuitems.menuItemsReadAll)
     .post(auth, upload.single('imagen'), ctrlMenuitems.menuItemCreate);
 
 
 
 router 
-    .route('/locales/:localid/categorias/:categoriaid/menuitems/:menuitemid')
+    .route('/locales/:localid/secciones/:seccionid/menuitems/:menuitemid')
     .get(auth, ctrlMenuitems.menuItemReadOne)
     .put(auth, ctrlMenuitems.menuitemUpdateOne)
     .delete(auth, ctrlMenuitems.menuitemRemoveOne);
@@ -86,11 +84,6 @@ router
 router
     .route('/menudigital/:localname')
     .get(ctrlMenuDigital.menuDigitalRead);
-
-//Promociones
-router
-    .route('/locales/:localid/categorias/:categoriaid/menuitems/:menuitemid/promocion')
-    .post(auth, ctrlPromociones.promocionCreate);
 
 
 

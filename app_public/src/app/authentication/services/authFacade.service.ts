@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+import { Observable, Subscription } from "rxjs";
+import { switchMap, tap } from "rxjs/operators";
+import { LocalConfigurationFacade } from "src/app/configuration/services/localConfigurationFacade.service";
 import { AuthenticationService } from "src/app/core/http/authentication.service";
 import { SidebarLink } from "src/app/core/models/sidebar.model";
 import { User } from "src/app/core/models/user.model";
@@ -9,20 +10,49 @@ import { UserStateService } from "src/app/core/state/user-state.service";
 
 @Injectable()
 export class AuthFacade{
-    constructor(private authService:AuthenticationService, private userStateService: UserStateService, private router: Router){}
+    localSubscription:Subscription;
+    constructor(
+        private authService:AuthenticationService, 
+        private userStateService: UserStateService, 
+        private router:Router,
+        private localConfigurationFacade:LocalConfigurationFacade){}
 
     public login(user:User):void{
-        this.authService.login(user).pipe(
+         this.localSubscription = this.authService.login(user).pipe(
             tap((user) =>{
                 this.userStateService.setUser(user);
                 
                 
-            })
+            }),
+            switchMap(
+                (user)=>{
+                    return this.localConfigurationFacade.updateLocalState();
+                }
+            )
           ).subscribe(
-              (user) => {
-                this.router.navigateByUrl('configuracion');
+              (local) => {
+                  console.log('Local:', local[0]);
+                  this.router.navigateByUrl(this.next_path(local[0].estatus));
+                  this.unsubscribeLocal();  
               }
           )
+          
+    }
+
+    private unsubscribeLocal(){
+        this.localSubscription.unsubscribe();
+    }
+    private next_path(estatus:number){
+        if(estatus==0){
+            return ('configuracion/local');
+            
+        }else if(estatus==1){
+            return ('configuracion/menu');
+            
+        }else if(estatus==2){
+            return('dashboard');
+        }
+        return 'login'
     }
 
     public register(user:User):void{
@@ -31,11 +61,17 @@ export class AuthFacade{
                 this.userStateService.setUser(user);
                 
                 
-            })
+            }),
+            switchMap(
+                (user)=>{
+                    return this.localConfigurationFacade.updateLocalState();
+                }
+            )
           ).subscribe(
-              (user) => {
-                this.router.navigateByUrl('configuracion');
-              }
+            (local) => {
+                this.router.navigateByUrl(this.next_path(local.estatus));
+              
+            }
           )
 
     }

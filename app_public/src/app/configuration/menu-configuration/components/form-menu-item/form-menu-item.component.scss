@@ -1,0 +1,17 @@
+@import '../../../../styles/colors.scss';
+
+:host{
+    justify-content: center;
+    align-items: center;
+}
+.imagenMenuItem{
+    width: 50vw;
+    height: 100%;
+}
+
+.boton_guardar{
+    width: 100%;
+    background-color: $menuDigital-secondary;
+    color: white;
+    height: 3rem;
+}

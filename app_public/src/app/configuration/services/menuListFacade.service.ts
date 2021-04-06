@@ -3,9 +3,9 @@ import { ToastrService } from "ngx-toastr";
 import { empty, Observable, of, throwError } from "rxjs";
 import { map, mergeMap, switchMap, tap } from "rxjs/operators";
 import { MenuConfigurationService } from "src/app/core/http/menuConfiguracion.service";
-import { CategoriaMenu } from "src/app/core/models/categoria-menu.model";
 import { MenuItem } from "src/app/core/models/menuItem.model";
-import { CategoriasStateService } from "src/app/core/state/categorias-state.service";
+import { SeccionMenu } from "src/app/core/models/seccion-menu.model";
+import { SeccionesStateService } from "src/app/core/state/secciones-state.service";
 import { LocalConfigurationFacade } from "./localConfigurationFacade.service";
 
 
@@ -14,34 +14,37 @@ export class MenuListFacade{
 
     constructor(
         private menuConfigurationService: MenuConfigurationService,
-        private categoriasStateService:CategoriasStateService, 
+        private seccionesStateService:SeccionesStateService, 
         private localConfigurationFacade:LocalConfigurationFacade,
         private toastr: ToastrService)
         {}
 
-    public createCategoria(newCategory:CategoriaMenu):void{
+    public createSeccion(nuevaSeccionMenu:SeccionMenu):void{
         this.localConfigurationFacade.updateLocalState()
         .pipe(
             switchMap(
                 (local) => {
-                    return this.menuConfigurationService.createCategoria(local[0]._id, newCategory);
+                    if(local instanceof Array)
+                        return this.menuConfigurationService.createSeccion(local[0]._id, nuevaSeccionMenu);
+                    else
+                    return this.menuConfigurationService.createSeccion(local._id, nuevaSeccionMenu);
                 }
             ),
             tap(
-                (categoria) => {
-                    if(categoria){
-                        this.toastr.success('Categoria creada correctamente', 'Mensaje');
-                        this.updateCategoriasState();
+                (seccion) => {
+                    if(seccion){
+                        this.toastr.success('Seccion creada correctamente', 'Mensaje');
+                        this.seccionesStateService.addSeccion(seccion);
                         
                     }else{
-                        this.toastr.error('Error al crear la Categoria', 'Mensaje');
+                        this.toastr.error('Error al crear la Sección', 'Mensaje');
                     }
                 }
             )
         )
         .subscribe(
-            (nuevaCategoria) => {
-                console.log('Nueva Categoria creada:', nuevaCategoria);
+            (nuevaSeccion) => {
+                console.log('Nueva Seccion creada:', nuevaSeccion);
             }
         )
                 
@@ -51,50 +54,53 @@ export class MenuListFacade{
         
     }
 
-    public deleteCategoria(toDeleteCategory):void{
+    public deleteSeccion(toDeleteSeccion:SeccionMenu):void{
         this.localConfigurationFacade.updateLocalState()
         .pipe(
             switchMap(
                 (local) => {
-                    return this.menuConfigurationService.deleteCategoria(local[0]._id, toDeleteCategory)
+                    return this.menuConfigurationService.deleteSeccion(local[0]._id, toDeleteSeccion._id)
                 }
             )
         )
         .subscribe(
             () => {
-                this.toastr.success('Categoria eliminada correctamente', 'Mensaje')
-                this.updateCategoriasState();
+                this.toastr.success('Sección eliminada correctamente', 'Mensaje')
+                this.updateSeccionState();
             }
         )
     }
 
-    public updateCategoriasState():void{
+    public updateSeccionState():void{
         this.localConfigurationFacade.updateLocalState()
         .pipe(
             switchMap(
                 (local) =>{
-                    console.log('Local._id:', local[0]._id);
-                    return this.menuConfigurationService.getCategorias(local[0]._id)
-                    .pipe(
-                        tap(
-                            (categorias) => {
-                                this.categoriasStateService.setCategorias(categorias);
-                            }
-                        )
-                    )
-                    
+                    //console.log('Local._id:', local[0]._id);
+                    if(local instanceof Array)
+                        return this.menuConfigurationService.getSecciones(local[0]._id)
+                    else if(local instanceof Object)
+                        return this.menuConfigurationService.getSecciones(local._id)
+                    else
+                        return of([])
+                }
+            ),
+            tap(
+                (secciones) =>{
+                    console.log('Secciones:', secciones);
+                    this.seccionesStateService.setSecciones(secciones);
                 }
             )
         )
         .subscribe(
-            (categorias) => console.log('Categorias recibidas:', categorias)
+            (secciones) => console.log('Subscripcion en updateSeccionState:', secciones)
         )
            
         
     }
 
-    public categoriasState():Observable<CategoriaMenu[]>{
-        return this.categoriasStateService.categorias$;
+    public seccionesState():Observable<SeccionMenu[]>{
+        return this.seccionesStateService.secciones$;
     }
 
 
@@ -107,13 +113,16 @@ export class MenuListFacade{
         .pipe(
             switchMap(
                 (local) => {
-                    return this.menuConfigurationService.createItemMenu(local[0]._id, newItemMenu)
+                    if(local instanceof Array)
+                        return this.menuConfigurationService.createItemMenu(local[0]._id, newItemMenu)
+                    else
+                        return this.menuConfigurationService.createItemMenu(local._id, newItemMenu)
                     .pipe(
                         tap(
                             (menuItem) => {
                                 if(menuItem){
                                     this.toastr.success('MenuItem creado correctamente', 'Mensaje');
-                                    this.updateCategoriasState();
+                                    this.updateSeccionState();
                                 }else{
                                     this.toastr.error('Error al crear el MenuItem', 'Mensaje');
                                 }
@@ -144,7 +153,7 @@ export class MenuListFacade{
         .subscribe(
             () => {
                 this.toastr.success('MenuItem eliminado correctamente', 'Mensaje')
-                this.updateCategoriasState();
+                this.updateSeccionState();
             }
         )
     }

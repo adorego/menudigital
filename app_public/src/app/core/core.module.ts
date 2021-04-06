@@ -6,10 +6,10 @@ import { AuthenticationService } from './http/authentication.service';
 import { UserStateService } from './state/user-state.service';
 import { LocalStateService } from './state/local-state.service';
 import { LocalConfigurationService } from './http/localConfiguration.service';
-import { CategoriasStateService } from './state/categorias-state.service';
 import { MenuItemsStateService } from './state/menuItems-state.service';
 import { MenuConfigurationService } from './http/menuConfiguracion.service';
 import { PublicMenuService } from './http/publicMenu.service';
+import { SeccionesStateService } from './state/secciones-state.service';
 
 
 
@@ -25,10 +25,11 @@ import { PublicMenuService } from './http/publicMenu.service';
     LocalConfigurationService,
     UserStateService,
     LocalStateService,
-    CategoriasStateService,
+    SeccionesStateService,
     MenuItemsStateService,
     MenuConfigurationService,
     PublicMenuService
+    
     
     
     

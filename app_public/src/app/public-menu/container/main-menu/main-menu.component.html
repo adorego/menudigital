@@ -6,10 +6,10 @@
     
 </div>
 <div class="container">
-        <div class="categoria" *ngFor="let categoria of categorias$ | async">
-            <h2>{{categoria.titulo}}</h2>
+        <div class="categoria" *ngFor="let seccion of secciones$ | async">
+            <h2>{{seccion.titulo}}</h2>
             <div fxLayout="row wrap" fxLayoutGap="30px" class="menuitem" >
-                <ng-container *ngFor="let menuitem of categoria.menuitems">
+                <ng-container *ngFor="let menuitem of seccion.menuitems">
                     <mat-card fxFlex="25%" class="mat-elevation-z8">
                         <mat-card-header>
                             <mat-card-title>
@@ -18,100 +18,7 @@
                         </mat-card-header>
                         <img mat-card-image src="{{menuitem.imagenUrl && menuitem.imagenUrl.length > 0 ? menuitem.imagenUrl: imagenAlternativa}}">
                         
-                        <mat-card-content *ngIf="menuitem.tipo==1">
-                            <mat-accordion hideToggle=false>
-                                <h4>Seleccioná tu tamaño</h4>
-                                <ng-container *ngFor="let item of menuitem.tamanos;let i=index">
-                                    <mat-expansion-panel>
-                                        <mat-expansion-panel-header>
-                                            <mat-panel-title>
-                                                <mat-checkbox #tamanocheckbox  (change)="selectTamano(i,menuitem, item)">{{item.tamano}}</mat-checkbox>
-                                            </mat-panel-title>
-                                            <mat-panel-description>
-                                                {{item.precio | guaraniCurrency}}
-                                            </mat-panel-description>
-                                        </mat-expansion-panel-header>
-                                        <div matExpansionPanelContent class="panel-sabores"  *ngIf="menuitem.sabores && menuitem.sabores.length > 0">
-                                            <div fxLayout="column">
-                                                <div fxFlex="100%">
-                                                    <h4>Sabores disponibles</h4>
-                                                </div>
-                                                <div fxFlex="100%"  *ngFor="let sabor of menuitem.sabores">
-                                                        <mat-accordion >
-                                                            <mat-expansion-panel >
-                                                                <mat-expansion-panel-header>
-                                                                    <mat-panel-title>
-                                                                        <mat-checkbox (click)="$event.stopPropagation()" fxFlex>{{sabor.nombre }}</mat-checkbox>
-                                                                    </mat-panel-title>
-                                                                    <mat-panel-description>
-                                                                        <div  fxFlex *ngIf="costoAdicional(sabor, item._id) != null else sinCostoAdicional"><span>{{operacion(sabor, item._id)}}</span>{{costoAdicional(sabor, item._id).costo_adicional | guaraniCurrency}}</div>
-                                                                        <div  fxFlex>
-                                                                            <ng-template  #sinCostoAdicional>
-                                                                                <span>Gs. 0</span>
-                                                                            </ng-template>
-                                                                        </div>
-                                                                    </mat-panel-description>
-                                                                </mat-expansion-panel-header>
-                                                                {{sabor.descripcion}}
-                                                            </mat-expansion-panel>
-                                                        </mat-accordion>    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div matExpansionPanelContent class="panel-toppings" *ngIf="item.toppings && item.toppings.length > 0">
-                                            <div fxLayout="column">
-                                                
-                                                <div fxFlex="100%">
-                                                    <h4>Toppings adicionales</h4>
-                                                </div>
-                                                <div fxFlex *ngFor="let topping of item.toppings">
-                                                    <div class="toppings_list" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between">
-                                                        <mat-accordion class="full-width">
-                                                            <mat-expansion-panel>
-                                                                <mat-expansion-panel-header>
-                                                                    <mat-panel-title>
-                                                                        <mat-checkbox (click)="$event.stopPropagation()" fxFlex>{{topping.nombre }}</mat-checkbox>
-                                                                    </mat-panel-title>
-                                                                    <mat-panel-description>
-                                                                        <div class="full-width" fxFlex>{{topping.precio | guaraniCurrency}}</div>
-                                                                    </mat-panel-description>
-                                                                </mat-expansion-panel-header>
-                                                                {{topping.descripcion}}
-                                                            </mat-expansion-panel>
-                                                        </mat-accordion>    
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </mat-expansion-panel>
-                                </ng-container>
-                            </mat-accordion>
-                            
-                        </mat-card-content>
-                        <mat-divider style="margin-top:10px;"></mat-divider>
-                        <mat-accordion>
-
-                        </mat-accordion>
-                        <mat-card-content class="contenido_menuitem">
-                            <div class="descripcion">
-                                <p>{{menuitem.descripcion}}</p>
-                            </div>
-                        </mat-card-content>
-                        <mat-card-content>
-                            <div class="pedido_final">
-                                <ng-container *ngIf="lista_detalles">
-                                    <h4>Pedido Personalizado</h4>
-                                    <div fxLyout=row fxLayoutAlign="space-between" *ngFor="let item of lista_detalles.detalle">
-                                            <div flex>{{item.detalle_item}}</div>
-                                            <div flex>{{item.precio | guaraniCurrency}}</div>
-                                            <mat-icon flex>delete</mat-icon>
-
-                                    </div>
-                                </ng-container>   
-                                
-                            </div>
-                        </mat-card-content>
+                        
                         <mat-card-actions>
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <div class="wrapper" fxFlex=50%>

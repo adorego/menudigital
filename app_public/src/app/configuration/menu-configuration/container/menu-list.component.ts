@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { CategoriaMenu } from 'src/app/core/models/categoria-menu.model';
+import { Observable, Subscription } from 'rxjs';
 import { MenuItem } from 'src/app/core/models/menuItem.model';
+import { SeccionMenu } from 'src/app/core/models/seccion-menu.model';
 import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component';
 import { MenuListFacade } from '../../services/menuListFacade.service';
-import { AddMenuItemComponent } from '../components/add-menu-item/add-menu-item.component';
+import { FormMenuItemComponent } from '../components/form-menu-item/form-menu-item.component';
+import { FormSeccionComponent } from '../components/form-seccion/form-seccion.component';
 
 @Component({
   selector: 'app-menu-list',
@@ -15,21 +16,9 @@ import { AddMenuItemComponent } from '../components/add-menu-item/add-menu-item.
 })
 export class MenuListComponent implements OnInit, OnDestroy {
   
-  showMessage:boolean=false;
-  message:string='';
-
-  showNewCategory=false;
-  categoriaForm:FormGroup;
-  categorias$:Observable<CategoriaMenu[]>;
-
-  panelOpenState = false;
-
-  //NuevoMenuItem
-  menuItemInsertado:Observable<MenuItem>;//Observable que devuelve el sistema cuando se inserta un nuevo MenuItem
-
-  //Table
-  columnasDelMenuItem: string[] = ['imagenUrl', 'nombre', 'descripcion','precioActual', 'acciones'];
-  
+  secciones$:Observable<SeccionMenu[]>;
+  seccionSubscription:Subscription;
+  menuItemSubscription:Subscription;
 
   constructor(public dialog: MatDialog,private fb: FormBuilder, private menuListFacade: MenuListFacade) 
   {
@@ -38,146 +27,57 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy(): void {
-    
+    if(this.menuItemSubscription)
+      this.menuItemSubscription.unsubscribe();
+    if(this.seccionSubscription)
+      this.seccionSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.categoriaForm = this.fb.group({
-      _id:[''],
-      titulo:['', Validators.required],
-      descripcion:[''],
-      puesto:['', Validators.required]
-    });
-
-    this.categorias$ = this.menuListFacade.categoriasState();
-    this.menuListFacade.updateCategoriasState();
+    this.secciones$ = this.menuListFacade.seccionesState();
+    this.menuListFacade.updateSeccionState();
+    
   }
 
-  public nuevaCategoria(){
-    this.showNewCategory = !this.showNewCategory;    
-
-  }
-
-  public nuevoItem(categoria:CategoriaMenu){
-    //console.log('Nuevo Item:', categoria);
-    const nuevoItemDialogRef = this.dialog.open(AddMenuItemComponent,{
-        width:'100%',
-        height:'100%',
-        position:{top:'0', right:'0'}
-      });
-      nuevoItemDialogRef.componentInstance.categoria = categoria;
-      nuevoItemDialogRef.componentInstance.nuevoItem.subscribe(
-        (menuItem:MenuItem) =>{
-          //console.log('MenuItem nuevo:', menuItem);
-          this.menuListFacade.createItemMenu(menuItem)
-          .subscribe(
-            (menuItem) =>{
-              //console.log('MenuItem insertado:', menuItem);
-              nuevoItemDialogRef.componentInstance.actualizar_itemInsertado(menuItem, 1);
-            }
-          )
-          
-          
-        }
-      );
-  
-  }
-
-  public verDetallesItem(seleccionMenuItem:MenuItem){
-      //console.log('verDetallesItem:', seleccionMenuItem);
-      const detalleItemDialogRef = this.dialog.open(AddMenuItemComponent,{
-        width:'100%',
-        height:'100%',
-        position:{top:'0', right:'0'}
-      });
-      detalleItemDialogRef.componentInstance.itemInsertado = seleccionMenuItem;
-  }
-
-  public editarItem(toeditMenuItem:MenuItem){
-      const editarItemDialogRef = this.dialog.open(AddMenuItemComponent,{
-        width:'100%',
-        height:'100%',
-        position:{top:'0', right:'0'}
-      });
-      editarItemDialogRef.componentInstance.itemInsertado = toeditMenuItem;
-      console.log('editarItem:', toeditMenuItem);
-  }
-
-  public eliminarItem(todeleteMenuItem:MenuItem){
-    console.log('eliminarItem:', todeleteMenuItem);
-    const deleteItemDialogRef = this.dialog.open(AlertDialogComponent,{
-      data:{
-        titulo:"Desea eliminar este MenuItem?",
-        
-      },
-      width:'280px',
-      height:'400px',
-      position:{top:'0%', right:'0%'},
-      disableClose:false
-    })
-    deleteItemDialogRef.afterClosed().subscribe(
-      (respuesta) => {
-        console.log('Respuesta del Dialogo es:', respuesta);
-        if(respuesta){
-          //Si la respuesta es SI, entonces eliminar este MenuItem
-          this.menuListFacade.deleteItemMenu(todeleteMenuItem);
-        }
-      }
-    )
-  }
-  
-  //Categorias
-
-  public editarCategory(categoria){
-
-  }
-
-  public eliminarCategory(toDeleteCategoria){
-    console.log('Categoria a eliminar:', toDeleteCategoria);
-    const deleteCategoryDialogRef = this.dialog.open(AlertDialogComponent,{
-      data:{
-        titulo:"Desea eliminar esta Categoria?",
-        
-      },
-      width:'320px',
-      height:'400px',
-      position:{top:'0%', right:'0%'},
-      disableClose:false
-    })
-    deleteCategoryDialogRef.afterClosed().subscribe(
-      (respuesta) => {
-        console.log('Respuesta del Dialogo es:', respuesta);
-        if(respuesta){
-          //Si la respuesta es SI, entonces eliminar este MenuItem
-          this.menuListFacade.deleteCategoria(toDeleteCategoria);
-        }
+  public nueva_seccion(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position ={
+      'top': '20px',
+      'left': '10px'
+    };
+    dialogConfig.width = '50%';
+    dialogConfig.height = '80vh';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.minHeight = '300px';
+    dialogConfig.panelClass = "my-dialog";
+    const dialogRef = this.dialog.open(FormSeccionComponent, dialogConfig);   
+    this.seccionSubscription = dialogRef.componentInstance.onSaveSeccion.subscribe(
+      (seccionMenu) => {
+        this.menuListFacade.createSeccion(seccionMenu);
       }
     )
 
-  }
-  public submitCategoria(){
-    if(this.categoriaForm.valid){
-      console.log('Submit new Category');
-      this.menuListFacade.createCategoria(this.categoriaForm.value)
-      this.categoriaForm.reset();
-      this.showNewCategory=false;
-      
-      
-    }
+    
   }
 
-  public tooltip(accion:string):string{
-    switch (accion) {
-      case('ver'):
-        return 'Ver los detalles de este Item';
-      case('borrar'):
-        return 'Eliminar este Item';
-      case('editar'):
-        return 'Editar este Item';    
-      default:
-        return null;  
-    }
-
+  nuevo_item(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position ={
+      'top': '20px',
+      'left': '10px'
+    };
+    dialogConfig.width = '50%';
+    dialogConfig.height = '100vh';
+    dialogConfig.minWidth = '320px';
+    dialogConfig.minHeight = '100vh';
+    dialogConfig.panelClass = "my-dialog";
+    const dialogRef = this.dialog.open(FormMenuItemComponent, dialogConfig);   
+    this.menuItemSubscription = dialogRef.componentInstance.onSaveMenuItem.subscribe(
+      (menuItem) => {
+        //Enviar el nuevo MenuItem a la BD
+      }
+    )
   }
+
   
 }

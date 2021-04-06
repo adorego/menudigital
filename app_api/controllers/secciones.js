@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const Local = mongoose.model('Local');
 
-const categoriasAll = (req, res) => {
+const seccionesAll = (req, res) => {
+    console.log('SeccionesAll, parametro:', req.params.localid);
     if(!req.params.localid){
         return res
             .status(404)
-            .json({"message": "No se pudo encontrar el Local, falta el localId"});
+            .json({"message": "Se debe incluir el localId como parametro"});
 
     }
     Local
@@ -24,20 +25,20 @@ const categoriasAll = (req, res) => {
             }
             return res
                 .status(200)
-                .json(local.categorias);
+                .json(local.seccionesMenu);
         })
 }
 
-const categoriaReadOne = (req, res) => {
-    if(!req.params.localid || !req.params.categoriaid){
+const seccionReadOne = (req, res) => {
+    if(!req.params.localid || !req.params.seccionid){
         return res
             .status(404)
-            .json({"message": "No se pudo encontrar el Local, falta el localId/categoriaid"});
+            .json({"message": "No se ennviaron los parametros de localid/seccionid"});
 
     }
     Local
         .findById(req.params.localid)
-        .select('nombreDelLocal categorias')
+        .select('nombreDelLocal seccionesMenu')
         .exec((err, local) => {
             if(!local){
                 return res
@@ -50,19 +51,19 @@ const categoriaReadOne = (req, res) => {
                 .status(404)
                 .json(err);
             }
-            if(local.categorias && local.categorias.length > 0){
-                let categoria = local.categorias.id(req.params.categoriaid);
-                if(!categoria){
+            if(local.seccionesMenu && local.seccionesMenu.length > 0){
+                let seccion = local.seccionesMenu.id(req.params.seccionid);
+                if(!seccion){
                     return res
                             .status(400)
-                            .json({"message":"No se encontró la categoria"});
+                            .json({"message":"No se encontró la sección"});
                 }else{
                     let response = {
                         local:{
                             nombreDelLocal: local.nombreDelLocal,
                             id: req.params.localid
                         },
-                        categoria
+                        seccion
                     };
                     return res
                             .status(200)
@@ -71,25 +72,25 @@ const categoriaReadOne = (req, res) => {
             }else{
                 return res
                         .status(400)
-                        .json({"message":"No se encontraron categorias para este local"});
+                        .json({"message":"No se encontraron secciones para este local"});
             }
             
          
         })
 }
 
-const categoriaUpdateOne = (req, res) => {
-    console.log('Parametros enviados:', req.params.localid, req.params.categoriaid);
-    if(!req.params.localid || !req.params.categoriaid){
+const seccionUpdateOne = (req, res) => {
+    console.log('Parametros enviados:', req.params.localid, req.params.seccionid);
+    if(!req.params.localid || !req.params.seccionid){
         return res
                 .status(404)
                 .json({
-                    "message": "No se pudo encontrar el Local, falta el localid/categoriaid"
+                    "message": "No se pudo encontrar el Local, falta el localid/seccionid"
                 });
     }
     Local
         .findById(req.params.localid)
-        .select('nombreDelLocal categorias') //Agregar parametros al query
+        .select('nombreDelLocal seccionesMenu') //Agregar parametros al query
         .exec((err, local) => {
             if(!local){
                 return res
@@ -102,22 +103,21 @@ const categoriaUpdateOne = (req, res) => {
                 .status(404)
                 .json(err);
             }
-            if(local.categorias && local.categorias.length > 0){
-                const thisCategoria = local.categorias.id(req.params.categoriaid);
-                if(!thisCategoria){
+            if(local.seccionesMenu && local.seccionesMenu.length > 0){
+                const thisSeccion = local.seccionesMenu.id(req.params.seccionid);
+                if(!thisSeccion){
                     return res
                             .status(400)
-                            .json({"message":"No se encontró la categoria"});
+                            .json({"message":"No se encontró la sección"});
                 }else{
                     if(req.file){
                         const url = req.protocol + '://' + req.get('host');
                         const iconPath = url + '/public/uploads/' + req.file.filename;
                         const iconUrl = url + '/' + req.file.filename;
-                        console.log('iconUrl:', iconUrl);
-                        thisCategoria.label = req.body.label;
-                        thisCategoria.puesto = req.body.puesto;
-                        thisCategoria.iconPath = iconPath;
-                        thisCategoria.iconUrl = iconUrl
+                        thisSeccion.titulo = req.body.titulo;
+                        thisSeccion.descripcion = req.body.descripcion;
+                        thisSeccion.puesto = req.body.puesto;
+                        thisSeccion.iconUrl = iconUrl;
                         
                 
                     }else{
@@ -125,10 +125,10 @@ const categoriaUpdateOne = (req, res) => {
                         const iconPath = '';
                         const iconUrl = '';
                         console.log('iconUrl:', iconUrl);
-                        thisCategoria.label = req.body.label;
-                        thisCategoria.puesto = req.body.puesto;
-                        thisCategoria.iconPath = iconPath;
-                        thisCategoria.iconUrl = iconUrl
+                        thisSeccion.titulo = req.body.titulo;
+                        thisSeccion.descripcion = req.body.descripcion;
+                        thisSeccion.puesto = req.body.puesto;
+                        thisSeccion.iconUrl = iconUrl;
                     }
                     
                     local.save((err, local) =>{
@@ -139,7 +139,7 @@ const categoriaUpdateOne = (req, res) => {
                         }else{
                             res
                                 .status(200)
-                                .json(thisCategoria);
+                                .json(thisSeccion);
                         }
                     })
                 }
@@ -151,18 +151,18 @@ const categoriaUpdateOne = (req, res) => {
        
 }
 
-const categoriaRemoveOne = (req, res) => {
+const seccionRemoveOne = (req, res) => {
     console.log('Parametro enviado:', req.params.localid);
-    if(!req.params.localid || !req.params.categoriaid){
+    if(!req.params.localid || !req.params.seccionid){
         return res
                 .status(404)
                 .json({
-                    "message": "No se pudo encontrar el Local, falta el localid/categoriaid"
+                    "message": "No se pudo encontrar el Local, falta el localid/seccionid"
                 });
     }
     Local
         .findById(req.params.localid)
-        .select('nombreDelLocal categorias') //Agregar parametros al query
+        .select('nombreDelLocal seccionesMenu') //Agregar parametros al query
         .exec((err, local) => {
             if(!local){
                 return res
@@ -175,20 +175,20 @@ const categoriaRemoveOne = (req, res) => {
                 .status(404)
                 .json(err);
             }
-            if(local.categorias && local.categorias.length > 0){
+            if(local.seccionesMenu && local.seccionesMenu.length > 0){
                 
-                if(!local.categorias.id(req.params.categoriaid)){
+                if(!local.seccionesMenu.id(req.params.seccionid)){
                     return res
                             .status(404)
-                            .json({"message":"No se encontró la categoria"});
+                            .json({"message":"No se encontró la sección"});
                 }else{
-                    let puesto =local.categorias.id(req.params.categoriaid).puesto;
-                    local.categorias.forEach((categoria) =>{
-                        if(categoria.puesto>puesto){
-                            categoria.puesto--;
+                    let puesto =local.seccionesMenu.id(req.params.seccionid).puesto;
+                    local.seccionesMenu.forEach((seccion) =>{
+                        if(seccion.puesto>puesto){
+                            seccion.puesto--;
                         }
                     });
-                    local.categorias.id(req.params.categoriaid).remove();
+                    local.seccionesMenu.id(req.params.seccionid).remove();
                     local.save((err) =>{
                         if(err){
                             res
@@ -205,7 +205,7 @@ const categoriaRemoveOne = (req, res) => {
             }else{
                 res
                     .status(404)
-                    .json({"message":"No se encontró la categoria para eliminar"});
+                    .json({"message":"No se encontró la sección para eliminar"});
             }
         });
 
@@ -214,9 +214,8 @@ const categoriaRemoveOne = (req, res) => {
        
 }
 
-const categoriaCreate = (req, res) => {
-    console.log('Ingreso a categoriaCreate, parametros: req.params.localid, req.body.titulo ', req.params.localid, req.body.titulo);
-    //console.log('categoriaCreate,file:', req.file);
+const seccionCreate = (req, res) => {
+    
     if(!req.params.localid){
         return res
             .status(404)
@@ -226,7 +225,7 @@ const categoriaCreate = (req, res) => {
     if(!req.body.titulo || !req.body.puesto){
         return res
             .status(400)
-            .json({"message": "Falta completar los campos obligatorios label/puesto de la Categoria!"});
+            .json({"message": "Falta completar los campos obligatorios de titulo/puesto de la Sección!"});
 
     }
    
@@ -244,19 +243,19 @@ const categoriaCreate = (req, res) => {
                 .status(404)
                 .json(err);
             }
-            doAddCategory(req, res, local);
+            doAddSeccion(req, res, local);
         })
 
 }
 
-const doAddCategory = (req, res, local) => {
+const doAddSeccion = (req, res, local) => {
     const {titulo, puesto, descripcion} = req.body;
-    local.categorias.forEach((categoria) =>{
-        if(categoria.puesto>=puesto){
-            categoria.puesto++;
+    local.seccionesMenu.forEach((seccion) =>{
+        if(seccion.puesto>=puesto){
+            seccion.puesto++;
         }
     });
-    local.categorias.push({
+    local.seccionesMenu.push({
             titulo,
             puesto,
             descripcion
@@ -269,10 +268,10 @@ const doAddCategory = (req, res, local) => {
                     .status(400)
                     .json(err);
             }else{
-                const newCategoria = local.categorias.slice(-1).pop();
+                const newSeccion = local.seccionesMenu.slice(-1).pop();
                 res
                     .status(201)
-                    .json(newCategoria);
+                    .json(newSeccion);
             }
         });
 }
@@ -280,11 +279,11 @@ const doAddCategory = (req, res, local) => {
 
 
 module.exports = {
-    categoriaCreate,
-    categoriasAll,
-    categoriaReadOne,
-    categoriaUpdateOne,
-    categoriaRemoveOne,
+    seccionesAll,
+    seccionReadOne,
+    seccionUpdateOne,
+    seccionRemoveOne,
+    seccionCreate
     
     
     

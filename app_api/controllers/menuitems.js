@@ -3,10 +3,10 @@ const Local = mongoose.model('Local');
 
 
 const menuItemsReadAll = (req, res) => {
-    if(!req.params.localid || !req.params.categoriaid){
+    if(!req.params.localid || !req.params.seccionid){
         return res
             .status(404)
-            .json({"message": "No se pudo encontrar el Local, falta el localid/categoriaid"});
+            .json({"message": "No se pudo encontrar el Local, falta el localid/seccionid"});
 
     }
     Local
@@ -23,23 +23,23 @@ const menuItemsReadAll = (req, res) => {
                 .status(404)
                 .json(err);
             }
-            if(local.categorias && local.categorias.length>0)
+            if(local.seccionesMenu && local.seccionesMenu.length>0)
             {
-                let thiscategoria = local.categorias.id(req.params.categoriaid);
-                if(!thiscategoria){
+                let thisseccion = local.seccionesMenu.id(req.params.seccionid);
+                if(!thisseccion){
                     return res
                             .status(400)
-                            .json({"message":"No se encontró la categoria"});
+                            .json({"message":"No se encontró la Sección"});
                 }else{
                     return res  
                             .status(200)
-                            .json(thiscategoria.menuitems);
+                            .json(thisseccion.menuitems);
                 }
                 
             }else{
                 return res
                         .status(400)
-                        .json({"message":"No se encontraron categorias para este local"});
+                        .json({"message":"No se encontraron secciones para este local"});
             }
         })
 }

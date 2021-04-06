@@ -37,7 +37,8 @@ export class LocalConfigurationComponent implements OnInit, OnDestroy {
       emailDelContacto:['', Validators.required],
       celularDelContacto:['', Validators.required],
       urlMenuDigital:['', Validators.required],
-      localNameUrl:['', Validators.required]
+      localNameUrl:['', Validators.required],
+      estatus:['']
     });
    
     this.local$ = this.localconfigurationFacade.updateLocalState();
@@ -89,7 +90,7 @@ export class LocalConfigurationComponent implements OnInit, OnDestroy {
     }
     
     if(this.localForm.invalid){
-      this.message ="Por favor completa todos los campos para poder crear tu MenuDigital";
+      this.message ="Por favor completa todos los campos sobre tu local Gastronómico para poder crear tu MenuDigital";
       this.showMessage = true;
     }
     
@@ -110,6 +111,12 @@ export class LocalConfigurationComponent implements OnInit, OnDestroy {
 
   
   public onSubmit(){
+    this.localForm.patchValue(
+      {
+        estatus:1
+      }
+    )
+    console.log('Local antes de guardar:', this.localForm.value);
     this.localconfigurationFacade.saveLocal(this.localForm.value);
   }
 

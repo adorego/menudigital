@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { empty, merge, Observable, of } from "rxjs";
+import {merge, Observable, of } from "rxjs";
 import { concatMap, isEmpty, map, mergeMap, switchMap, tap } from "rxjs/operators";
 import { AuthenticationService } from "src/app/core/http/authentication.service";
 import { LocalConfigurationService } from "src/app/core/http/localConfiguration.service";
@@ -16,6 +17,7 @@ export class LocalConfigurationFacade{
         private localconfigurationService:LocalConfigurationService, 
         private authenticationService:AuthenticationService,
         private localState:LocalStateService,
+        private router:Router,
         private toastr: ToastrService){}
     
     
@@ -24,16 +26,17 @@ export class LocalConfigurationFacade{
         return this.localState.local$
             .pipe(
                 switchMap((local) =>{
-                    if(local==null){
+                    if(local==null && this.authenticationService.getCurrentUser() && this.authenticationService.getCurrentUser()._id){
                         return this.localconfigurationService.getLocalByUserId(this.authenticationService.getCurrentUser()._id);
                     }else{
+                        
                         return of(local);
                     }
                 })
             )
     }
     public saveLocal(local:Local){
-        console.log('Local recibido:', local);
+        //console.log('Local recibido:', local);
         let subs:Observable<Local> = null;
         if(local._id){
             //Update
@@ -68,7 +71,12 @@ export class LocalConfigurationFacade{
         }
         //Subscribirse al Observable
         subs.subscribe(
-            (local) => console.log('Local guardado/actualizado', local)
+            (local) => {
+                console.log('Local guardado/actualizado', local);
+                if(local.estatus==1){
+                    this.router.navigateByUrl('configuracion/menu');
+                }
+            }
         )
     }
     

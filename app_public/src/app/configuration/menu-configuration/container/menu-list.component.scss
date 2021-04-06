@@ -1,67 +1,19 @@
 @import '../../../styles/colors.scss' ;
 
-.header{
-  margin: 10px;
-}
-.title{
-  margin-top: 0px;
-
+.mat-headline{
+  color: #8B8989;
 }
 
-.nuevoItemContainer{
-  margin: 10px;
-}
-.full-width {
-    width: 80%;
-}
-  
-.row {
+.heading_icon{
   display: flex;
   flex-direction: row;
-}
-  
-.col {
-  flex: 1;
-  margin-right: 20px;
+  justify-content: flex-start;
 }
 
-.menuItemContainer{
-  height: 80px;
-  width: 100%;
+.material-icons{
+  vertical-align: middle;
 }
 
-.imagenMenuItem{
-  height: 20vh;
-  width: 20vh;
-  padding: 5px;
-  
-}
-mat-header-cell{
-  text-align: end;
-  font-size: medium;
-}
-mat-cell{
-  text-align:center;
-  padding: 10px;
-}
-.menuItemTable{
-  text-align: center;
-  width: 100%;
-}
-
-.categoriaContainer{
-  margin-left: 20px;
-}
-
-.categoria_submit{
-  margin-right: 20px;
-  margin-bottom: 20px;
-}
-
-.panel_descrption{
-  text-align: start;
-}
-
-.category_actions{
-  padding: 1px;
+.seccion_descripcion{
+  vertical-align: middle;
 }

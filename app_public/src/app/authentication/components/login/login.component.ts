@@ -30,9 +30,10 @@ export class LoginComponent implements OnInit {
   }
   public login(): void {
     //console.log('LoginComponent.login()');
-    this.dialogRef.close();
+    
     if (this.form.valid) {
       this.sendLoginForm.emit(this.form.value);
+      
     }
   }
 

@@ -2,9 +2,15 @@
 
 
 .full-width {
-    width: 80%;
+    width: 80vw;
   }
   
+  .container{
+    padding-right: 10vw;
+    margin: auto;
+    width: 80vw;
+
+  }
   .card {
     min-width: 80px;
     margin: 30px auto;
@@ -65,14 +71,24 @@
     min-width: 5vh;
   }
 
+  //Mensaje de comunicación con el cliente
+  .mensaje_feedback{
+    padding: 0;
+    text-align: justify;
+    
+  }
+  .mat-title{
+    text-align:start;
+    
+  }
   .message-full-width{
-    margin-left: 20px;
     color: red;
-    font-size: medium;
+    
+   
   }
 
   .boton_guardar{
     background-color: $menuDigital-secondary;
-    width: 100%;
+    width: 80vw;
     color: white;
   }

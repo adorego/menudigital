@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
   public sign(): void {
     if (this.form.valid) {
       this.sendSignForm.emit(this.form.value);
+      this.dialogRef.close();
     }
   }
 

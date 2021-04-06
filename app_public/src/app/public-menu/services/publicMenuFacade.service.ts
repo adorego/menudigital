@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { of } from "rxjs";
+import { from, of } from "rxjs";
 import { Observable} from "rxjs";
 import { tap } from "rxjs/operators";
 import { PublicMenuService } from "src/app/core/http/publicMenu.service";
-import { CategoriaMenu } from "src/app/core/models/categoria-menu.model";
 import { Local } from "src/app/core/models/local.model";
-import { CategoriasStateService } from "src/app/core/state/categorias-state.service";
+import { SeccionesStateService } from "src/app/core/state/secciones-state.service";
 import { LocalStateService } from "src/app/core/state/local-state.service";
+import { SeccionMenu } from "src/app/core/models/seccion-menu.model";
 
 
 
@@ -14,7 +14,7 @@ import { LocalStateService } from "src/app/core/state/local-state.service";
 export class PublicMenuFacade{
     constructor(
         private menuConfigurationService: PublicMenuService,
-        private categoriasStateService:CategoriasStateService,
+        private seccionesStateService:SeccionesStateService,
         private localStateService:LocalStateService){}
 
     public getMenuDigital(nameUrl:string):void{
@@ -22,9 +22,9 @@ export class PublicMenuFacade{
         .pipe(
            tap((local) =>{
                if(local){
-                    console.log('Local devuelto:', local, 'Categorias:', local.categorias);
+                    console.log('Local devuelto:', local, 'Secciones:', local.secciones);
                     this.localStateService.setLocal(local);
-                    this.categoriasStateService.setCategorias(local.categorias);
+                    this.seccionesStateService.setSecciones(local.secciones);
                }
                 
            }) 
@@ -34,17 +34,18 @@ export class PublicMenuFacade{
         )
     }
 
-    public getCategoriesState():Observable<CategoriaMenu[]>{
-        return this.categoriasStateService.categorias$;
+    public getSeccionesState():Observable<SeccionMenu[]>{
+        return this.seccionesStateService.secciones$;
     }
 
     public getLocalState():Observable<Local>{
         return this.localStateService.local$;
     }
 
-    public getCategoriasPrueba():void{
+    /*
+    public getSeccionesPrueba():void{
     
-        this.categoriasStateService.setCategorias(
+        this.seccionesStateService.setSecciones(
             [
                 {
                     _id:"76676",
@@ -54,7 +55,7 @@ export class PublicMenuFacade{
                     menuitems:[
                         {
                             _id: "8989898",
-                            categoria:"76676",
+                            seccion:"76676",
                             nombre:"2x1 Familiar",
                             descripcion:"2 Pizzas familiares por 1",
                             detalle_factura:"2 Pizzas tamaño familiar",
@@ -70,7 +71,7 @@ export class PublicMenuFacade{
                         },
                         {
                             _id: "8989898",
-                            categoria:"76676",
+                            seccion:"76676",
                             nombre:"2x1 Calzones",
                             descripcion:"2 Calzones de los sabores que desee",
                             detalle_factura:"2 Calzones",
@@ -94,7 +95,7 @@ export class PublicMenuFacade{
                     menuitems:[
                         {
                             _id: "8989898",
-                            categoria:"76677",
+                            seccion:"76677",
                             nombre:"Pepperoni",
                             descripcion:"Riquisima masa hecha de harina, con salsa de tomate y sabrosos pepperonis",
                             detalle_factura:"Pizza",
@@ -256,7 +257,7 @@ export class PublicMenuFacade{
                     menuitems:[
                         {
                             _id: "8989898",
-                            categoria:"76678",
+                            seccion:"76678",
                             nombre:"Napolitano",
                             descripcion:"Riquisima masa hecha de harina, con salsa de tomate y sabrosos pepperonis",
                             detalle_factura:"Calzone sabor napolitano",
@@ -274,4 +275,5 @@ export class PublicMenuFacade{
     
     
     }
+    */
 }

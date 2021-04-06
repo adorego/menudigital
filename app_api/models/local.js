@@ -31,7 +31,7 @@ const opcionPromocion = new mongoose.Schema({
 
 const menuitemSchema = new mongoose.Schema({
     nombre:{type:String, required:true},
-    categoria:{type:Schema.Types.ObjectId, ref:'Category'},
+    seccion:{type:Schema.Types.ObjectId, ref:'Seccion'},
     descripcion: String,
     tamano:String,
     precio:{type:Number, required:true},
@@ -39,10 +39,11 @@ const menuitemSchema = new mongoose.Schema({
     promocion: opcionPromocion
 });
 
-const categoriaSchema = new mongoose.Schema({
+const seccionSchema = new mongoose.Schema({
     titulo: {type: String, required: true, unique: true},
     descripcion:String,
     puesto: {type:Number, unique: true},
+    iconUrl: String,
     menuitems:[menuitemSchema]
 });
 
@@ -58,6 +59,7 @@ const promocionSchema = new mongoose.Schema({
     descuento: {type:Number, required: true, unique: true},
     promocionIconUrl:String
 });
+
 const localSchema = new mongoose.Schema({
     
     nombreDelLocal: {
@@ -97,11 +99,16 @@ const localSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    estatus:{
+        type:Number,
+        required:true,
+        default:0
+    },
     user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-    categorias:[categoriaSchema]
+    seccionesMenu:[seccionSchema]
      
     
 });
 
 mongoose.model('Local', localSchema, 'locales');
-mongoose.model('Category', categoriaSchema, 'categorias');
+mongoose.model('Seccion', seccionSchema, 'secciones');
