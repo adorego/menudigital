@@ -94,10 +94,7 @@ mat-toolbar mat-toolbar-row{
 }
 
 .content_propuestaValor{
-    padding-left: 2vw;
-    padding-right: 2vw;
-    padding-top: 2vw;
-    padding-bottom: 2vw;
+    
     border-radius: 3px;
     background-color: transparent;
     animation-name: content_propuestaValor_animation;
@@ -107,59 +104,49 @@ mat-toolbar mat-toolbar-row{
 
 
 .content_landing{
-    margin-top: 6vh;
+    margin-top: 10vh;
+    width: 100%;
 }
 
 .h3_propuestaValor1{
-    width: 40vw;
     color: white;
-    font-size: clamp(1.5em, 2vw, 4em);
-    margin-bottom: 2vh;
+   
     text-align: justify;
     
     
 }
 
 .h3_propuestaValor1_md{
-    width: 100%;
     color: white;
-    font-size: clamp(1.5em, 2vw, 4em);
-    margin-bottom: 2vh;
+   
     text-align: justify;
   
 }
 
 
 .h3_propuestaValor2{
-    width: 45vw;
     color: white;
-    margin-top: 3vh;
-    font-size: clamp(1.5em, 2vw, 4em);
+   
     text-align: justify;
   
 }
 
 
 .h3_propuestaValor2_md{
-    width: 100%;
     color: white;
-    margin-top: 3vh;
-    font-size: clamp(1.5em, 2vw, 4em);
+   
     text-align: justify;
   
 }
 
 .h3_propuestaValor2 a{
     color: white;
-    font-size: clamp(1em, 2vw, 4em);
-    
-    
     
 }
 
 .h3_propuestaValor2-a{
     color: white;
-    font-size: clamp(1em, 2vw, 4em);
+    
     
     
     
@@ -167,29 +154,23 @@ mat-toolbar mat-toolbar-row{
 
 
 .content_cta_button{
-    margin: auto;
-    padding-left: 3vw;
-    margin-top: 8vh;
+   
+    width: 100%;
+    
     
 }
 
 .content_cta_button_mt{
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    margin-top: 8vh;
+    padding: 0vh;
+   
     
 }
 .cta_button{
-  width: 100%;
   height: 10vh;
+  width: 100%;
   background-color: $menuDigital-secondary;
   color: white;
-  font-size: clamp(2em, 2vw, 4em);
+  
   letter-spacing: 0;
-}
-
-.cta_button_mt{
-    font-size: clamp(2em, 2vw, 4em);
 }
 
