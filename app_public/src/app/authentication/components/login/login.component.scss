@@ -8,7 +8,9 @@
     width: 100%;
 }
 
-
+.mat-title{
+   text-align: center;
+}
 .header_login{
     width: 100%;
     text-align: center;
@@ -17,8 +19,11 @@
 .boton_ingresar{
     background-color: $menuDigital-secondary;
     color: white;
+    width: 203px;
+    height: 60px;
+    font-size: 24px;
 }
 
-.close{
-    
+.enlace_olvide_clave{
+    text-decoration: underline;
 }

@@ -57,8 +57,8 @@ export class AuthPageComponent implements OnInit, OnDestroy {
           'top': '20px',
           'left': '10px'
         };
-        dialogConfig.width = '50%';
-        dialogConfig.height = '80vh';
+        dialogConfig.width = '320px';
+        dialogConfig.height = '460px';
         dialogConfig.minWidth = '300px';
         dialogConfig.minHeight = '300px';
         dialogConfig.panelClass = "my-dialog";
