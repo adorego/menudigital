@@ -1,7 +1,9 @@
+import { Observable, of } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MenuItem } from 'src/app/core/models/menuItem.model';
+import { ExpansionArrayModel } from 'src/app/core/models/expansion-helper-array.model';
 
 @Component({
   selector: 'app-form-menu-item',
@@ -10,55 +12,63 @@ import { MenuItem } from 'src/app/core/models/menuItem.model';
 })
 export class FormMenuItemComponent implements OnInit {
 
-  menuItemFormGroup:FormGroup;
-  imagenMenuItem:string = "../../../../assets/camara.png";
+  
 
   
-  constructor(private fb:FormBuilder, public dialogRef: MatDialogRef<FormMenuItemComponent>) { }
+  constructor(private dialogRef:MatDialogRef<FormMenuItemComponent>) { }
 
   @Output() onSaveMenuItem = new EventEmitter<MenuItem>();
 
   ngOnInit(): void {
-    this.menuItemFormGroup = this.fb.group(
-      {
-        imagen:[''],
-        imagenUrl:[''],
-        titulo:['', Validators.required],
-        descripcion:[''],
-        precio:['', Validators.required]
-      }
-    )
+    
   }
 
   public crear_menuItem(){
     
   }
   
-  public subirFoto(event){
-    document.getElementById("fileInput-menuItem").click();
-  }
-
-  public showPreviewMenuItemFoto(event){
-    const reader = new FileReader();
-    
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-    
-      reader.onload = () => {
-   
-        this.imagenMenuItem = reader.result as string;
-     
-        this.menuItemFormGroup.patchValue({
-          imagen: file
-        });
-   
-      };
-    }
-  }
 
   public onNoClick(){
     this.dialogRef.close();
   }
 
+  public dataForExpansionHelper():Observable<ExpansionArrayModel>{
+    return(
+      of(
+        {
+          titulo:"Tamaños disponibles",
+          tipo:1,
+          conDatos:true,
+          arrayTamano:[
+            {
+              id:'98978787',
+              titulo:'Grande',
+              descripcion:'',
+              precio:0,
+              
+              
+            },
+            {
+              id:'98978788',
+              titulo:'Mediano',
+              descripcion:'',
+              precio:0,
+              
+              
+            },
+            {
+              id:'98978789',
+              titulo:'Gigante',
+              descripcion:'',
+              precio:0,
+              
+              
+            }
+          ]
+        }
+      )
+    
+    );
+
+  }
 }

@@ -29,6 +29,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {NgxCurrencyModule, CurrencyMaskInputMode} from 'ngx-currency';
 import { GuaraniCurrencyPipe } from './pipes/guarani-currency.pipe';
+import { ExpansionHelperComponent } from './expansion-helper/expansion-helper.component';
 
 
 
@@ -59,7 +60,8 @@ export const customCurrencyMaskConfig = {
     SidebarComponent, 
     LayoutComponent,
     AlertDialogComponent,
-    GuaraniCurrencyPipe
+    GuaraniCurrencyPipe,
+    ExpansionHelperComponent
     
   ],
   imports: 
@@ -120,7 +122,8 @@ export const customCurrencyMaskConfig = {
     MatCheckboxModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    GuaraniCurrencyPipe
+    GuaraniCurrencyPipe,
+    ExpansionHelperComponent
     
     
 

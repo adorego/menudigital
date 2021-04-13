@@ -18,6 +18,7 @@ const register = (req, res) => {
     user.role = req.body.role?req.body.role:'user'; 
     user.save((err) => {
         if(err){
+            console.log('Error al guardar', err);
             res
                 .status(404)
                 .json('Error al guardar en la BD:'+err);

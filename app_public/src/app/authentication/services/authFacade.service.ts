@@ -31,9 +31,15 @@ export class AuthFacade{
             )
           ).subscribe(
               (local) => {
-                  console.log('Local:', local[0]);
-                  this.router.navigateByUrl(this.next_path(local[0].estatus));
-                  this.unsubscribeLocal();  
+                  if(local instanceof Array){
+                    console.log('Local:', local[0]);
+                    this.router.navigateByUrl(this.next_path(local[0].estatus));
+                    this.unsubscribeLocal();  
+                   }else{
+                    console.log('Local:', local);
+                    this.router.navigateByUrl(this.next_path(local.estatus));
+                    this.unsubscribeLocal();
+                   }
               }
           )
           
