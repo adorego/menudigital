@@ -5,11 +5,17 @@
 }
 
 .page{
-    background-image: url('../../../../assets/imagenes/background_image_landing_page.png');
-    background-repeat: no-repeat;
+    //background-image: url('../../../../assets/imagenes/background_image_landing_page.png');
+    //background-repeat: no-repeat;
     background-size: cover;
-    background-blend-mode: darken;
-    height: 100%;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.3), 
+        rgba(0, 0, 0, 0.3)
+      ),
+      url('../../../../assets/imagenes/background_image_landing_page.png');
+    width: 100vw;
+    height: 100vh;
+    //font-family: 'Source Sans Pro', sans-serif;
 }
 
 .container{
@@ -83,7 +89,6 @@ mat-toolbar mat-toolbar-row{
 .header_h1{
     width: 100vw;
     color: white;
-    font-size: clamp(1.5em, 4vw, 8em);
     margin-top: 5vh;
 }
 
@@ -102,75 +107,29 @@ mat-toolbar mat-toolbar-row{
     animation-iteration-count: infinite;
 }
 
-
-.content_landing{
-    margin-top: 10vh;
-    width: 100%;
-}
-
-.h3_propuestaValor1{
+.propuesta1{
     color: white;
-   
-    text-align: justify;
-    
+    font-style: normal;
     
 }
 
-.h3_propuestaValor1_md{
+
+.propuesta2{
     color: white;
-   
-    text-align: justify;
-  
+    font-style: normal;
 }
 
 
-.h3_propuestaValor2{
-    color: white;
-   
-    text-align: justify;
-  
-}
-
-
-.h3_propuestaValor2_md{
-    color: white;
-   
-    text-align: justify;
-  
-}
-
-.h3_propuestaValor2 a{
-    color: white;
-    
-}
-
-.h3_propuestaValor2-a{
-    color: white;
-    
-    
-    
-    
-}
-
-
-.content_cta_button{
-   
-    width: 100%;
-    
-    
-}
-
-.content_cta_button_mt{
-    padding: 0vh;
-   
-    
-}
 .cta_button{
-  height: 10vh;
-  width: 100%;
-  background-color: $menuDigital-secondary;
-  color: white;
-  
-  letter-spacing: 0;
+   
+    padding: 25px;
+    font-size: clamp(2em,3em,4em);
+    background-color: $menuDigital-secondary;
+    color: white;
+    
 }
 
+.como_funciona_link{
+    font-size: clamp(1em,calc(1em+2vw),2em);
+    color: white;
+}

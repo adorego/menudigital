@@ -36,21 +36,27 @@
                 <img  class="logo_img_md" src="../../../../assets/imagenes/logo.png">
             </mat-toolbar-row>
         </mat-toolbar>
-        <h1 class="header_h1">Tenés un local Gastronómico ?</h1>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign="center center" fxLayout.lt-md="column" fxLayoutGap="20px" class="content_landing">
-            <div fxFlex="" class="content_propuestaValor">
-                <div class="mat-subheading-2 h3_propuestaValor1" ngClass.lt-md="h3_propuestaValor1_md">
-                    Con MenúDigital incrementás tus ventas mejorando la experiencia de compra de tu cliente digital
+        <div contenido>
+            <div fxLayout=row>
+                <h1 fxFlex="90" class="header_h1 mat-display-3">Tenés un local Gastronómico ?</h1>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlexFill fxLayoutAlign="start stretch">
+                <div fxFlex="50">
+                    <div fxLayout="column" fxLayouAlign="space-between end">
+                        <div fxFlex class="propuesta1 mat-display-1">
+                            Con MenúDigital incrementás tus ventas mejorando la experiencia de compra de tu cliente digital
+                        </div>
+                        <div fxFlex class="propuesta2 mat-display-1">
+                            MenúDigital te permite crear tu Menú en dos simples pasos...<a class="como_funciona_link" href="#como_funciona">Ver como funciona</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="mat-subheading-2 h3_propuestaValor2" ngClass.lt-md="h3_propuestaValor2_md">
-                    MenúDigital te permite crear tu Menú en dos simples pasos...<a ngClass.lt-md="h3_propuestaValor2-a" href="#como_funciona">Ver como funciona</a>
+                <div fxFlex="50" fxLayoutAlign="center center" class="cta_button_container">
+                    <button class="cta_button" mat-raised-button>Crea tu cuenta hoy</button>
                 </div>
             </div>
-            <div fxFlex="1 1 50%" class="content_cta_button" ngClass.lt-md="content_cta_button_mt">
-                <button class="cta_button" ngClass.lt-md="cta_button_mt"  mat-raised-button>Crea tu cuenta hoy</button>
-            </div>
+            
         </div>
-        
-        
-    </div>
+    </div>    
 </div>
+

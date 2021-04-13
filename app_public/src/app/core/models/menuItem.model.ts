@@ -1,4 +1,3 @@
-import { OpcionTamano } from "./opcion-tamano.model";
 import { OpcionPromocion } from "./opcion-promocion.model";
 import { OpcionSabor } from "./opcion-sabor.model";
 
