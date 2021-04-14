@@ -31,12 +31,15 @@ export class AuthFacade{
             )
           ).subscribe(
               (local) => {
-                  if(local instanceof Array){
-                    console.log('Local:', local[0]);
+                  if(local instanceof Array && local.length==0){
+                      console.log('Entro en Array sin datos:', local);
+                      this.router.navigateByUrl('configuracion/local');
+                  }else if(local instanceof Array && local.length > 0 ){
+                    console.log('Entro en Array:', local[0]);
                     this.router.navigateByUrl(this.next_path(local[0].estatus));
                     this.unsubscribeLocal();  
                    }else{
-                    console.log('Local:', local);
+                    console.log('Entró en objeto:', local);
                     this.router.navigateByUrl(this.next_path(local.estatus));
                     this.unsubscribeLocal();
                    }
