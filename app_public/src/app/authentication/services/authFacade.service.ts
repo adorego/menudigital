@@ -31,9 +31,19 @@ export class AuthFacade{
             )
           ).subscribe(
               (local) => {
-                  console.log('Local:', local[0]);
-                  this.router.navigateByUrl(this.next_path(local[0].estatus));
-                  this.unsubscribeLocal();  
+                  if(local instanceof Array && local.length==0){
+                      console.log('Entro en Array sin datos:', local)
+                      this.router.navigateByUrl('configuracion/local');
+                  }else if(local instanceof Array && local.length >0){
+                    console.log('Local:', local[0]);
+                    this.router.navigateByUrl(this.next_path(local[0].estatus));
+                    this.unsubscribeLocal(); 
+                  }else{
+                      console.log('Entró en objecto:', local);
+                      this.router.navigateByUrl(this.next_path(local.estatus));
+                      this.unsubscribeLocal();
+                  }
+                   
               }
           )
           

@@ -60,7 +60,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
     
   }
 
-  nuevo_item(){
+  nuevo_item(seccionParam:SeccionMenu){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.position ={
       'top': '20px',
@@ -71,6 +71,9 @@ export class MenuListComponent implements OnInit, OnDestroy {
     dialogConfig.minWidth = '320px';
     dialogConfig.minHeight = '100vh';
     dialogConfig.panelClass = "my-dialog";
+    dialogConfig.data ={
+      seccion:seccionParam
+    }
     const dialogRef = this.dialog.open(FormMenuItemComponent, dialogConfig);   
     this.menuItemSubscription = dialogRef.componentInstance.onSaveMenuItem.subscribe(
       (menuItem) => {

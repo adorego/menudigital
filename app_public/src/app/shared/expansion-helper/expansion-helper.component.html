@@ -1,38 +1,21 @@
-<mat-accordion *ngIf="$expansionArrayData|async as expansionArray">
-    <mat-expansion-panel *ngIf="expansionArray && expansionArray.arrayTamano && generate_formGroups(expansionArray.arrayTamano.length).length > 0">
+<mat-accordion *ngIf="data">
+    <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                {{expansionArray.titulo}}
+                {{data.titulo}}
             </mat-panel-title>
-        </mat-expansion-panel-header>
-        <ng-template *ngIf="expansionArray.tipo==1">
-            <mat-expansion-panel *ngFor="let tamano of expansionArray.arrayTamano;index as i" matExpansionPanelContent>
+        </mat-expansion-panel-header> 
+        
+        <div *ngIf="data.tipo==1">
+            <mat-expansion-panel *ngFor="let tamano of data.arrayTamano;index as i" matExpansionPanelContent>
                 <mat-expansion-panel-header>
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <mat-checkbox>{{tamano.titulo}}</mat-checkbox>
-                    </div>
-                </mat-expansion-panel-header>
-                <div class="panel_container">
-                    <form [formGroup]="formGroupTamanos[i]">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Titulo</mat-label>
-                            <input matInput formControlName="titulo">
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Descripcion</mat-label>
-                            <input matInput formControlName="descripcion">
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Precio</mat-label>
-                            <input matInput formControlName="precio">
-                        </mat-form-field>
-                        <div class="imagen_form">
-                            <button *ngIf="!formGroupTamanos[i].get('imagenUrl').value" mat-flat-button>Selecciona</button>
-                            <img *ngIf="formGroupTamanos[i].get('imagenUrl').value.length > 1" src="{{formGroupTamanos[i].get('imagenUrl').value}}">
+                    <mat-panel-title>
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <mat-checkbox>{{tamano.titulo}}</mat-checkbox>
                         </div>
-                    </form>
-                </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>  
             </mat-expansion-panel>
-        </ng-template>
+        </div>
     </mat-expansion-panel>
 </mat-accordion>

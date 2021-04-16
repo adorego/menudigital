@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MenuItem } from 'src/app/core/models/menuItem.model';
 import { ExpansionArrayModel } from 'src/app/core/models/expansion-helper-array.model';
 
@@ -13,9 +13,8 @@ import { ExpansionArrayModel } from 'src/app/core/models/expansion-helper-array.
 export class FormMenuItemComponent implements OnInit {
 
   
-
   
-  constructor(private dialogRef:MatDialogRef<FormMenuItemComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data, private dialogRef:MatDialogRef<FormMenuItemComponent>) { }
 
   @Output() onSaveMenuItem = new EventEmitter<MenuItem>();
 
@@ -32,6 +31,9 @@ export class FormMenuItemComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  public nuevo_tamano(){
+
+  }
   public dataForExpansionHelper():Observable<ExpansionArrayModel>{
     return(
       of(

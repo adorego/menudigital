@@ -5,8 +5,7 @@
 }
 
 .page{
-    //background-image: url('../../../../assets/imagenes/background_image_landing_page.png');
-    //background-repeat: no-repeat;
+    
     background-size: cover;
     background: linear-gradient(
         rgba(0, 0, 0, 0.3), 
@@ -15,7 +14,7 @@
       url('../../../../assets/imagenes/background_image_landing_page.png');
     width: 100vw;
     height: 100vh;
-    //font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
 }
 
 .container{
@@ -45,7 +44,7 @@ mat-toolbar mat-toolbar-row{
     padding-bottom: 10px;
     padding-right: 3.5%;
     padding-left: 3.5%;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 
@@ -61,7 +60,7 @@ mat-toolbar mat-toolbar-row{
     margin: 0;
     padding-bottom: 0px;
     text-align: end;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .logo_container{
@@ -92,6 +91,32 @@ mat-toolbar mat-toolbar-row{
     margin-top: 5vh;
 }
 
+@media screen and (max-width:600px){
+    .mat-display-3{
+        font-size: 34px;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        margin: 0;
+
+    }
+    .mat-display-1{
+        padding: 0;
+        margin: 0;
+        margin-bottom: 1vh;
+        font-size: 20px;
+    }
+    .cta_button_container{
+        padding: 0;
+        margin: 0;
+        margin-top: 5vh;
+        font-size: 34px;
+    }
+    .cta_button{
+        font-size: 80%;
+    }
+}
 
 @keyframes content_propuestaValor_animation{
     from{background-color: transparent;}
@@ -122,14 +147,28 @@ mat-toolbar mat-toolbar-row{
 
 .cta_button{
    
-    padding: 25px;
-    font-size: clamp(2em,3em,4em);
+    padding: 5px;
     background-color: $menuDigital-secondary;
     color: white;
     
 }
 
 .como_funciona_link{
-    font-size: clamp(1em,calc(1em+2vw),2em);
     color: white;
+}
+
+.content_cta_button{
+    padding: 0vh;
+}
+
+.content_cta_button_mt{
+    padding: 0vh;
+}
+
+.cta_button{
+    height: 10vh;
+    width: 80%;
+    background-color: $menuDigital-secondary;
+    color: white;
+    letter-spacing: 0;
 }

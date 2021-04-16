@@ -5,7 +5,7 @@
     </div>
     <form [formGroup]="localForm" (ngSubmit)="onSubmit()">
    
-    <div class="mat-title">Mi Local Gastronómico</div>
+    <div class="mat-headline">Mi Local Gastronómico</div>
     <br>
     <mat-form-field appearance="outline" class="full-width">
             <mat-label>Nombre del local:</mat-label>
@@ -60,7 +60,7 @@
             <input  readonly="true" type="text" matInput formControlName="urlMenuDigital">
             
     </mat-form-field>
-    <div>
+    <div fxLayout="row" fxLayoutAlign="center">
       <button mat-raised-button disabled="{{!localForm.valid}}" class="boton_guardar" type="submit">Guardar</button>
     </div>
   </form>

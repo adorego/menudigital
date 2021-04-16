@@ -5,7 +5,7 @@
         <!--h4 class="header_login">Ingresa a tu MenuDigital</h4-->
         <mat-form-field class="input_field" appearance="outline">
             <mat-label>Correo</mat-label>
-            <input id="correo" matInput placeholder="Correo electrónico" type="email" autocomplete="off" formControlName="email">
+            <input id="correo" #correo matInput placeholder="Correo electrónico" type="email" autocomplete="off" formControlName="email">
           </mat-form-field>
         
           <mat-form-field class="input_field" appearance="outline">
@@ -14,8 +14,8 @@
           </mat-form-field>
         
           <div fxLayout="column" fxLayoutGap="3vh" class="form-actions">
-            <button class="boton_ingresar" mat-raised-button  type="submit">Ingresar</button>
-            <a class="enlace_olvide_clave" >Olvide mi clave</a>
+            <button fxFlexAlign="center" class="boton_ingresar" mat-raised-button  type="submit">Ingresar</button>
+            <a fxFlexAlign="end" class="enlace_olvide_clave" >Olvide mi clave</a>
             
           </div>
         
