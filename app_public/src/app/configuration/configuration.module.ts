@@ -8,10 +8,11 @@ import { MenuListComponent } from './menu-configuration/container/menu-list.comp
 import { MenuListFacade } from './services/menuListFacade.service';
 import { FormSeccionComponent } from './menu-configuration/components/form-seccion/form-seccion.component';
 import { FormMenuItemComponent } from './menu-configuration/components/form-menu-item/form-menu-item.component';
+import { NuevoTamanoComponent } from './menu-configuration/components/nuevo-tamano/nuevo-tamano.component';
 
 
 @NgModule({
-  declarations: [LocalConfigurationComponent, MenuListComponent, FormSeccionComponent, FormMenuItemComponent],
+  declarations: [LocalConfigurationComponent, MenuListComponent, FormSeccionComponent, FormMenuItemComponent, NuevoTamanoComponent],
   imports: [
     ConfigurationRoutingModule,
     SharedModule
