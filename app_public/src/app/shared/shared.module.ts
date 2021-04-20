@@ -35,6 +35,7 @@ import { QuestionHelperComponent } from './question-helper/question-helper.compo
 import { ActionsHeaderComponent } from './actions-header/actions-header.component';
 import { DialogHeaderComponent } from './dialog-header/dialog-header.component';
 import { NuevaPropiedadComponent } from './nueva-propiedad/nueva-propiedad.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 
@@ -70,7 +71,8 @@ export const customCurrencyMaskConfig = {
     QuestionHelperComponent,
     ActionsHeaderComponent,
     DialogHeaderComponent,
-    NuevaPropiedadComponent
+    NuevaPropiedadComponent,
+    FileUploadComponent
     
   ],
   imports: 
@@ -138,7 +140,8 @@ export const customCurrencyMaskConfig = {
     QuestionHelperComponent,
     ActionsHeaderComponent,
     DialogHeaderComponent,
-    NuevaPropiedadComponent
+    NuevaPropiedadComponent,
+    FileUploadComponent
     
     
 

@@ -1,7 +1,14 @@
-.mat-headline{
-    text-align: start;
+.full-width{
+    display: block;
+    width: 80%;
 }
 
-.container{
-    padding: 10px;
+.requiredText{
+    text-align: right;
+}
+
+.imagen{
+    background-color: red;
+    width: 200px;
+    height: 200px;
 }

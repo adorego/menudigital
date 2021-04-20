@@ -1,27 +1,76 @@
-<div class="container">
-    <div class="mat-headline">
-        Nuevo tamaño
-    </div>
-    <mat-form-field>
-        <div class="mat-small">(*requerido)</div>
+<!--app-actions-header [showReturn]=true (closeEvent)="closeNuevoTamanoEvent()" (returnEvent)="returnNuevoTamanoPressed()"></!--app-actions-header-->
+<app-dialog-header [titulo]="tituloHeader"></app-dialog-header>
+
+<form [formGroup]="nuevoTamanoFormGroup" fxLayout="column" fxLayoutAlign="center">
+    <mat-form-field class="full-width" appearance="outline">
+        <div class="mat-small requiredText">(*requerido)</div>
         <mat-label>Título</mat-label>
         <input matInput formControlName="titulo" placeholder="Titulo">
+        <mat-hint>Ejemplo: Grande, Mediano, Gigante</mat-hint>
     </mat-form-field>
-    <mat-form-field class="full_width" appearance="outline">
+    <mat-label>Imagen:</mat-label>
+    <app-file-upload></app-file-upload>
+    <!--mat-form-field class="full_width" appearance="outline">
+        <div class="mat-small requiredText">(opcional)</div>
         <mat-label>Descripción</mat-label>
-        <mat-icon aria-hidden="false" aria-name="icono de descripcion">help_outline</mat-icon>
         <textarea  matInput formControlName="descripcion" placeholder="Descripción"></textarea>
-    </mat-form-field>
+        <mat-hint>Esta descripcion la verá tu cliente antes de comprar este Item</mat-hint>
+    </!--mat-form-field>
     <mat-form-field>
-        <div class="mat-small">(*requerido)</div>
-        <mat-label>Título</mat-label>
-        <input matInput formControlName="titulo" placeholder="Titulo">
+        <div class="mat-small requiredText">(*requerido)</div>
+        <mat-label>Precio</mat-label>
+        <input matInput formControlName="precio" placeholder="Precio">
     </mat-form-field>
-    <mat-label>Imagen</mat-label>
-    <div class="image">
-        <button mat-stroked-button>Seleccionar Imagen</button>
-    </div>
     
-
-
-</div>
+    <div class="mat-h3">{{tituloAtributosAdicionales}}</div>
+    <mat-accordion>
+        <mat-expansion-panel *ngIf="tieneSabores">
+            <mat-expansion-panel-header>
+                <mat-checkbox>Cant. de Sabores</mat-checkbox>
+            </mat-expansion-panel-header>
+            <mat-form-field class="full-width" appearance="outline">
+                <div class="mat-small requiredText">(*requerido)</div>
+                <mat-label>Cantidad de Sabores</mat-label>
+                <input matInput type="number" min="1" formControlName="cantidadDeSabores" placeholder="Cantidad de Sabores">
+                <mat-hint>Ejemplo: 1, 2, 3</mat-hint>
+            </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-checkbox>Cant. de Comensales</mat-checkbox>
+            </mat-expansion-panel-header>
+            <mat-form-field class="full-width" appearance="outline">
+                <div class="mat-small requiredText">(opcional)</div>
+                <mat-label>Cantidad de Comensales</mat-label>
+                <input matInput type="number" min="1" formControlName="cantidadDeComensales" placeholder="Cantidad de Comensales">
+                <mat-hint>Ejemplo: 1, 2, 3...</mat-hint>
+            </mat-form-field>
+            
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-checkbox>Cant. de Porciones</mat-checkbox>
+            </mat-expansion-panel-header>
+            <mat-form-field class="full-width" appearance="outline">
+                <div class="mat-small requiredText">(opcional)</div>
+                <mat-label>Cantidad de Porciones</mat-label>
+                <input matInput type="number" min="1" formControlName="cantidadDePorciones" placeholder="Cantidad de Porciones">
+                <mat-hint>Ejemplo: 1, 2, 3...</mat-hint>
+            </mat-form-field>
+            
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-checkbox>Peso en gramos</mat-checkbox>
+            </mat-expansion-panel-header>
+            <mat-form-field class="full-width" appearance="outline">
+                <div class="mat-small requiredText">(opcional)</div>
+                <mat-label>Peso en gramoss</mat-label>
+                <input matInput type="number" min="1" formControlName="pesoEnGr" placeholder="Peso en gramos">
+                <mat-hint>Ejemplo: 100, 200, 300...</mat-hint>
+            </mat-form-field>
+            
+        </mat-expansion-panel>
+    </mat-accordion>
+    <button-- mat-raised-button  disabled="{{!nuevoTamanoFormGroup.valid}}" (click)="submitTamano()" class="boton_crear" type="submit">Crear<mat-icon class="icon_next">add_circle_outline</mat-icon></button-->
+</form>

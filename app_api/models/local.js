@@ -2,18 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const User = mongoose.model('User');
 
-const opcionCantidadDeSaboresSchema = new mongoose.Schema({
+const propiedadTamanosSchema = new mongoose.Schema({
     titulo:{type:String, required:true},
-    constoAdicional:Number
-});
-const opcionSaboresSchema = new mongoose.Schema({
-    titulo:{type:String, required:true},
-    costoAdicional:Number
-});
-const opcionTamanosSchema = new mongoose.Schema({
-    titulo:{type:String, required:true},
-    iconPath: String,
-    iconUrl: String,
+    fotoUrl: String,
+    descripcion:String,
     precio:Number
 });
 
@@ -22,21 +14,12 @@ const extraToppingSchema = new mongoose.Schema({
     constoAdicional:Number
 });
 
-const opcionPromocion = new mongoose.Schema({
-    precioActual:{type:Number, required:true},
-    precioAnterior:{type:Number, required:true},
-    descuento:{type:Number, required:true},
-   
-})
+
 
 const menuitemSchema = new mongoose.Schema({
     nombre:{type:String, required:true},
     seccion:{type:Schema.Types.ObjectId, ref:'Seccion'},
-    descripcion: String,
-    tamano:String,
-    precio:{type:Number, required:true},
-    imagenUrl:String,
-    promocion: opcionPromocion
+    tamanos:[]
 });
 
 const seccionSchema = new mongoose.Schema({

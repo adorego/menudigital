@@ -9,6 +9,7 @@ import { MenuListFacade } from '../../services/menuListFacade.service';
 import { FormMenuItemComponent } from '../components/form-menu-item/form-menu-item.component';
 import { FormSeccionComponent } from '../components/form-seccion/form-seccion.component';
 import { NombreMenuItemFormComponent } from '../components/nombre-menu-item-form/nombre-menu-item-form.component';
+import { NuevoTamanoComponent } from '../components/nuevo-tamano/nuevo-tamano.component';
 
 @Component({
   selector: 'app-menu-list',
@@ -55,12 +56,13 @@ export class MenuListComponent implements OnInit, OnDestroy {
     dialogConfig.minWidth = '300px';
     dialogConfig.minHeight = '300px';
     dialogConfig.panelClass = "my-dialog";
-    const dialogRef = this.dialog.open(FormSeccionComponent, dialogConfig);   
-    this.seccionSubscription = dialogRef.componentInstance.onSaveSeccion.subscribe(
-      (seccionMenu) => {
-        this.menuListFacade.createSeccion(seccionMenu);
-      }
-    )
+    //const dialogRef = this.dialog.open(FormSeccionComponent, dialogConfig);   
+    //this.seccionSubscription = dialogRef.componentInstance.onSaveSeccion.subscribe(
+    //  (seccionMenu) => {
+    //    this.menuListFacade.createSeccion(seccionMenu);
+    //  }
+    //)
+    const dialogRef = this.dialog.open(NuevoTamanoComponent, dialogConfig); 
 
     
   }

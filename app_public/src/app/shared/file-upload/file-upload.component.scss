@@ -1,0 +1,23 @@
+.file-input{
+    display: none;
+}
+
+.file-upload{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.3), 
+        rgba(0, 0, 0, 0.3)
+      ),
+      url('../../../assets/imagenes/squares1.jpg');
+}
+
+button{
+    border: 2px solid white;
+    color: white;
+    background-color: grey;
+}
