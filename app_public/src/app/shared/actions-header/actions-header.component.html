@@ -1,0 +1,11 @@
+<div class="actions_header" fxLayout="row" fxLayoutAlign="space-between">
+    <button *ngIf="showReturn" mat-icon-button (click)="onReturn()">
+        <mat-icon inline=true class="icons">arrow_back_ios_new</mat-icon>
+    
+    </button>
+    <span *ngIf="!showReturn"></span>
+    <button mat-icon-button fxFlexAlign="end center" (click)="onCloseClick()">
+        <mat-icon inline=true class="icons">close</mat-icon>
+    </button>
+    
+</div>

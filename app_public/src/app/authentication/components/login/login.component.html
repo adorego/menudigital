@@ -3,7 +3,7 @@
 <div mat-dialog-content>
   <form [formGroup]="form" (ngSubmit)="login()" autocomplete="off">
         <!--h4 class="header_login">Ingresa a tu MenuDigital</h4-->
-        <mat-form-field class="input_field" appearance="outline">
+          <mat-form-field class="input_field" appearance="outline">
             <mat-label>Correo</mat-label>
             <input id="correo" #correo matInput placeholder="Correo electrónico" type="email" autocomplete="off" formControlName="email">
           </mat-form-field>

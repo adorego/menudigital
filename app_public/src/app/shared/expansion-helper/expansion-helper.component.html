@@ -1,21 +1,22 @@
-<mat-accordion *ngIf="data">
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{data.titulo}}
-            </mat-panel-title>
-        </mat-expansion-panel-header> 
-        
-        <div *ngIf="data.tipo==1">
-            <mat-expansion-panel *ngFor="let tamano of data.arrayTamano;index as i" matExpansionPanelContent>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <div fxLayout="row" fxLayoutAlign="start center">
-                            <mat-checkbox>{{tamano.titulo}}</mat-checkbox>
-                        </div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>  
-            </mat-expansion-panel>
+    <div class="mat-subheading-4 titulo">{{titulo}}</div> 
+    
+        <div *ngIf="tipo==1">
+            <mat-accordion *ngIf="arrayTamanos else loading">
+            
+                <mat-expansion-panel *ngFor="let tam of arrayTamanos" (opened)="true">
+                    <mat-expansion-panel-header>
+                        <mat-checkbox>{{tam.titulo}}</mat-checkbox>
+                    </mat-expansion-panel-header>
+                </mat-expansion-panel>
+                <ng-template matExpansionPanelContent>
+                    <p>Contenindo</p>
+                </ng-template>
+            </mat-accordion>
         </div>
-    </mat-expansion-panel>
-</mat-accordion>
+        
+    
+    <ng-template #loading>
+        <mat-spinner></mat-spinner>
+    </ng-template>
+    
+   

@@ -1,3 +1,4 @@
+import { PropiedadTamano } from './../../core/models/propiedad-tamano.model';
 import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { empty, Observable, of, throwError } from "rxjs";
@@ -158,6 +159,25 @@ export class MenuListFacade{
         )
     }
     
+    public getTamanosFromSeccion(seccion:string):Observable<PropiedadTamano[]>{
+        return of([
+            {
+                titulo:"Mediano",
+                tipo:1,
+                precio:3000
+            },
+            {
+                titulo:"Grande",
+                tipo:1,
+                precio:5000
+            },
+            {
+                titulo:"Gigante",
+                tipo:1,
+                precio:7000
+            }
+        ]);
+    }
     
     
 }

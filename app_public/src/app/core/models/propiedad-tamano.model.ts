@@ -1,11 +1,11 @@
+import { Propiedad } from "./propiedad.model";
 import { Topping } from "./topping.model";
 
-export interface PropiedadTamano{
+export interface PropiedadTamano extends Propiedad{
     _id?:string;
-    titulo:string;
-    descripcion?:string;
-    precio:number;
+    foto?:File;
     fotoUrl?:string;
+    cantidadDeSabores?:number;
     cantidadDeComensales?:number;
     cantidadDePorciones?:number;
     pesoEnGramo?:number;

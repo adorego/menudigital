@@ -8,10 +8,14 @@ import { MenuListComponent } from './menu-configuration/container/menu-list.comp
 import { MenuListFacade } from './services/menuListFacade.service';
 import { FormSeccionComponent } from './menu-configuration/components/form-seccion/form-seccion.component';
 import { FormMenuItemComponent } from './menu-configuration/components/form-menu-item/form-menu-item.component';
+import { NuevoTamanoComponent } from './menu-configuration/components/nuevo-tamano/nuevo-tamano.component';
+import { NombreMenuItemFormComponent } from './menu-configuration/components/nombre-menu-item-form/nombre-menu-item-form.component';
+import { PropiedadesMenuItemComponent } from './menu-configuration/components/propiedades-menu-item/propiedades-menu-item.component';
+import { ListPropiedadComponent } from './menu-configuration/components/list-propiedad/list-propiedad.component';
 
 
 @NgModule({
-  declarations: [LocalConfigurationComponent, MenuListComponent, FormSeccionComponent, FormMenuItemComponent],
+  declarations: [LocalConfigurationComponent, MenuListComponent, FormSeccionComponent, FormMenuItemComponent, NuevoTamanoComponent, NombreMenuItemFormComponent, PropiedadesMenuItemComponent, ListPropiedadComponent],
   imports: [
     ConfigurationRoutingModule,
     SharedModule

@@ -1,27 +1,35 @@
 <button class="close" mat-button (click)="onNoClick()">X</button>
-<div class="container">
-    <div class="mat-headline">Nuevo Menú Item</div>
-    <div class="mat-h3">Seccion:{{data.seccion.titulo}}</div>
-    <div class="heading_icon">
-        <div  class="circle_number">1</div>
-        <h2 class="mat-headline">Diferentes tamaños</h2>
-    </div>
-    <div class="mat-h2">Tiene éste Menú-Item diferentes tamaños ?</div>
-    <mat-radio-group class="radio_button_group" fxLayout="column">
-        <mat-radio-button class="radio_button" value="si">Si</mat-radio-button>
-        <mat-radio-button class="radio_button" value="no">No</mat-radio-button>
-    </mat-radio-group>
-
-    <ng-template>
-        <p>Tamaños disponibles</p>
-    </ng-template>
-    <div class="mat-subheading-4 heading_icon">
-        <a (click)="nuevo_tamano()">
-            <mat-icon class="material-icons" aria-hidden="false" aria-label="Icono de add">add_circle_outline</mat-icon>
-        
-            Nuevo Tamaño
-        </a>
-    </div>
-    <!--app-expansion-helper [$expansionArrayData]="dataForExpansionHelper()"></¡app-expansion-helper-->
-
+    
+<div class="mat-headline">Nuevo Menú Item</div>
+<div class="mat-h3">Seccion:{{data.seccion.titulo}}</div>
+<div class="heading_icon">
+    <div  class="circle_number">1</div>
+    <h2 class="mat-headline titulo_seccion">Diferentes tamaños</h2>
 </div>
+    
+<div class="question_section">
+        <div class="mat-h2">Tiene éste Menú-Item diferentes tamaños ?</div>
+        <mat-radio-group class="radio_button_group" fxLayout="column">
+            <mat-radio-button class="radio_button" (change)="changeShowTamanos($event)" value="1">Si</mat-radio-button>
+            <mat-radio-button class="radio_button"  (change)="changeShowTamanos($event)" value="0">No</mat-radio-button>
+        </mat-radio-group>
+</div>
+<div *ngIf="showTamanoOptions">
+    <div  class="opcionesTamano mat-subheading-4 heading_icon">
+            <a (click)="nuevo_tamano()">
+                <mat-icon class="icon" [inline]="true" aria-hidden="false" aria-label="Icono de add">add_circle_outline</mat-icon>
+            
+                Nuevo Tamaño
+            </a>
+    </div>
+    <div class="nuevoTamanoForm" *ngIf="nuevoTamano">
+        <mat-form-field class="full-width">
+            <mat-label>Nombre del tamaño</mat-label>
+            <input matInput  placeholder="Ej. Grande, Mediano">
+        </mat-form-field>
+        <button class="botonNuevoTamanoForm" (click)="agregar_tamano()" mat-raised-button>Crear</button>
+    </div>
+    <!--app-expansion-helper *ngIf="tamanos_seccion.length > 0" [titulo]="tituloTamano"  [arrayPropiedades]="tamanos_seccion"></!--app-expansion-helper-->
+</div>   
+
+<button mat-raised-button *ngIf="botonSiguiente" class="boton_guardar" type="submit">Siguiente<mat-icon class="icon_next">arrow_forward_ios</mat-icon></button>

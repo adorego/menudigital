@@ -1,8 +1,7 @@
-import { PropiedadTamano } from "./propiedad-tamano.model";
+import { Propiedad } from "./propiedad.model";
 
 export interface ExpansionArrayModel{
     titulo:string;//Titulo de componente de exapnsion
-    tipo:number;
-    conDatos:boolean;
-    arrayTamano?:PropiedadTamano[];
+    arrayPropiedad?:Propiedad[];
+    tipo:number;//1 para Tamaño, 2 para Sabor
 }

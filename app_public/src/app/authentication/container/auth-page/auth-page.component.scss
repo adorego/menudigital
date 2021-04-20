@@ -52,7 +52,7 @@ mat-toolbar mat-toolbar-row{
     padding: 0;
     margin: 0;
     padding-bottom: 10px;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .links_headers2_md{
@@ -89,6 +89,9 @@ mat-toolbar mat-toolbar-row{
     width: 100vw;
     color: white;
     margin-top: 5vh;
+    
+    
+    
 }
 
 @media screen and (max-width:600px){
@@ -111,10 +114,10 @@ mat-toolbar mat-toolbar-row{
         padding: 0;
         margin: 0;
         margin-top: 5vh;
-        font-size: 34px;
+       
     }
     .cta_button{
-        font-size: 80%;
+        font-size: 5vw;
     }
 }
 
@@ -136,20 +139,14 @@ mat-toolbar mat-toolbar-row{
     color: white;
     font-style: normal;
     
+    
 }
 
 
 .propuesta2{
     color: white;
     font-style: normal;
-}
-
-
-.cta_button{
-   
-    padding: 5px;
-    background-color: $menuDigital-secondary;
-    color: white;
+    
     
 }
 
@@ -157,18 +154,11 @@ mat-toolbar mat-toolbar-row{
     color: white;
 }
 
-.content_cta_button{
-    padding: 0vh;
-}
-
-.content_cta_button_mt{
-    padding: 0vh;
-}
 
 .cta_button{
     height: 10vh;
     width: 80%;
     background-color: $menuDigital-secondary;
     color: white;
-    letter-spacing: 0;
+    font-size: 3vw;
 }

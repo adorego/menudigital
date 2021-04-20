@@ -4,21 +4,22 @@
     justify-content: center;
     align-items: center;
 }
-.imagenMenuItem{
-    width: 50vw;
-    height: 100%;
-}
 
+.full-width{
+    width: 100%;
+}
 .mat-headline{
     color: #8B8989;
 }
 
-.boton_guardar{
-    width: 100%;
-    background-color: $menuDigital-secondary;
-    color: white;
-    height: 3rem;
+.titulo_seccion{
+    padding-left: 10px;
 }
+
+.container{
+    padding: 0;
+}
+
 
 .circle_number{
     background-color: $menuDigital-secondary;
@@ -45,38 +46,71 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-  }
-  h3{
+    padding: 0;
+}
+.icon{
+      font-size: 36px;
+      vertical-align: middle;
+}
+
+.icon_next{
+    margin-left: 20px;
+}
+h3{
       padding-top: 5px;
       padding-left: 5px;
       vertical-align: middle;
-  }
+}
 
-  .radio_button_group{
+.radio_button_group{
       margin-top: 24px;
-  }
+      margin-bottom: 16px;
+}
 
-  .radio_button{
+.radio_button{
       width: 48px;
       height: 48px;
       
+}
+
+.opcionesTamano{
+    margin-bottom: 16px;
+}
+
+.nuevoTamanoForm{
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.botonNuevoTamanoForm{
+    min-width: 80px;
+    min-height: 40px;
+}
+
+.question_section{
+    margin-top: 16px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+:host ::ng-deep .mat-radio-container{
+    height: 30px;
+    width: 30px;
   }
 
-  :host ::ng-deep .mat-radio-container{
+:host ::ng-deep .mat-radio-outer-circle{
+    height: 30px;
+    width: 30px;
+}
+  
+:host ::ng-deep .mat-radio-inner-circle{
     height: 30px;
     width: 30px;
   }
-  :host ::ng-deep .mat-radio-outer-circle{
-    height: 30px;
-    width: 30px;
-  }
-  :host ::ng-deep .mat-radio-inner-circle{
-    height: 30px;
-    width: 30px;
-  }
-  :host ::ng-deep .mat-radio-button .mat-radio-ripple{
+
+:host ::ng-deep .mat-radio-button .mat-radio-ripple{
     height: 60px; /*double of your required circle radius*/
     width: 60px;  /*double of your required circle radius*/
     left: calc(50% - 30px); /*'10px'-same as your required circle radius*/
     top: calc(50% - 30px); /*'10px'-same as your required circle radius*/
-  }
+}

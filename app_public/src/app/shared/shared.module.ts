@@ -27,9 +27,14 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {NgxCurrencyModule, CurrencyMaskInputMode} from 'ngx-currency';
 import { GuaraniCurrencyPipe } from './pipes/guarani-currency.pipe';
 import { ExpansionHelperComponent } from './expansion-helper/expansion-helper.component';
+import { QuestionHelperComponent } from './question-helper/question-helper.component';
+import { ActionsHeaderComponent } from './actions-header/actions-header.component';
+import { DialogHeaderComponent } from './dialog-header/dialog-header.component';
+import { NuevaPropiedadComponent } from './nueva-propiedad/nueva-propiedad.component';
 
 
 
@@ -61,7 +66,11 @@ export const customCurrencyMaskConfig = {
     LayoutComponent,
     AlertDialogComponent,
     GuaraniCurrencyPipe,
-    ExpansionHelperComponent
+    ExpansionHelperComponent,
+    QuestionHelperComponent,
+    ActionsHeaderComponent,
+    DialogHeaderComponent,
+    NuevaPropiedadComponent
     
   ],
   imports: 
@@ -90,7 +99,8 @@ export const customCurrencyMaskConfig = {
     MatTableModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatProgressSpinnerModule
     
 
 
@@ -122,8 +132,13 @@ export const customCurrencyMaskConfig = {
     MatCheckboxModule,
     MatDatepickerModule,
     MatMomentDateModule,
+    MatProgressSpinnerModule,
     GuaraniCurrencyPipe,
-    ExpansionHelperComponent
+    ExpansionHelperComponent,
+    QuestionHelperComponent,
+    ActionsHeaderComponent,
+    DialogHeaderComponent,
+    NuevaPropiedadComponent
     
     
 

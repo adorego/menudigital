@@ -1,0 +1,28 @@
+<div *ngIf="showNombre">
+    <div class=action_header>
+        <app-actions-header [showReturn]=false (closeEvent)="closeNombreMenuItemEvent()"></app-actions-header>
+    </div>
+    <app-dialog-header [titulo]="tituloNombreMenuItem" [subtitulo]="subtituloNombreMenuItem"></app-dialog-header>
+    <!--div class="mat-headline">{{tituloNombreMenuItem}}</div>
+    <div-- class="mat-h3">{{subtituloNombreMenuItem}}</div-->
+    <mat-form-field class="full_width nombre_field" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput [formControl]="nombre">
+        <mat-hint>Cúal es el nombre de éste Menú-Item</mat-hint>
+    </mat-form-field>
+    <button mat-raised-button [disabled]="!nombre.valid" class="boton_siguiente" (click)="boton_siguiente()">Siguiente<mat-icon class="icon_next">arrow_forward_ios</mat-icon></button>
+    
+</div>
+
+<div *ngIf="showPropiedades">
+    <app-propiedades-menu-item [nombre]="nombre.value" [seccion]="seccion.titulo" (selectionQuestions)="questionsSelectedCall($event)"></app-propiedades-menu-item>
+</div>
+
+<div *ngIf="showListaTamanos">
+    <app-list-propiedad [titulo]="tituloListaTamanos" [subtitulo]="subtituloListaTamanos" [tituloNuevaPropiedad]="tituloNuevoTamano" 
+    [expansionTitulo]="tituloTamanoExpansionHelper" [tipo]="1" [$arrayTamano]="getTamanosSeccion()" (nuevaPropiedadEvent)="nuevoTamanoEvent()"></app-list-propiedad>
+</div>
+
+<div *ngIf="showNuevoTamano">
+    <app-nuevo-tamano></app-nuevo-tamano>
+</div>

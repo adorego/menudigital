@@ -1,7 +1,8 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
-import { ExpansionArrayModel } from 'src/app/core/models/expansion-helper-array.model';
+import { PropiedadTamano } from './../../core/models/propiedad-tamano.model';
+import { Propiedad } from './../../core/models/propiedad.model';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-expansion-helper',
@@ -9,40 +10,27 @@ import { Observable } from 'rxjs';
   styleUrls: ['./expansion-helper.component.scss']
 })
 export class ExpansionHelperComponent implements OnInit {
-  @Input() $expansionArrayData:Observable<ExpansionArrayModel>;
-  formGroupTamanos:FormGroup[];
-  data:ExpansionArrayModel;
-  
-  constructor(private fb:FormBuilder) { }
+  @Input() tipo:number;
+  @Input() $arrayTamanos:Observable<PropiedadTamano[]>;
+  arrayTamanos:PropiedadTamano[];
+  @Input() titulo:string;
+  @Output() selectedObjects = new EventEmitter();
+  selectedPropiedades:Array<Propiedad>;
+  constructor() { }
 
   ngOnInit(): void {
-    this.$expansionArrayData.subscribe(
-      (data)=>{
-        this.generate_formGroups(data.arrayTamano.length);
-        this.data = data;
-        console.log('Datos cargados:', data);
+    this.$arrayTamanos.subscribe(
+      (tamanos) => {
+        this.arrayTamanos = tamanos;
       }
     )
-  }
-
-  public generate_formGroups(index:number){
-    console.log('Antes de inicializar formGroupTamanos:', index);
-    if(!this.formGroupTamanos){
-      this.formGroupTamanos = new Array<FormGroup>(index);
-    }
-    for(let i=0; i < index;i++){
-      this.formGroupTamanos.push(this.fb.group({
-        titulo:['', Validators.required],
-        descripcion:[''],
-        precio:['', Validators.required],
-        imagen:[''],
-        imagenUrl:['']
-      }));
-      console.log('formGroupTamanos tamano:', this.formGroupTamanos.length);
-    }
-    //console.log('Despues de inicializar formGroupTamanos:', this.formGroupTamanos.length);
     
   }
-    
 
+  
+    
+  public add_propiedad(propiedad:Propiedad){
+    
+    
+  }
 }

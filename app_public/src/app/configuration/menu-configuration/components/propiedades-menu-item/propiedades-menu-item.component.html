@@ -1,0 +1,17 @@
+
+
+<app-actions-header [showReturn]=true (closeEvent)="closePropiedadesEvent()" (returnEvent)="returnPropiedadesEventPressed()"></app-actions-header>
+
+<div class="mat-headline">Propiedades de: {{nombre}}</div>
+<div class="mat-h3">Seccion: {{seccion}}</div>
+
+<app-question-helper [titulo]="tamanoTitulo" [number]="tamanoNumber" [question]="tamanoQuestion" (selectEvent)="tamanoSelection($event)"></app-question-helper>
+
+<app-question-helper [titulo]="saboresTitulo" [number]="saboresNumber" [question]="saboresQuestion" (selectEvent)="saboresSelection($event)"></app-question-helper>
+
+<app-question-helper [titulo]="agregadosTitulo" [number]="agregadosNumber" [question]="agregadosQuestion" (selectEvent)="agregadosSelection($event)"></app-question-helper>
+
+<app-question-helper [titulo]="guarnicionesTitulo" [number]="guarnicionesNumber" [question]="guarnicionesQuestion" (selectEvent)="guarnicionesSelection($event)"></app-question-helper>
+
+
+<button mat-raised-button class="boton_siguiente" (click)="boton_siguiente()">Siguiente<mat-icon class="icon_next">arrow_forward_ios</mat-icon></button>

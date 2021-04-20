@@ -8,6 +8,7 @@ import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.c
 import { MenuListFacade } from '../../services/menuListFacade.service';
 import { FormMenuItemComponent } from '../components/form-menu-item/form-menu-item.component';
 import { FormSeccionComponent } from '../components/form-seccion/form-seccion.component';
+import { NombreMenuItemFormComponent } from '../components/nombre-menu-item-form/nombre-menu-item-form.component';
 
 @Component({
   selector: 'app-menu-list',
@@ -17,6 +18,8 @@ import { FormSeccionComponent } from '../components/form-seccion/form-seccion.co
 export class MenuListComponent implements OnInit, OnDestroy {
   
   secciones$:Observable<SeccionMenu[]>;
+  tituloNuevaSeccion:string;
+  tituloNuevoMenuItem:string;
   seccionSubscription:Subscription;
   menuItemSubscription:Subscription;
 
@@ -34,6 +37,8 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.tituloNuevaSeccion = " Nueva Sección";
+    this.tituloNuevoMenuItem = "Nuevo Menú Item"
     this.secciones$ = this.menuListFacade.seccionesState();
     this.menuListFacade.updateSeccionState();
     
@@ -74,7 +79,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
     dialogConfig.data ={
       seccion:seccionParam
     }
-    const dialogRef = this.dialog.open(FormMenuItemComponent, dialogConfig);   
+    const dialogRef = this.dialog.open(NombreMenuItemFormComponent, dialogConfig);   
     this.menuItemSubscription = dialogRef.componentInstance.onSaveMenuItem.subscribe(
       (menuItem) => {
         //Enviar el nuevo MenuItem a la BD

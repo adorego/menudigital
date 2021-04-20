@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 html, body { height: 100%; }
-body { margin: 0; font-size: 16px; font-family: libre-franklin, sans-serif; }
+body { margin: 0; font-size: calc(12px+1vw);font-family: sans-serif;}
 
 .cdk-overlay-pane.my-dialog {
     position: relative!important;

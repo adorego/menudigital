@@ -1,0 +1,14 @@
+<div class="heading_icon">
+    <div  class="circle_number">{{number}}</div>
+    <h2 class="mat-body titulo_seccion">{{titulo}}</h2>
+</div>
+    
+<div class="question_section">
+        <div class="mat-h2">{{question}}</div>
+        
+        <mat-radio-group class="radio_button_group" fxLayout="column">
+            <mat-radio-button class="radio_button" (change)="selectOption($event)" value=true>Si</mat-radio-button>
+            <mat-radio-button class="radio_button"  (change)="selectOption($event)" value=false>No</mat-radio-button>
+        </mat-radio-group>
+</div>
+
