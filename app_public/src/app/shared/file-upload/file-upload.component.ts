@@ -7,7 +7,7 @@ import * as EventEmitter from 'events';
   styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent implements OnInit {
-  imgUrl:any;
+  imgUrl:any = 'url(../../../assets/imagenes/squares1.jpg)';
   selectedFile:File;
   constructor() { }
 
@@ -17,12 +17,13 @@ export class FileUploadComponent implements OnInit {
   public onFileSelected(event){
     if(event.target.files && event.target.files[0]){
       this.selectedFile = event.target.files[0];
-      let file:File = event.files[0];
       let fileReader = new FileReader();
-      fileReader.readAsDataURL(event.target.file[0]);
-      fileReader.onload = (event) => {
-        this.imgUrl = event.target.result;
+      
+      fileReader.onload = () => {
+        this.imgUrl = 'url(' + fileReader.result as string + ')';
+        
       }
+      fileReader.readAsDataURL(this.selectedFile);
     }
 
   }

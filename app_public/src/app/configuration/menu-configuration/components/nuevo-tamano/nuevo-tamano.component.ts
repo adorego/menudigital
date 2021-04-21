@@ -16,16 +16,33 @@ export class NuevoTamanoComponent implements OnInit {
   constructor(private fb:FormBuilder) { }
 
   ngOnInit(): void {
-    this.nuevoTamanoFormGroup = this.fb.group({
-      titulo:[this.tamanoParam.titulo, Validators.required],
-      descripcion:[this.tamanoParam.descripcion],
-      precio:[this.tamanoParam.precio, Validators.required],
-      foto:[this.tamanoParam.foto],
-      cantidadDeSabores:["0"],
-      cantidadDeComensales:["1"],
-      cantidadDePorciones:["1"],
-      pesoEnGr:[""]
-    });
+    this.tamanoParam==null ? this.initFormGroup(false): this.initFormGroup(true);
+  }
+
+  private initFormGroup(withParam:boolean){
+    if(withParam){
+      this.nuevoTamanoFormGroup = this.fb.group({
+        titulo:[this.tamanoParam.titulo, Validators.required],
+        descripcion:[this.tamanoParam.descripcion],
+        precio:[this.tamanoParam.precio, Validators.required],
+        foto:[this.tamanoParam.foto],
+        cantidadDeSabores:["0"],
+        cantidadDeComensales:["1"],
+        cantidadDePorciones:["1"],
+        pesoEnGr:[""]
+      });
+    }else{
+      this.nuevoTamanoFormGroup = this.fb.group({
+        titulo:["", Validators.required],
+        descripcion:[""],
+        precio:["", Validators.required],
+        foto:[""],
+        cantidadDeSabores:["0"],
+        cantidadDeComensales:["1"],
+        cantidadDePorciones:["1"],
+        pesoEnGr:[""]
+      });
+    }
   }
 
   public submitTamano(){

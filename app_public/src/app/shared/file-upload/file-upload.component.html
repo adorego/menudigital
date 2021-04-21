@@ -1,9 +1,10 @@
-<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+<input type="file" accept="image/*" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
-<div class="file-upload">
+<div class="file-upload" [style.background-image]="imgUrl">
 
     <button mat-stroked-button (click)="fileUpload.click()">Seleccionar Imagen</button>
-    <img id="preview" [src]="imgUrl">
+    
+    <!--img id="preview" [src]="imgUrl"-->
 
 
 </div>
