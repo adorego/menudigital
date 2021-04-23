@@ -112,6 +112,8 @@ export class NombreMenuItemFormComponent implements OnInit {
           this.showListaSabores = false;
           this.showListaAgregados = false;
           this.showListaGuarniciones = false;
+          this.showNuevoTamano = false;
+          console.log("Lista de Tamaños");
           this.currentPage = 'listatamanosmenuitem';
           break;
 
@@ -146,35 +148,27 @@ export class NombreMenuItemFormComponent implements OnInit {
   }
 
   public questionsSelectedCall(questionsSelected:QuestionSelections){
-    this.questionsSelection = questionsSelected;
-    //console.log("Questions answers:", this.questionsSelection);
+    //this.questionsSelection = questionsSelected;
+    
     //Caso MenuItem Simple
-    if(this.questionsSelection.tamano==false && this.questionsSelection.sabores==false && this.questionsSelection.agregados==false && this.questionsSelection.guarniciones==false)
+    if((this.questionsSelection.tamano==0) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==0) && (this.questionsSelection.guarniciones==0))
     {
       this.nuevoTamanoTipo = 1;
       console.log("Tipo de NuevoTamano", this.nuevoTamanoTipo);
     }
+    //Caso diferentes tamaños solamente
+    if((this.questionsSelection.tamano==1) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==0) && (this.questionsSelection.guarniciones==0))
+    {
+      this.nuevoTamanoTipo = 2;
+      console.log("Tipo de NuevoTamano", this.nuevoTamanoTipo);
+    }
+    console.log("El siguiente paso es:", this.defineNextState());
     this.showPage(this.defineNextState());
 
 
   }
 
-  //Metodo que llama a la API para crear un tamaño finalmente
-  public crearTamano(tamano:PropiedadTamano){
-    if(!this.thisMenuItem){
-      this.thisMenuItem = {} as MenuItem;
-    }
-    this.thisMenuItem.nombre = this.nombre.value;
-    this.thisMenuItem.seccion = this.thisseccion._id;
-    if(!this.thisMenuItem.tamanos)
-      this.thisMenuItem.tamanos = new Array<PropiedadTamano>();
-    this.thisMenuItem.tamanos.push(tamano);
-
-    this.menulistFacade.createItemMenu(this.thisMenuItem);
-      
-    this.closeNombreMenuItemEvent();
-
-  }
+  
   private defineNextState(action:string=null):string{
     switch (this.currentPage){
       case 'propiedadesmenuitem':
@@ -209,6 +203,22 @@ export class NombreMenuItemFormComponent implements OnInit {
     }
   }
 
+  //Metodo que llama a la API para crear un tamaño finalmente
+  public crearTamano(tamano:PropiedadTamano){
+    if(!this.thisMenuItem){
+      this.thisMenuItem = {} as MenuItem;
+    }
+    this.thisMenuItem.nombre = this.nombre.value;
+    this.thisMenuItem.seccion = this.thisseccion._id;
+    if(!this.thisMenuItem.tamanos)
+      this.thisMenuItem.tamanos = new Array<PropiedadTamano>();
+    this.thisMenuItem.tamanos.push(tamano);
+
+    this.menulistFacade.createItemMenu(this.thisMenuItem);
+      
+    this.closeNombreMenuItemEvent();
+
+  }
   public getTamanosSeccion():Observable<PropiedadTamano[]>{
     return this.menulistFacade.getTamanosFromSeccion(this.thisseccion.titulo);
   }

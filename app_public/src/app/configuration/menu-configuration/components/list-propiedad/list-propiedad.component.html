@@ -1,4 +1,5 @@
 <app-actions-header [showReturn]=true (closeEvent)="closeListPropiedadEvent()" (returnEvent)="returnListPropiedadPressed()"></app-actions-header>
-<app-dialog-header [titulo]="titulo" [subtitulo]="subtitulo"></app-dialog-header>
+<app-dialog-header [titulo]="tituloHeader" [subtitulo]="subtituloHeader"></app-dialog-header>
+<div class="mat-h1">{{tituloInterno}}</div>
 <app-nueva-propiedad [tituloNuevaPropiedad]="tituloNuevaPropiedad" (nuevaPropiedadEvent)="nuevaPropiedadCall()"></app-nueva-propiedad>
 <app-expansion-helper [tipo]="tipo" [titulo]="expansionTitulo" [$arrayTamanos]="$arrayTamano"></app-expansion-helper>

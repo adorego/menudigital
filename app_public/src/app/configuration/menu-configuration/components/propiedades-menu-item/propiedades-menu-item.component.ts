@@ -51,22 +51,22 @@ export class PropiedadesMenuItemComponent implements OnInit {
 
   }
 
-  public tamanoSelection(tamanoSelection:boolean){
+  public tamanoSelection(tamanoSelection:Number){
     //console.log('Seleccion de tamano:', tamanoSelection);
     this.selections.tamano = tamanoSelection;
     //tamanoSelection == true ? this.selections.tamano=true : this.selections.tamano=false;
     
   }
 
-  public saboresSelection(saboresSelection:boolean){
+  public saboresSelection(saboresSelection:Number){
     this.selections.sabores = saboresSelection;
   }
 
-  public agregadosSelection(agregadosSelection:boolean){
+  public agregadosSelection(agregadosSelection:Number){
     this.selections.agregados = agregadosSelection;
   }
 
-  public guarnicionesSelection(guarnicionesSelection:boolean){
+  public guarnicionesSelection(guarnicionesSelection:Number){
     this.selections.guarniciones = guarnicionesSelection;
   }
   

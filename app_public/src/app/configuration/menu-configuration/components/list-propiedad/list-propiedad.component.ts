@@ -8,13 +8,16 @@ import { PropiedadTamano } from 'src/app/core/models/propiedad-tamano.model';
   styleUrls: ['./list-propiedad.component.scss']
 })
 export class ListPropiedadComponent implements OnInit {
-
-  @Input() titulo:string;
-  @Input() subtitulo:string;
-  @Input() tituloNuevaPropiedad:string;
+  tituloHeader:string;
+  subtituloHeader:string;
+  tituloInterno:string;
+  @Input() nombreMenuItem:string;
+  @Input() seccion:string;
+  tituloNuevaPropiedad:string;
   @Output() nuevaPropiedadEvent = new EventEmitter();
   //Expansion
-  @Input() expansionTitulo:string;
+  expansionTitulo:string;
+  //Tipo 1: Propiedad de tamaños 
   @Input() tipo:number;
   @Input() $arrayTamano:Observable<PropiedadTamano[]>;
   
@@ -24,8 +27,17 @@ export class ListPropiedadComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('ListPropiedadComponent paramteros:', this.titulo, this.subtitulo);
+    this.crear_heading();
     
+  }
+
+  private crear_heading(){
+    //NuevoTamanoTipo es 2, de Diferentes tamaños
+    if(this.tipo==2){
+      this.tituloHeader = this.nombreMenuItem;
+      this.subtituloHeader = this.seccion;
+      this.tituloInterno = "Tamaños"
+    }
   }
 
   public closeListPropiedadEvent(){

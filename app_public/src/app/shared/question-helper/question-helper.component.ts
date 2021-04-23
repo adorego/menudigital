@@ -7,10 +7,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./question-helper.component.scss']
 })
 export class QuestionHelperComponent implements OnInit {
-  @Input() number;
+  @Input() number:string;
   @Input() titulo:string;
   @Input() question:string;
-  @Output() selectEvent = new EventEmitter<boolean>();
+  @Output() selectEvent = new EventEmitter<Number>();
 
   constructor() { }
 
@@ -18,6 +18,7 @@ export class QuestionHelperComponent implements OnInit {
   }
 
   public selectOption(option:MatRadioChange){
+    
     this.selectEvent.emit(option.value);
   }
 }
