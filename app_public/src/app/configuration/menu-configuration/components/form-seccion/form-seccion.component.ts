@@ -26,7 +26,7 @@ export class FormSeccionComponent implements OnInit {
     this.onSaveSeccion.emit(this.seccionFormGroup.value);
   }
 
-  public onNoClick(){
+  public closeEvent(){
     this.dialogRef.close();
   }
 

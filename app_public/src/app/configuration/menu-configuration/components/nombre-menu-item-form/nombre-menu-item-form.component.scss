@@ -7,13 +7,21 @@
 
 .nombre_field{
     margin-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.bebida_radioButton{
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 .boton_siguiente{
-    width: 100%;
     background-color: $menuDigital-secondary;
+    display: block;
+    margin: auto;
     color: white;
-    width: 100%;
+    width: 203px;
     height: 60px;
     font-size: 24px;
+    margin-top: 24px;
 }

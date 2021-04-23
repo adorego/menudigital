@@ -34,11 +34,15 @@ export class MenuListFacade{
             tap(
                 (seccion) => {
                     if(seccion){
-                        this.toastr.success('Seccion creada correctamente', 'Mensaje');
+                        this.toastr.success('Seccion creada correctamente', 'Mensaje',{
+                            closeButton:true
+                        });
                         this.seccionesStateService.addSeccion(seccion);
                         
                     }else{
-                        this.toastr.error('Error al crear la Sección', 'Mensaje');
+                        this.toastr.error('Error al crear la Sección', 'Mensaje',{
+                            closeButton:true
+                        });
                     }
                 }
             )
@@ -66,7 +70,9 @@ export class MenuListFacade{
         )
         .subscribe(
             () => {
-                this.toastr.success('Sección eliminada correctamente', 'Mensaje')
+                this.toastr.success('Sección eliminada correctamente', 'Mensaje',{
+                    closeButton:true
+                })
                 this.updateSeccionState();
             }
         )
@@ -108,9 +114,9 @@ export class MenuListFacade{
 
     //Gestión de los MenuItems
 
-    public createItemMenu(newItemMenu:MenuItem):Observable<MenuItem>{
+    public createItemMenu(newItemMenu:MenuItem):void{
         
-        return this.localConfigurationFacade.updateLocalState()
+        this.localConfigurationFacade.updateLocalState()
         .pipe(
             switchMap(
                 (local) => {
@@ -118,21 +124,27 @@ export class MenuListFacade{
                         return this.menuConfigurationService.createItemMenu(local[0]._id, newItemMenu)
                     else
                         return this.menuConfigurationService.createItemMenu(local._id, newItemMenu)
-                    .pipe(
-                        tap(
-                            (menuItem) => {
-                                if(menuItem){
-                                    this.toastr.success('MenuItem creado correctamente', 'Mensaje');
-                                    this.updateSeccionState();
-                                }else{
-                                    this.toastr.error('Error al crear el MenuItem', 'Mensaje');
-                                }
-                            }
-                        )
-                    )
+                    
+                }
+            ),tap(
+                (menuItem) => {
+                    if(menuItem){
+                        this.toastr.success('MenuItem creado correctamente', 'Mensaje',{
+                            closeButton:true
+                        });
+                        this.updateSeccionState();
+                    }else{
+                        this.toastr.error('Error al crear el MenuItem', 'Mensaje',{
+                            closeButton:true
+                        });
+                    }
                 }
             )
             
+        ).subscribe(
+            (menuitem) => {
+                console.log('MenuItem guardado:', menuitem);
+            }
         )
         
        
@@ -153,7 +165,9 @@ export class MenuListFacade{
         )
         .subscribe(
             () => {
-                this.toastr.success('MenuItem eliminado correctamente', 'Mensaje')
+                this.toastr.success('MenuItem eliminado correctamente', 'Mensaje',{
+                    closeButton:true
+                })
                 this.updateSeccionState();
             }
         )
@@ -162,17 +176,17 @@ export class MenuListFacade{
     public getTamanosFromSeccion(seccion:string):Observable<PropiedadTamano[]>{
         return of([
             {
-                titulo:"Mediano",
+                nombre:"Mediano",
                 tipo:1,
                 precio:3000
             },
             {
-                titulo:"Grande",
+                nombre:"Grande",
                 tipo:1,
                 precio:5000
             },
             {
-                titulo:"Gigante",
+                nombre:"Gigante",
                 tipo:1,
                 precio:7000
             }

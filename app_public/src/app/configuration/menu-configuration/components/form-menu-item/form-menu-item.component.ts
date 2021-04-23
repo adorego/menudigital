@@ -43,7 +43,7 @@ export class FormMenuItemComponent implements OnInit {
   }
   
 
-  public onNoClick(){
+  public closeEvent(){
     this.dialogRef.close();
   }
 

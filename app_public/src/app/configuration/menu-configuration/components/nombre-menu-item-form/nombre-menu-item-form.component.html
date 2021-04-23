@@ -10,12 +10,13 @@
         <input matInput [formControl]="nombre">
         <mat-hint>Cúal es el nombre de éste Menú-Item</mat-hint>
     </mat-form-field>
+    <!--mat-radio-button class="bebida_radioButton" value=true [formControl]="bebida">Es una bebida</!--mat-radio-button-->
     <button mat-raised-button [disabled]="!nombre.valid" class="boton_siguiente" (click)="boton_siguiente()">Siguiente<mat-icon class="icon_next">arrow_forward_ios</mat-icon></button>
     
 </div>
 
 <div *ngIf="showPropiedades">
-    <app-propiedades-menu-item [nombre]="nombre.value" [seccion]="seccion.titulo" (selectionQuestions)="questionsSelectedCall($event)"></app-propiedades-menu-item>
+    <app-propiedades-menu-item [nombre]="nombre.value" [seccion]="thisseccion.titulo" (selectionQuestions)="questionsSelectedCall($event)"></app-propiedades-menu-item>
 </div>
 
 <div *ngIf="showListaTamanos">
@@ -24,5 +25,5 @@
 </div>
 
 <div *ngIf="showNuevoTamano">
-    <app-nuevo-tamano></app-nuevo-tamano>
+    <app-nuevo-tamano [seccion]="thisseccion.titulo" [nombre]="nombre.value" [tipo]="nuevoTamanoTipo" (crearTamano)="crearTamano($event)" ></app-nuevo-tamano>
 </div>

@@ -16,7 +16,7 @@
                                 {{menuitem.nombre | titlecase}}
                             </mat-card-title>
                         </mat-card-header>
-                        <img mat-card-image src="{{menuitem.imagenUrl && menuitem.imagenUrl.length > 0 ? menuitem.imagenUrl: imagenAlternativa}}">
+                        <img mat-card-image src="{{menuitem.tamanos[0].fotoUrl ? menuitem.tamanos[0].fotoUrl: imagenAlternativa}}">
                         
                         
                         <mat-card-actions>

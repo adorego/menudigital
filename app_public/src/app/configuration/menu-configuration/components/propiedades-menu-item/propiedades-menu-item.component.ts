@@ -41,9 +41,9 @@ export class PropiedadesMenuItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.tamanoQuestion = "Tiene '"+ this.nombre + "', diferentes tamaños?";
-    this.saboresQuestion = "Tiene '" +  this.nombre + "', diferentes sabores?";
-    this.agregadosQuestion = "Puede tener '" + this.nombre + "' agregados o toppings opcionales?";
-    this.guarnicionesQuestion = "Puede tener '" + this.nombre + "' guarniciones?";
+    this.saboresQuestion = "Puede tener '" +  this.nombre + "', diferentes sabores?";
+    this.agregadosQuestion = "Tiene '" + this.nombre + "' agregados o toppings opcionales?";
+    this.guarnicionesQuestion = "Tiene '" + this.nombre + "' guarniciones?";
   }
 
 
@@ -80,6 +80,7 @@ export class PropiedadesMenuItemComponent implements OnInit {
   }
 
   public boton_siguiente(){
+    //console.log('Boton siguiente:', this.selections);
     this.selectionQuestions.emit(this.selections);
   }
 }

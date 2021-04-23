@@ -3,23 +3,21 @@ const Schema = mongoose.Schema;
 const User = mongoose.model('User');
 
 const propiedadTamanosSchema = new mongoose.Schema({
-    titulo:{type:String, required:true},
-    fotoUrl: String,
+    nombre:{type:String, required:true},
     descripcion:String,
-    precio:Number
+    cantidadDeSabores:Number,
+    cantidadDeComensales:Number,
+    cantidadDePorciones:Number,
+    pesoEnGr:Number,
+    fotoUrl: String,
+    precio:{type:Number, required:true}
 });
-
-const extraToppingSchema = new mongoose.Schema({
-    titulo:{type:String, required:true},
-    constoAdicional:Number
-});
-
 
 
 const menuitemSchema = new mongoose.Schema({
     nombre:{type:String, required:true},
     seccion:{type:Schema.Types.ObjectId, ref:'Seccion'},
-    tamanos:[]
+    tamanos:[propiedadTamanosSchema]
 });
 
 const seccionSchema = new mongoose.Schema({
@@ -95,3 +93,5 @@ const localSchema = new mongoose.Schema({
 
 mongoose.model('Local', localSchema, 'locales');
 mongoose.model('Seccion', seccionSchema, 'secciones');
+mongoose.model('Menuitem', menuitemSchema, 'menuitems');
+mongoose.model('Tamano', propiedadTamanosSchema, 'tamanos');

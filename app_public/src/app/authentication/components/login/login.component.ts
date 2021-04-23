@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild("correo") inputCorreo:ElementRef;
+  //@ViewChild("correo") inputCorreo:ElementRef;
   @Output() sendLoginForm = new EventEmitter<any>();
   form: FormGroup;
   
@@ -22,14 +22,15 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    document.getElementById('correoid').focus();
   }
 
   ngAfterViewInit(){
-    this.inputCorreo.nativeElement.focus();
+   // this.inputCorreo.nativeElement.focus();
   }
   
   //Cerrar dialogo de Nuevo MenuItem
-  public onNoClick(){
+  public closeEvent(){
     this.dialogRef.close();
   }
   public login(): void {

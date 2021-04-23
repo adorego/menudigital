@@ -70,7 +70,7 @@ router
 router
     .route('/locales/:localid/secciones/:seccionid/menuitems')
     .get(auth, ctrlMenuitems.menuItemsReadAll)
-    .post(auth, upload.single('imagen'), ctrlMenuitems.menuItemCreate);
+    .post(auth, upload.single('foto'), ctrlMenuitems.menuItemCreate);
 
 
 

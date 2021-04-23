@@ -46,9 +46,13 @@ export class LocalConfigurationFacade{
                     (local) => {
                         if(local){
                             this.localState.setLocal(local);
-                            this.toastr.success('Guardado con exito!', 'Mensaje')
+                            this.toastr.success('Guardado con exito!', 'Mensaje',{
+                                closeButton:true
+                            })
                         }else{
-                            this.toastr.error('Error al actualizar el local', 'Mensaje');
+                            this.toastr.error('Error al actualizar el local', 'Mensaje',{
+                                closeButton:true
+                            });
                         }
                     }
                 )
@@ -61,9 +65,13 @@ export class LocalConfigurationFacade{
                     (local) => {
                         if(local){
                             this.localState.setLocal(local);
-                            this.toastr.success('Local guardado con éxito!', 'Mensaje')
+                            this.toastr.success('Local guardado con éxito!', 'Mensaje',{
+                                closeButton:true
+                            })
                         }else{
-                            this.toastr.error('Error al crear el local', 'Mensaje');
+                            this.toastr.error('Error al crear el local', 'Mensaje',{
+                                closeButton:true
+                            });
                         }
                     }
                 )

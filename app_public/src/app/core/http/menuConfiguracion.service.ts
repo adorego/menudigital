@@ -34,10 +34,8 @@ export class MenuConfigurationService {
     }
 
     public createItemMenu(localId:string, menuitem:MenuItem):Observable<MenuItem>{
-        console.log('MenuItem recibido:', menuitem);
         const formData = this.loadmenuItemFormData(menuitem);
         if(formData != null){
-            console.log(formData.get('nombre')+","+ formData.get('descripcion')+","+formData.get('precio')+","+formData.get('imagen')+","+formData.get('tamano'));
             let url:string = `${this.apiUrl}/locales/${localId}/secciones/${menuitem.seccion}/menuitems`;
             console.log('Url:', url);
             return this.http.post<MenuItem>(url, formData);
@@ -48,11 +46,16 @@ export class MenuConfigurationService {
         if(menuitem && menuitem.seccion && menuitem.seccion){
             let formData:any = new FormData();
             formData.append('nombre',menuitem.nombre);
-            formData.append('descripcion',menuitem.descripcion);
-            formData.append('precio', menuitem.precio);
             formData.append('seccion', menuitem.seccion);
-            formData.append('imagen',menuitem.imagen);
-           
+            formData.append('nombreTamano',menuitem.tamanos[0].nombre);
+            formData.append('descripcion',menuitem.tamanos[0].descripcion);
+            formData.append('precio', menuitem.tamanos[0].precio);
+            
+            formData.append('foto',menuitem.tamanos[0].foto);
+            formData.append('cantidadDeSabores',menuitem.tamanos[0].cantidadDeSabores);
+            formData.append('cantidadDeComensales',menuitem.tamanos[0].cantidadDeComensales);
+            formData.append('cantidadDePorciones',menuitem.tamanos[0].cantidadDePorciones);
+            formData.append('pesoEnGramo',menuitem.tamanos[0].pesoEnGramo);
             return formData;
         }
         return null;
@@ -86,5 +89,9 @@ export class MenuConfigurationService {
         }
         return null;
         
+    }
+
+    private errorHandler(error:string){
+
     }
 }

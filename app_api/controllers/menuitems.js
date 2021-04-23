@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Local = mongoose.model('Local');
-
+const Menuitem = mongoose.model('Menuitem');
+const Tamano = mongoose.model('Tamano');
 
 const menuItemsReadAll = (req, res) => {
     if(!req.params.localid || !req.params.seccionid){
@@ -176,7 +177,7 @@ const menuitemRemoveOne = (req, res) => {
     }
     Local
         .findById(req.params.localid)
-        .select('nombreDelLocal categorias') //Agregar parametros al query
+        .select('nombreDelLocal seccionesMenu') //Agregar parametros al query
         .exec((err, local) => {
             if(!local){
                 return res
@@ -233,19 +234,23 @@ const menuitemRemoveOne = (req, res) => {
 
 
 const menuItemCreate = (req, res) => {
-    console.log('MenuItemCreate, parametro enviado:', req.params.localid, req.params.categoriaid);
-    if(!req.params.localid || !req.params.categoriaid){
+    console.log('MenuItemCreate, parametro enviado:', req.params.localid, req.params.seccionid);
+    
+    if(!req.params.localid || !req.params.seccionid){
+        
         return res
             .status(404)
-            .json({"message": "No se pudo encontrar el Local/Categoria, falta el localid/categoriaid"});
+            .json({"message": "No se pudo encontrar el Local/Categoria, falta el localid/seccionid"});
 
     }
-    if(!req.body.nombre || !req.body.precio || !req.body.categoria){
+    if(!req.body.nombre || !req.body.precio ){
+        
         return res
             .status(400)
             .json({"message": "Falta completar los campos obligatorios!"});
 
     }
+    
     Local
         .findById(req.params.localid)
         .exec((err, local) => {
@@ -260,9 +265,10 @@ const menuItemCreate = (req, res) => {
                 .status(404)
                 .json(err);
             }
-            if(local.categorias && local.categorias.length > 0){
-                const thisCategoria = local.categorias.id(req.params.categoriaid);
-                doAddMenuItem(req, res, local,thisCategoria);
+            if(local.seccionesMenu && local.seccionesMenu.length > 0){
+                console.log('Llego aqui', local.seccionesMenu.length);
+                const thisSeccion = local.seccionesMenu.id(req.params.seccionid);
+                doAddMenuItem(req, res, local,thisSeccion);
                 
 
             }
@@ -270,14 +276,14 @@ const menuItemCreate = (req, res) => {
 
 }
 
-const doAddMenuItem = (req, res, local, thiscategoria) => {
-    console.log('doAddMenuItem.categoria', thiscategoria);
-    if(!thiscategoria){
+const doAddMenuItem = (req, res, local, thisSeccion) => {
+    console.log('doAddMenuItem.seccion', thisSeccion);
+    if(!thisSeccion){
         res
             .status(404)
-            .json({"message":"No se encontró la Categoria"});
+            .json({"message":"No se encontró la Sección"});
     }else{
-        const {nombre, descripcion, precio, tamano, categoria} = req.body;
+       
         let imagenUrl;
         if(req.file){
             const url = req.protocol + '://' + req.get('host');
@@ -285,17 +291,30 @@ const doAddMenuItem = (req, res, local, thiscategoria) => {
         }else{
             imagenUrl = '';
         }
-
-        thiscategoria.menuitems.push({
-            nombre, descripcion, tamano, precio, categoria,imagenUrl
-        });
+        
+        let menuitem = new Menuitem();
+        menuitem.nombre = req.body.nombre;
+        menuitem.seccion = thisSeccion._id;
+        let tamano = new Tamano();
+        tamano.nombre = req.body.nombreTamano;
+        tamano.descripcion = req.body.descripcion;
+        tamano.cantidadDeSabores = req.body.cantidadDeSabores;
+        tamano.cantidadDeComensales = req.body.cantidadDeComensales;
+        tamano.cantidadDePorciones = req.body.cantidadDePorciones;
+        tamano.pesoEnGr = req.body.pesoEnGr;
+        tamano.precio = req.body.precio;
+        tamano.fotoUrl = imagenUrl;
+        menuitem.tamanos.push(tamano);
+        //console.log('MenuItem:', menuitem);
+        thisSeccion.menuitems.push(menuitem);
+        console.log('thisSeccion:', thisSeccion);
         local.save((err, local) => {
             if(err){
                 res
                     .status(400)
                     .json(err);
             }else{
-                const thisMenuItem = thiscategoria.menuitems.slice(-1).pop();
+                const thisMenuItem = thisSeccion.menuitems.slice(-1).pop();
                 res
                     .status(201)
                     .json(thisMenuItem);

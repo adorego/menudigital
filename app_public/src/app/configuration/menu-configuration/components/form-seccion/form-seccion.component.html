@@ -1,4 +1,4 @@
-<button class="close" mat-button (click)="onNoClick()">X</button>
+<app-actions-header [showReturn]=false (closeEvent)="closeEvent()"></app-actions-header>
 <form [formGroup]="seccionFormGroup" (ngSubmit)="crear_seccion()">
     <div class="mat-headline">Nueva Sección</div>
 
@@ -12,7 +12,7 @@
     </mat-form-field>
     <mat-form-field class="full_width" appearance="outline">
         <mat-label>Posición en el Menú</mat-label>
-        <input matInput formControlName="puesto" placeholder="Puesto">
+        <input type="number" matInput formControlName="puesto" placeholder="Puesto">
         <!--mat-hint align="start">En qué posición estará esta sección</mat-hint-->
     </mat-form-field>
     <button class="boton_guardar" mat-raised-button  type="submit">Crear</button>

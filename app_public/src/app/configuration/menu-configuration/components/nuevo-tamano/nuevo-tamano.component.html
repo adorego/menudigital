@@ -1,20 +1,19 @@
 <app-actions-header [showReturn]=true (closeEvent)="closeNuevoTamanoEvent()" (returnEvent)="returnNuevoTamanoPressed()"></app-actions-header>
-<app-dialog-header [titulo]="tituloHeader"></app-dialog-header>
+<app-dialog-header [titulo]="tituloHeader" [subtitulo]="subtitulo"></app-dialog-header>
 
-<form [formGroup]="nuevoTamanoFormGroup" fxLayout="column" fxLayoutAlign="center">
+<form [formGroup]="nuevoTamanoFormGroup" (ngSubmit)="submitTamano()" fxLayout="column" fxLayoutAlign="center">
     <div class="mat-small requiredText">(*requerido)</div>
     <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Título</mat-label>
-        <input matInput formControlName="titulo" placeholder="Titulo">
-        <mat-hint>Ejemplo: Grande, Mediano, Gigante</mat-hint>
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" id="nombre_input" placeholder="Nombre">
+        <mat-hint *ngIf="tipo==2">Ejemplo: Grande, Mediano, Gigante</mat-hint>
     </mat-form-field>
-    <!--mat-label>Imagen:</!--mat-label-->
-    <app-file-upload></app-file-upload>
+    <app-file-upload id="fotoid" (onFotoLoaded)="fotoLoaded($event)"></app-file-upload>
     <div class="mat-small requiredText">(opcional)</div>
     <mat-form-field class="full_width" appearance="outline">
         <mat-label>Descripción</mat-label>
         <textarea  matInput formControlName="descripcion" placeholder="Descripción"></textarea>
-        <mat-hint>Esta descripcion la verá tu cliente antes de comprar este Item</mat-hint>
+        <mat-hint>Esta descripcion la verá tu cliente antes de comprar un/a {{nombre}}</mat-hint>
     </mat-form-field>
     <div class="mat-small requiredText">(*requerido)</div>
     <mat-form-field class="full_width" appearance="outline">
@@ -69,5 +68,5 @@
             
         </mat-expansion-panel>
     </mat-accordion>
-    <button mat-raised-button   disabled="{{!nuevoTamanoFormGroup.valid}}" (click)="submitTamano()" class="boton_crear" type="submit">Crear<mat-icon class="icon_next">add_circle_outline</mat-icon></button>
+    <button mat-raised-button   disabled="{{!nuevoTamanoFormGroup.valid}}" class="boton_crear" type="submit">Crear<mat-icon class="icon_next">add_circle_outline</mat-icon></button>
 </form>

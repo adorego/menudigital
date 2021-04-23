@@ -1,4 +1,5 @@
-<button class="close" mat-button (click)="onNoClick()">X</button>
+<app-actions-header [showReturn]=false (closeEvent)="closeEvent()"></app-actions-header>
+
     
 <div class="mat-headline">Nuevo Menú Item</div>
 <div class="mat-h3">Seccion:{{data.seccion.titulo}}</div>

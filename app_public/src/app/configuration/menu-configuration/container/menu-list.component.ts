@@ -51,18 +51,18 @@ export class MenuListComponent implements OnInit, OnDestroy {
       'top': '20px',
       'left': '10px'
     };
-    dialogConfig.width = '50%';
-    dialogConfig.height = '80vh';
+    dialogConfig.width = '320px';
+    dialogConfig.height = '550px';
     dialogConfig.minWidth = '300px';
     dialogConfig.minHeight = '300px';
-    dialogConfig.panelClass = "my-dialog";
-    //const dialogRef = this.dialog.open(FormSeccionComponent, dialogConfig);   
-    //this.seccionSubscription = dialogRef.componentInstance.onSaveSeccion.subscribe(
-    //  (seccionMenu) => {
-    //    this.menuListFacade.createSeccion(seccionMenu);
-    //  }
-    //)
-    const dialogRef = this.dialog.open(NuevoTamanoComponent, dialogConfig); 
+    //dialogConfig.panelClass = "my-dialog";
+    const dialogRef = this.dialog.open(FormSeccionComponent, dialogConfig);   
+    this.seccionSubscription = dialogRef.componentInstance.onSaveSeccion.subscribe(
+      (seccionMenu) => {
+        this.menuListFacade.createSeccion(seccionMenu);
+      }
+    )
+    
 
     
   }
@@ -73,11 +73,12 @@ export class MenuListComponent implements OnInit, OnDestroy {
       'top': '20px',
       'left': '10px'
     };
-    dialogConfig.width = '50%';
-    dialogConfig.height = '100vh';
-    dialogConfig.minWidth = '320px';
-    dialogConfig.minHeight = '100vh';
-    dialogConfig.panelClass = "my-dialog";
+    dialogConfig.width = '320px';
+    dialogConfig.height = '550px';
+    dialogConfig.minWidth = '300px';
+    dialogConfig.minHeight = '300px';
+    dialogConfig.maxHeight = '100vh';
+    //dialogConfig.panelClass = "my-dialog";
     dialogConfig.data ={
       seccion:seccionParam
     }

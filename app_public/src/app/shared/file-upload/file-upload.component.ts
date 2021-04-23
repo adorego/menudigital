@@ -1,5 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
-import * as EventEmitter from 'events';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
@@ -8,6 +7,7 @@ import * as EventEmitter from 'events';
 })
 export class FileUploadComponent implements OnInit {
   imgUrl:any = 'url(../../../assets/imagenes/squares1.jpg)';
+  @Output() onFotoLoaded = new EventEmitter<File>();
   selectedFile:File;
   constructor() { }
 
@@ -21,6 +21,7 @@ export class FileUploadComponent implements OnInit {
       
       fileReader.onload = () => {
         this.imgUrl = 'url(' + fileReader.result as string + ')';
+        this.onFotoLoaded.emit(this.selectedFile);
         
       }
       fileReader.readAsDataURL(this.selectedFile);
