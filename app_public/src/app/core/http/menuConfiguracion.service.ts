@@ -1,3 +1,4 @@
+import { PropiedadTamano } from './../models/propiedad-tamano.model';
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -61,6 +62,32 @@ export class MenuConfigurationService {
         return null;
     }
 
+    private loadtamanoFormData(tamano:PropiedadTamano):FormData{
+        if(tamano && tamano.nombre && tamano.precio){
+            let formData:any = new FormData();
+            formData.append('nombreTamano',tamano.nombre);
+            formData.append('descripcion',tamano.descripcion);
+            formData.append('precio', tamano.precio);
+            
+            formData.append('foto',tamano.foto);
+            formData.append('cantidadDeSabores',tamano.cantidadDeSabores);
+            formData.append('cantidadDeComensales',tamano.cantidadDeComensales);
+            formData.append('cantidadDePorciones',tamano.cantidadDePorciones);
+            formData.append('pesoEnGramo',tamano.pesoEnGramo);
+            return formData;
+        }
+        return null;
+    
+    }
+    public addTamanoMenuItem(localId:string, menuitem:MenuItem, tamano:PropiedadTamano):Observable<MenuItem>{
+        const formData = this.loadtamanoFormData(tamano);
+        if(formData != null){
+            let url:string = `${this.apiUrl}/locales/${localId}/secciones/${menuitem.seccion}/menuitems/${menuitem._id}/tamanos`;
+            console.log('Url:', url);
+            return this.http.post<MenuItem>(url, formData);
+        }
+        return null;
+    }
     public updateMenuItem(localId:string, menuitem:MenuItem):Observable<MenuItem>{
         console.log('MenuItem recibido:', menuitem);
         const formData = this.loadmenuItemFormData(menuitem);

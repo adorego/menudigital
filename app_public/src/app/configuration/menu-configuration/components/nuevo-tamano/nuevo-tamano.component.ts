@@ -36,7 +36,6 @@ export class NuevoTamanoComponent implements OnInit {
 
   ngOnInit(): void {
     this.tamanoParam==null ? this.initFormGroup(false): this.initFormGroup(true); //Si recibo valores iniciales del Formulario, tomarlos
-    console.log('Nombre recibido:', this.nombre);
     this.generar_header();
     this.actualizar_campos();
     this.enfocar_elemento();
@@ -54,6 +53,11 @@ export class NuevoTamanoComponent implements OnInit {
   private generar_header(){
     if(this.tipo == 1){//Caso simple
       this.tituloHeader = "Datos de:"+ this.nombre;
+      this.subtitulo = "Sección:" + this.seccion;
+      this.tituloAtributosAdicionales = "Descripción adicional para tu cliente (*opcional):";
+    }
+    if(this.tipo == 2){//Caso con diferentes Tamaños
+      this.tituloHeader = "Nuevo Tamaño para:"+ this.nombre;
       this.subtitulo = "Sección:" + this.seccion;
       this.tituloAtributosAdicionales = "Descripción adicional para tu cliente (*opcional):";
     }

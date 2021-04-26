@@ -80,6 +80,11 @@ router
     .put(auth, ctrlMenuitems.menuitemUpdateOne)
     .delete(auth, ctrlMenuitems.menuitemRemoveOne);
 
+//MenuItems tamanos
+router  
+    .route('/locales/:localid/secciones/:seccionid/menuitems/:menuitemid/tamanos')
+    .post(auth, upload.single('foto'), ctrlMenuitems.addTamanoMenuItem);
+
 //MenuDigital
 router
     .route('/menudigital/:localname')

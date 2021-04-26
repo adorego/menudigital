@@ -11,19 +11,14 @@ import { Observable } from 'rxjs';
 })
 export class ExpansionHelperComponent implements OnInit {
   @Input() tipo:number;
-  @Input() $arrayTamanos:Observable<PropiedadTamano[]>;
-  arrayTamanos:PropiedadTamano[];
+  @Input() arrayTamanos:PropiedadTamano[];
   @Input() titulo:string;
   @Output() selectedObjects = new EventEmitter();
   selectedPropiedades:Array<Propiedad>;
   constructor() { }
 
   ngOnInit(): void {
-    this.$arrayTamanos.subscribe(
-      (tamanos) => {
-        this.arrayTamanos = tamanos;
-      }
-    )
+    
     
   }
 

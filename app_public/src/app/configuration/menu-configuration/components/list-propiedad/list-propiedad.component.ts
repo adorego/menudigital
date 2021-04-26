@@ -15,11 +15,11 @@ export class ListPropiedadComponent implements OnInit {
   @Input() seccion:string;
   tituloNuevaPropiedad:string;
   @Output() nuevaPropiedadEvent = new EventEmitter();
-  //Expansion
+  //Expansion 
   expansionTitulo:string;
-  //Tipo 1: Propiedad de tamaños 
+  //Tipo 1: Propiedad de tamaño, 2: Propiedad de sabor
   @Input() tipo:number;
-  @Input() $arrayTamano:Observable<PropiedadTamano[]>;
+  @Input() arrayTamano:PropiedadTamano[];
   
   
 
@@ -27,16 +27,18 @@ export class ListPropiedadComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('Tipo enviado:', this.tipo);
     this.crear_heading();
     
   }
 
   private crear_heading(){
     //NuevoTamanoTipo es 2, de Diferentes tamaños
-    if(this.tipo==2){
-      this.tituloHeader = this.nombreMenuItem;
-      this.subtituloHeader = this.seccion;
-      this.tituloInterno = "Tamaños"
+    if(this.tipo==1){
+      this.tituloHeader = "Tamaños de:" + this.nombreMenuItem;
+      this.subtituloHeader = "Sección:" + this.seccion;
+      this.tituloNuevaPropiedad = "Nuevo Tamaño";
+      this.expansionTitulo = "Tamaños definidos para:"+ this.nombreMenuItem;
     }
   }
 

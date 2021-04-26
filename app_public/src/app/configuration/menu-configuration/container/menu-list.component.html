@@ -16,37 +16,79 @@
         <mat-accordion *ngIf="secciones$|async as secciones else sinSecciones">
             <mat-expansion-panel *ngFor="let seccion of secciones" (opened)="true">
                 <mat-expansion-panel-header>
-                        <mat-panel-title class="mat-h4">
-                            {{seccion.titulo}}
-                        </mat-panel-title>
+                                <mat-panel-title class="mat-h4">
+                                    <div class="titulo_seccion">
+                                        {{seccion.titulo}}
+                                    </div>
+                                    <button mat-icon-button aria-label="Editar seccion"  matTooltip="Editar Seccion">
+                                        <mat-icon>create</mat-icon>
+                                    </button>
+                                    <button mat-icon-button aria-label="Eliminar seccion" matTooltip="Eliminar Seccion">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-panel-title>
+                            
+
                         
                 </mat-expansion-panel-header>
                 <ng-template matExpansionPanelContent>
-                    <div fxLayout="row" fxLayoutAlign="space-between">
-                        <div class="mat-small seccion_descripcion" fxFlexAlign="center">
+                    <div class="mat-small seccion_descripcion" fxFlexAlign="center">
                             {{seccion.descripcion}}
-                        </div>
-                        <div>
-                            <button mat-icon-button aria-label="Editar seccion"  matTooltip="Editar Seccion">
-                                <mat-icon>create</mat-icon>
-                            </button>
-                            <button mat-icon-button aria-label="Eliminar seccion" matTooltip="Eliminar Seccion">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </div>
-
                     </div>
                     <app-nueva-propiedad
                         [tituloNuevaPropiedad]="tituloNuevoMenuItem" (nuevaPropiedadEvent)="nuevo_item(seccion)">
                     
                     </app-nueva-propiedad>
-                    <!--div class="mat-subheading-4 heading_icon">
-                        <a (click)="nuevo_item(seccion)">
-                            <mat-icon class="material-icons" aria-hidden="false" aria-label="Icono de add">add_circle_outline</mat-icon>
-                        
-                            Nuevo MenúItem
-                        </a>
-                    </div-->
+                    <mat-accordion>
+                        <mat-expansion-panel *ngFor="let menuitem of seccion.menuitems" >
+                            <mat-expansion-panel-header>
+                                <mat-panel-title class="mat-h4">
+                                    <div class="titulo_seccion">
+                                        {{menuitem.nombre}}
+                                    </div>
+                                    
+                                </mat-panel-title>
+                                
+                            </mat-expansion-panel-header>
+                                <div fxLayout="row" fxLayoutAlign="end">
+                                    <button mat-icon-button aria-label="Editar seccion"  matTooltip="Editar Seccion">
+                                        <mat-icon>create</mat-icon>
+                                    </button>
+                                    <button mat-icon-button aria-label="Eliminar seccion" matTooltip="Eliminar Seccion">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                                <div *ngIf="menuitem.tamanos.length == 1; else conTamanos">
+                                    <div fxLayout="column">
+                                        {{menuitem.tamanos[0].descripcion}}
+                                        <img src="{{menuitem.tamanos[0].fotoUrl}}" alt="">
+
+                                    </div>
+                                </div>
+                                <ng-template #conTamanos>
+                                    <mat-accordion>
+                                        <mat-expansion-panel *ngFor="let tamano of menuitem.tamanos">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title class="mat-h4">
+                                                    {{tamano.nombre}}
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div fxLayout="column">
+                                                {{tamano.descripcion}}
+                                                <img src="{{tamano.fotoUrl}}" alt="">
+
+                                            </div>     
+        
+                                                
+                                        
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </ng-template>
+                                
+                                
+                            
+                        </mat-expansion-panel>
+                    </mat-accordion>
                 </ng-template>    
             </mat-expansion-panel>
         </mat-accordion>

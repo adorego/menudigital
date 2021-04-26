@@ -2,7 +2,7 @@ import { PropiedadTamano } from './../../core/models/propiedad-tamano.model';
 import { Injectable } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { empty, Observable, of, throwError } from "rxjs";
-import { map, mergeMap, switchMap, tap } from "rxjs/operators";
+import { filter, map, mergeMap, switchMap, tap } from "rxjs/operators";
 import { MenuConfigurationService } from "src/app/core/http/menuConfiguracion.service";
 import { MenuItem } from "src/app/core/models/menuItem.model";
 import { SeccionMenu } from "src/app/core/models/seccion-menu.model";
@@ -111,12 +111,28 @@ export class MenuListFacade{
     }
 
 
+    public seccionStateById(seccionIdParam:string):Observable<SeccionMenu>{
+        return this.seccionesStateService.secciones$.pipe(
+            switchMap(
+                (secciones) => {
+                    let seccionmenuFound:SeccionMenu;
+                    secciones.forEach(
+                    (seccion) => {
+                        if(seccion._id === seccionIdParam){
+                          seccionmenuFound = seccion;
+                        }
+                          
+                    })
+                    return of(seccionmenuFound);
+            })
+        )
+    }
 
     //Gestión de los MenuItems
 
-    public createItemMenu(newItemMenu:MenuItem):void{
+    public createItemMenu(newItemMenu:MenuItem):Observable<MenuItem>{
         
-        this.localConfigurationFacade.updateLocalState()
+        return this.localConfigurationFacade.updateLocalState()
         .pipe(
             switchMap(
                 (local) => {
@@ -141,16 +157,40 @@ export class MenuListFacade{
                 }
             )
             
-        ).subscribe(
-            (menuitem) => {
-                console.log('MenuItem guardado:', menuitem);
-            }
         )
-        
        
 
         
 
+    }
+
+    public addTamanoMenuItem(menuitem:MenuItem, tamano:PropiedadTamano):void{
+        this.localConfigurationFacade.updateLocalState()
+        .pipe(
+            switchMap(
+                (local) => {
+                    if(local instanceof Array)
+                        return this.menuConfigurationService.addTamanoMenuItem(local[0]._id, menuitem, tamano);
+                    else
+                        return this.menuConfigurationService.addTamanoMenuItem(local[0]._id, menuitem, tamano);
+                    
+                }
+            ),tap(
+                (menuItem) => {
+                    if(menuItem){
+                        this.toastr.success('Tamaño creado correctamente', 'Mensaje',{
+                            closeButton:true
+                        });
+                        this.updateSeccionState();
+                    }else{
+                        this.toastr.error('Error al crear el Tamaño', 'Mensaje',{
+                            closeButton:true
+                        });
+                    }
+                }
+            )
+            
+        )
     }
 
     public deleteItemMenu(todeleteMenuItem:MenuItem):void{

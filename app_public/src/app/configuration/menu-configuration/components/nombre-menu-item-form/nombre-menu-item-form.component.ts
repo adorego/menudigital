@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
 })
 export class NombreMenuItemFormComponent implements OnInit {
   thisseccion:SeccionMenu;
+  $thisseccion:Observable<SeccionMenu>;
+  $thisMenuItem:Observable<MenuItem>;
   thisMenuItem:MenuItem;
   @Output() siguienteEvento = new EventEmitter();
   @Output() onSaveMenuItem = new EventEmitter();
@@ -27,6 +29,7 @@ export class NombreMenuItemFormComponent implements OnInit {
 
   //Controladores de despliegue de paginas
   currentPage:string;//Pagina actual
+  tipoDeWizard:number;
   showNombre:boolean = true;
   showPropiedades:boolean = false;
   showListaTamanos:boolean = false;
@@ -49,8 +52,9 @@ export class NombreMenuItemFormComponent implements OnInit {
                private fb:FormBuilder, private menulistFacade:MenuListFacade) { }
 
   ngOnInit(): void {
-    this.currentPage = 'nombremenuitem';//Pagina inicial al iniciar
+    this.currentPage = 'nombremenuitem';//Pagina inicial esta misma
     this.thisseccion = this.data.seccion;
+    this.$thisseccion = this.menulistFacade.seccionStateById(this.thisseccion._id);
     this.tituloNombreMenuItem = "Nuevo Menú Item";
     this.subtituloNombreMenuItem = "Seccion:" + this.thisseccion.titulo;
     this.menuItemFormGroup = this.fb.group({
@@ -58,16 +62,8 @@ export class NombreMenuItemFormComponent implements OnInit {
       seccion: [this.thisseccion, Validators.required],
       nombre: this.nombre
     });
-    
-  }
-
-  //Metodo que actualiza los parametros del componente Lista de Propiedades de Tamanos (ListPropiedadComponent)
-  private actualizar_listaTamanosParametros(){
-    //Parametros para Lista de Tamaños
-    this.tituloListaTamanos = 'Tamaños de '+this.nombre.value;
-    this.subtituloListaTamanos = "Sección: " + this.thisseccion.titulo;
-    this.tituloNuevoTamano = 'Nuevo Tamaño';
-    this.tituloTamanoExpansionHelper = 'Puedes reutilizar los tamaños de esta Sección'
+    this.thisMenuItem = {} as MenuItem;
+    this.thisMenuItem.tamanos = new Array<PropiedadTamano>();
   }
 
   
@@ -128,16 +124,7 @@ export class NombreMenuItemFormComponent implements OnInit {
             this.currentPage = 'nuevoTamanomenuitem';
             break;
 
-      case 'menuitemsimpleform':
-              this.showNombre = false;
-              this.showPropiedades = false;
-              this.showListaTamanos = false;
-              this.showListaSabores = false;
-              this.showListaAgregados = false;
-              this.showListaGuarniciones = false;
-              this.showNuevoTamano = true;
-              this.currentPage = 'menuitemsimpleform';
-              break;
+      
 
     }
       
@@ -148,18 +135,18 @@ export class NombreMenuItemFormComponent implements OnInit {
   }
 
   public questionsSelectedCall(questionsSelected:QuestionSelections){
-    //this.questionsSelection = questionsSelected;
+    this.questionsSelection = questionsSelected;
     
     //Caso MenuItem Simple
     if((this.questionsSelection.tamano==0) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==0) && (this.questionsSelection.guarniciones==0))
     {
-      this.nuevoTamanoTipo = 1;
+      this.tipoDeWizard = 1;
       console.log("Tipo de NuevoTamano", this.nuevoTamanoTipo);
     }
     //Caso diferentes tamaños solamente
     if((this.questionsSelection.tamano==1) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==0) && (this.questionsSelection.guarniciones==0))
     {
-      this.nuevoTamanoTipo = 2;
+      this.tipoDeWizard = 2;
       console.log("Tipo de NuevoTamano", this.nuevoTamanoTipo);
     }
     console.log("El siguiente paso es:", this.defineNextState());
@@ -172,19 +159,20 @@ export class NombreMenuItemFormComponent implements OnInit {
   private defineNextState(action:string=null):string{
     switch (this.currentPage){
       case 'propiedadesmenuitem':
-        if(this.nuevoTamanoTipo==1){
-          return 'menuitemsimpleform';
-        }else if(this.nuevoTamanoTipo==2){
+        if(this.tipoDeWizard==1){
+          return 'nuevoTamanomenuitem';
+        }else if(this.tipoDeWizard==2){
           return 'listatamanosmenuitem';
-        }else if(this.nuevoTamanoTipo==3){
+        }else if(this.tipoDeWizard==3){
           return 'listasaboresmenuitem';
-        }else if(this.nuevoTamanoTipo==4){
+        }else if(this.tipoDeWizard==4){
           return 'listasagregadosmenuitem';
-        }else if(this.nuevoTamanoTipo==5){
+        }else if(this.tipoDeWizard==5){
           return 'listasguarnicionesmenuitem';
         }else{ 
           return 'nombremenuitem';
         }
+        
       case 'nombremenuitem':
         if(this.bebida.value){
           return 'bebidaform';
@@ -195,9 +183,18 @@ export class NombreMenuItemFormComponent implements OnInit {
       case 'listatamanosmenuitem':
         if(action && action.localeCompare('nuevoTamano')==0)  
           return 'nuevoTamanomenuitem';  
-        else{
+        else
+          return '';
+        
+      case 'nuevoTamanomenuitem':
+        if(this.tipoDeWizard==2){
           return 'listatamanosmenuitem';
-        }
+        }else
+          return '';
+        
+        
+     
+
       default:
         return 'nombremenuitem';
     }
@@ -205,21 +202,56 @@ export class NombreMenuItemFormComponent implements OnInit {
 
   //Metodo que llama a la API para crear un tamaño finalmente
   public crearTamano(tamano:PropiedadTamano){
-    if(!this.thisMenuItem){
-      this.thisMenuItem = {} as MenuItem;
-    }
-    this.thisMenuItem.nombre = this.nombre.value;
-    this.thisMenuItem.seccion = this.thisseccion._id;
-    if(!this.thisMenuItem.tamanos)
-      this.thisMenuItem.tamanos = new Array<PropiedadTamano>();
-    this.thisMenuItem.tamanos.push(tamano);
+   
+    if(!this.thisMenuItem._id){
+      this.thisMenuItem.nombre = this.nombre.value;
+      this.thisMenuItem.seccion = this.thisseccion._id;
+      if(this.thisMenuItem.tamanos)
+        this.thisMenuItem.tamanos = new Array<PropiedadTamano>();
+      this.thisMenuItem.tamanos.push(tamano);
+    
+      this.$thisMenuItem = this.menulistFacade.createItemMenu(this.thisMenuItem);
+      this.$thisMenuItem.subscribe(
+        (menuitem) => {
+          this.thisMenuItem = menuitem;
+        }
+      )
+      if(this.tipoDeWizard==1){
+        this.closeNombreMenuItemEvent();
+      }else{
+        this.showPage(this.defineNextState());
+      }
+    }else{
+      this.menulistFacade.addTamanoMenuItem(this.thisMenuItem, tamano);
 
-    this.menulistFacade.createItemMenu(this.thisMenuItem);
-      
-    this.closeNombreMenuItemEvent();
+    }
+    
 
   }
-  public getTamanosSeccion():Observable<PropiedadTamano[]>{
-    return this.menulistFacade.getTamanosFromSeccion(this.thisseccion.titulo);
+
+  
+
+  //*Este metodo retorna todos los tamaños utilizados en esta sección
+  public getTamanosSeccion():PropiedadTamano[]{
+    let listTamanos:PropiedadTamano[] = new Array<PropiedadTamano>();
+    this.thisseccion.menuitems.forEach(
+      (menuitem) => {
+        if(menuitem.tamanos && menuitem.tamanos.length > 0){
+          menuitem.tamanos.forEach(
+            (tamanoOrigen) => {
+              if(!listTamanos.some(
+                (tamano) => {
+                  tamano._id === tamanoOrigen._id
+                }
+              )){
+                listTamanos.push(tamanoOrigen);
+              }
+              
+            }
+          )
+        }
+      }
+    )
+    return listTamanos;
   }
 }

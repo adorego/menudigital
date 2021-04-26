@@ -20,9 +20,10 @@
 </div>
 
 <div *ngIf="showListaTamanos">
-    <app-list-propiedad [nombreMenuItem]="nombre.value" [seccion]="thisseccion.titulo" [tipo]="nuevoTamanoTipo" [$arrayTamano]="getTamanosSeccion()" (nuevaPropiedadEvent)="nuevoTamanoEvent()"></app-list-propiedad>
+    <app-list-propiedad [nombreMenuItem]="nombre.value" [seccion]="thisseccion.titulo" [tipo]=1 [arrayTamano]="thisMenuItem.tamanos" (nuevaPropiedadEvent)="nuevoTamanoEvent()"></app-list-propiedad>
+    
 </div>
 
 <div *ngIf="showNuevoTamano">
-    <app-nuevo-tamano [seccion]="thisseccion.titulo" [nombre]="nombre.value" [tipo]="nuevoTamanoTipo" (crearTamano)="crearTamano($event)" ></app-nuevo-tamano>
+    <app-nuevo-tamano [seccion]="thisseccion.titulo" [nombre]="nombre.value" [tipo]="tipoDeWizard" (crearTamano)="crearTamano($event)" ></app-nuevo-tamano>
 </div>

@@ -4,17 +4,26 @@
   color: #8B8989;
   
 }
+.titulo_seccion{
+  flex-grow: 4;
+}
 
+mat-panel-title{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .heading_icon{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.material-icons{
-  vertical-align: middle;
+mat-icon-button{
+  font-size: 48px;
+  padding: 10px;
 }
 
-.seccion_descripcion{
-  vertical-align: middle;
+.seccion_description{
+  text-align: end;
 }

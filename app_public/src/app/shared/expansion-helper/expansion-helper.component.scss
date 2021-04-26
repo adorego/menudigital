@@ -1,3 +1,13 @@
+.sindatos{
+    display: flex;
+    border: 2px solid gray;
+    min-width: 100%;
+    min-height: 200px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .propiedadesList{
     margin-top: 16px;
     margin-bottom: 8px;

@@ -1,22 +1,24 @@
-    <div class="mat-subheading-4 titulo">{{titulo}}</div> 
-    
-        <div *ngIf="tipo==1">
-            <mat-accordion *ngIf="arrayTamanos else loading">
-            
-                <mat-expansion-panel *ngFor="let tam of arrayTamanos" (opened)="true">
-                    <mat-expansion-panel-header>
-                        <mat-checkbox>{{tam.nombre}}</mat-checkbox>
-                    </mat-expansion-panel-header>
-                </mat-expansion-panel>
-                <ng-template matExpansionPanelContent>
-                    <p>Contenindo</p>
-                </ng-template>
-            </mat-accordion>
+    <!--div class="mat-subheading-4 titulo">{{titulo}}</!--div--> 
+        <div class="container">
+            <div *ngIf="tipo==1">
+                <mat-accordion *ngIf="arrayTamanos.length > 0; else noDataTamanos">
+                
+                    <mat-expansion-panel *ngFor="let tam of arrayTamanos" (opened)="true">
+                        <mat-expansion-panel-header>
+                            <mat-checkbox>{{tam.nombre}}</mat-checkbox>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            <div fxLayout="column">
+                                <img src="{{tam.fotoUrl}}" alt="">
+                            </div>
+                        </ng-template>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
         </div>
-        
     
-    <ng-template #loading>
-        <mat-spinner></mat-spinner>
+    <ng-template #noDataTamanos>
+        <div class="mat-header sindatos">No tiene tamaños definidos</div>
     </ng-template>
     
    

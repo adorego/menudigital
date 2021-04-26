@@ -323,7 +323,75 @@ const doAddMenuItem = (req, res, local, thisSeccion) => {
     }
 }
 
+const addTamanoMenuItem = (req, res) => {
+    console.log('MenuItemCreate, parametro enviado:', req.params.localid, req.params.seccionid, req.params.menuitemid);
+    
+    if(!req.params.localid || !req.params.seccionid || !req.params.menuitemid){
+        
+        return res
+            .status(404)
+            .json({"message": "No se pudo encontrar el Local/Categoria, falta el localid/seccionid/menuitemid"});
 
+    }
+    if(!req.body.nombre || !req.body.precio ){
+        
+        return res
+            .status(400)
+            .json({"message": "Falta completar los campos obligatorios!"});
+
+    }
+    Local
+        .findById(req.params.localid)
+        .exec((err, local) => {
+            if(!local){
+                return res
+                .status(404)
+                .json({
+                    "message": "No se encontró el Local"
+                });
+            }else if (err){
+                return res
+                .status(404)
+                .json(err);
+            }
+            if(local.seccionesMenu && local.seccionesMenu.length > 0){
+                const thisSeccion = local.seccionesMenu.id(req.params.seccionid);
+                const thisMenuItem = thisSeccion.menuitems.id(req.params.menuitemid);
+                let imagenUrl;
+                if(req.file){
+                    const url = req.protocol + '://' + req.get('host');
+                    imagenUrl = url + '/' + req.file.filename;
+                }else{
+                    imagenUrl = '';
+                }
+                let tamano = new Tamano();
+                tamano.nombre = req.body.nombreTamano;
+                tamano.descripcion = req.body.descripcion;
+                tamano.cantidadDeSabores = req.body.cantidadDeSabores;
+                tamano.cantidadDeComensales = req.body.cantidadDeComensales;
+                tamano.cantidadDePorciones = req.body.cantidadDePorciones;
+                tamano.pesoEnGr = req.body.pesoEnGr;
+                tamano.precio = req.body.precio;
+                tamano.fotoUrl = imagenUrl;
+                thisMenuItem.tamanos.push(tamano);
+                console.log('thisSeccion:', thisSeccion);
+                local.save((err, local) => {
+                    if(err){
+                        res
+                            .status(400)
+                            .json(err);
+                    }else{
+                        const thisTamano = thisMenuItem.tamanos.slice(-1).pop();
+                        res
+                            .status(201)
+                            .json(thisTamano);
+                    }
+                });
+                
+            }
+        });
+
+}
 
 
 module.exports = {
@@ -332,6 +400,7 @@ module.exports = {
     menuItemReadOne,
     menuitemUpdateOne,
     menuitemRemoveOne,
+    addTamanoMenuItem
     
     
     
