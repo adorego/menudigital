@@ -128,6 +128,28 @@ export class MenuListFacade{
         )
     }
 
+    public menuitemStateById(seccionIdParam:string, menuitemId:string){
+        return this.seccionesStateService.secciones$.pipe(
+            switchMap(
+                (secciones) => {
+                    let seccionmenuFound:SeccionMenu;
+                    let menuitemFound:MenuItem;
+                    secciones.forEach(
+                    (seccion) => {
+                        if(seccion._id === seccionIdParam){
+                          seccionmenuFound = seccion;
+                          menuitemFound = seccionmenuFound.menuitems.find(
+                              (item) => {
+                                  item._id = menuitemId;
+                              }
+                          )
+                        }
+                          
+                    })
+                    return of(menuitemFound);
+            })
+        )
+    }
     //Gestión de los MenuItems
 
     public createItemMenu(newItemMenu:MenuItem):Observable<MenuItem>{
@@ -190,6 +212,10 @@ export class MenuListFacade{
                 }
             )
             
+        ).subscribe(
+            (menuitemupdated) => {
+                console.log("MenuItem actualizado con tamano:", menuitemupdated);
+            }
         )
     }
 

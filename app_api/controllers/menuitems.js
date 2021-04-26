@@ -167,8 +167,8 @@ const menuitemUpdateOne = (req, res) => {
 }
 
 const menuitemRemoveOne = (req, res) => {
-    console.log('Parametro enviado:', req.params.localid, ",", req.params.categoriaid, ",", req.params.menuitemid);
-    if(!req.params.localid || !req.params.categoriaid || !req.params.menuitemid){
+    console.log('Parametro enviado:', req.params.localid, ",", req.params.seccionid, ",", req.params.menuitemid);
+    if(!req.params.localid || !req.params.seccionid || !req.params.menuitemid){
         return res
                 .status(404)
                 .json({
@@ -191,21 +191,21 @@ const menuitemRemoveOne = (req, res) => {
                 .json(err);
             }
             console.log('Local encontrado:', local);
-            if(local.categorias && local.categorias.length > 0){
+            if(local.seccionesMenu && local.seccionesMenu.length > 0){
                 
-                if(!local.categorias.id(req.params.categoriaid)){
+                if(!local.seccionesMenu.id(req.params.seccionid)){
                     return res
                             .status(404)
                             .json({"message":"No se encontró la categoria"});
                 }else{
-                    console.log('Categorias encontradas:', local.categorias);
-                    const categoria = local.categorias.id(req.params.categoriaid);
-                    if(!categoria.menuitems || !categoria.menuitems.id(req.params.menuitemid)){
+                    console.log('Secciones encontradas:', local.seccionesMenu);
+                    const seccion = local.seccionesMenu.id(req.params.seccionid);
+                    if(!seccion.menuitems || !seccion.menuitems.id(req.params.menuitemid)){
                         return res
                             .status(404)
                             .json({"message":"No se encontró el menuitem"});
                     }else{
-                        categoria.menuitems.id(req.params.menuitemid).remove();
+                        seccion.menuitems.id(req.params.menuitemid).remove();
                         local.save((err, local) =>{
                             if (err){
                                 return res
@@ -333,7 +333,7 @@ const addTamanoMenuItem = (req, res) => {
             .json({"message": "No se pudo encontrar el Local/Categoria, falta el localid/seccionid/menuitemid"});
 
     }
-    if(!req.body.nombre || !req.body.precio ){
+    if(!req.body.nombreTamano || !req.body.precio ){
         
         return res
             .status(400)

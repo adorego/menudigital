@@ -3,21 +3,23 @@ import { PropiedadTamano } from './../../../../core/models/propiedad-tamano.mode
 import { QuestionSelections } from './../../../../core/models/questions-selection.model';
 import { SeccionMenu } from 'src/app/core/models/seccion-menu.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MenuListFacade } from 'src/app/configuration/services/menuListFacade.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nombre-menu-item-form',
   templateUrl: './nombre-menu-item-form.component.html',
   styleUrls: ['./nombre-menu-item-form.component.scss']
 })
-export class NombreMenuItemFormComponent implements OnInit {
+export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
   thisseccion:SeccionMenu;
   $thisseccion:Observable<SeccionMenu>;
+  subscriptionSeccion: Subscription;
   $thisMenuItem:Observable<MenuItem>;
-  thisMenuItem:MenuItem;
+  subscriptionMenuItem:Subscription;
+  thismenuitem:MenuItem;
   @Output() siguienteEvento = new EventEmitter();
   @Output() onSaveMenuItem = new EventEmitter();
   nombre:FormControl = new FormControl('', Validators.required);
@@ -50,11 +52,16 @@ export class NombreMenuItemFormComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) private data,private dialogRef:MatDialogRef<NombreMenuItemFormComponent>,
                private fb:FormBuilder, private menulistFacade:MenuListFacade) { }
+  ngOnDestroy(): void {
+    this.subscriptionSeccion.unsubscribe();
+    this.subscriptionMenuItem.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.currentPage = 'nombremenuitem';//Pagina inicial esta misma
     this.thisseccion = this.data.seccion;
     this.$thisseccion = this.menulistFacade.seccionStateById(this.thisseccion._id);
+
     this.tituloNombreMenuItem = "Nuevo Menú Item";
     this.subtituloNombreMenuItem = "Seccion:" + this.thisseccion.titulo;
     this.menuItemFormGroup = this.fb.group({
@@ -62,8 +69,13 @@ export class NombreMenuItemFormComponent implements OnInit {
       seccion: [this.thisseccion, Validators.required],
       nombre: this.nombre
     });
-    this.thisMenuItem = {} as MenuItem;
-    this.thisMenuItem.tamanos = new Array<PropiedadTamano>();
+    this.$thisseccion.subscribe(
+      (seccion) => {
+
+      }
+    )
+    this.thismenuitem = {} as MenuItem;
+    this.thismenuitem.tamanos = new Array<PropiedadTamano>();
   }
 
   
@@ -141,15 +153,15 @@ export class NombreMenuItemFormComponent implements OnInit {
     if((this.questionsSelection.tamano==0) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==0) && (this.questionsSelection.guarniciones==0))
     {
       this.tipoDeWizard = 1;
-      console.log("Tipo de NuevoTamano", this.nuevoTamanoTipo);
+      
     }
     //Caso diferentes tamaños solamente
     if((this.questionsSelection.tamano==1) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==0) && (this.questionsSelection.guarniciones==0))
     {
       this.tipoDeWizard = 2;
-      console.log("Tipo de NuevoTamano", this.nuevoTamanoTipo);
+      
     }
-    console.log("El siguiente paso es:", this.defineNextState());
+   
     this.showPage(this.defineNextState());
 
 
@@ -189,8 +201,14 @@ export class NombreMenuItemFormComponent implements OnInit {
       case 'nuevoTamanomenuitem':
         if(this.tipoDeWizard==2){
           return 'listatamanosmenuitem';
-        }else
+        }else if(this.tipoDeWizard==1){
+          this.closeNombreMenuItemEvent();
           return '';
+        }else{
+          return '';
+        }
+        break;
+          
         
         
      
@@ -203,26 +221,38 @@ export class NombreMenuItemFormComponent implements OnInit {
   //Metodo que llama a la API para crear un tamaño finalmente
   public crearTamano(tamano:PropiedadTamano){
    
-    if(!this.thisMenuItem._id){
-      this.thisMenuItem.nombre = this.nombre.value;
-      this.thisMenuItem.seccion = this.thisseccion._id;
-      if(this.thisMenuItem.tamanos)
-        this.thisMenuItem.tamanos = new Array<PropiedadTamano>();
-      this.thisMenuItem.tamanos.push(tamano);
-    
-      this.$thisMenuItem = this.menulistFacade.createItemMenu(this.thisMenuItem);
-      this.$thisMenuItem.subscribe(
-        (menuitem) => {
-          this.thisMenuItem = menuitem;
-        }
-      )
+    if(!this.thismenuitem._id){
+      this.thismenuitem.nombre = this.nombre.value;
+      this.thismenuitem.seccion = this.thisseccion._id;
+      if(this.thismenuitem.tamanos)
+        this.thismenuitem.tamanos = new Array<PropiedadTamano>();
+      this.thismenuitem.tamanos.push(tamano);
+      this.menulistFacade.createItemMenu(this.thismenuitem)
+        .subscribe(
+          (menuitem) => {
+              this.thismenuitem = menuitem;
+              this.$thisMenuItem = this.menulistFacade.menuitemStateById(this.thisseccion._id, this.thismenuitem._id);
+              this.$thisMenuItem.subscribe(
+                (menuitem) =>{
+                  this.thismenuitem = menuitem;
+                }
+              )
+          })
+      //this.$thisMenuItem = this.menulistFacade.createItemMenu(this.thisMenuItem);
+      //this.$thisMenuItem.subscribe(
+      //  (menuitem) => {
+      //    this.thisMenuItem = menuitem;
+      //  }
+      //)
       if(this.tipoDeWizard==1){
         this.closeNombreMenuItemEvent();
       }else{
         this.showPage(this.defineNextState());
       }
     }else{
-      this.menulistFacade.addTamanoMenuItem(this.thisMenuItem, tamano);
+      console.log("Se va a agregar un tamaño a:",this.thismenuitem);
+      this.menulistFacade.addTamanoMenuItem(this.thismenuitem, tamano);
+      this.showPage(this.defineNextState());
 
     }
     

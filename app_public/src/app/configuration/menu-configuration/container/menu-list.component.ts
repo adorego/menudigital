@@ -90,5 +90,12 @@ export class MenuListComponent implements OnInit, OnDestroy {
     )
   }
 
+  eliminar_seccion(seccion:SeccionMenu){
+    this.menuListFacade.deleteSeccion(seccion);
+  }
+  eliminar_menuitem(menuitem:MenuItem){
+    this.menuListFacade.deleteItemMenu(menuitem);
+
+  }
   
 }

@@ -23,7 +23,8 @@
                                     <button mat-icon-button aria-label="Editar seccion"  matTooltip="Editar Seccion">
                                         <mat-icon>create</mat-icon>
                                     </button>
-                                    <button mat-icon-button aria-label="Eliminar seccion" matTooltip="Eliminar Seccion">
+                                    <button mat-icon-button aria-label="Eliminar seccion" 
+                                    (click)="eliminar_seccion(seccion)" matTooltip="Eliminar Seccion">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </mat-panel-title>
@@ -51,10 +52,10 @@
                                 
                             </mat-expansion-panel-header>
                                 <div fxLayout="row" fxLayoutAlign="end">
-                                    <button mat-icon-button aria-label="Editar seccion"  matTooltip="Editar Seccion">
+                                    <button mat-icon-button aria-label="Editar MenuItem"  matTooltip="Editar MenuItem">
                                         <mat-icon>create</mat-icon>
                                     </button>
-                                    <button mat-icon-button aria-label="Eliminar seccion" matTooltip="Eliminar Seccion">
+                                    <button mat-icon-button aria-label="Eliminar MenuItem" (click)=eliminar_menuitem(menuitem) matTooltip="Eliminar MenuItem">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </div>
