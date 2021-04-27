@@ -15,6 +15,7 @@ export class ListPropiedadComponent implements OnInit {
   @Input() seccion:string;
   tituloNuevaPropiedad:string;
   @Output() nuevaPropiedadEvent = new EventEmitter();
+  @Output() botonSiguienteEvent = new EventEmitter();
   //Expansion 
   expansionTitulo:string;
   //Tipo 1: Propiedad de tamaño, 2: Propiedad de sabor
@@ -53,6 +54,10 @@ export class ListPropiedadComponent implements OnInit {
   public nuevaPropiedadCall(){
     this.nuevaPropiedadEvent.emit('nuevaPropiedad');
 
+  }
+
+  public boton_siguiente(){
+    this.botonSiguienteEvent.emit("siguiente");
   }
 
 }
