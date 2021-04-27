@@ -7,6 +7,7 @@ import { Component, EventEmitter, Inject, Input, OnInit, Output, OnDestroy } fro
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MenuListFacade } from 'src/app/configuration/services/menuListFacade.service';
 import { Observable, Subscription } from 'rxjs';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-nombre-menu-item-form',
@@ -53,8 +54,13 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
   constructor(@Inject(MAT_DIALOG_DATA) private data,private dialogRef:MatDialogRef<NombreMenuItemFormComponent>,
                private fb:FormBuilder, private menulistFacade:MenuListFacade) { }
   ngOnDestroy(): void {
-    this.subscriptionSeccion.unsubscribe();
-    this.subscriptionMenuItem.unsubscribe();
+
+    if(this.subscriptionSeccion){
+      this.subscriptionSeccion.unsubscribe();
+    } 
+    if(this.subscriptionMenuItem){
+      this.subscriptionMenuItem.unsubscribe()
+    }
   }
 
   ngOnInit(): void {
@@ -69,13 +75,9 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
       seccion: [this.thisseccion, Validators.required],
       nombre: this.nombre
     });
-    this.$thisseccion.subscribe(
-      (seccion) => {
-
-      }
-    )
     this.thismenuitem = {} as MenuItem;
     this.thismenuitem.tamanos = new Array<PropiedadTamano>();
+    console.log('Variable this.thismenuitem.tamanos:', this.thismenuitem.tamanos);
   }
 
   
@@ -230,11 +232,17 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
       this.menulistFacade.createItemMenu(this.thismenuitem)
         .subscribe(
           (menuitem) => {
+              //console.log("menuitem guardado:", menuitem);
               this.thismenuitem = menuitem;
+              //console.log('thismenuitem', this.thismenuitem);
               this.$thisMenuItem = this.menulistFacade.menuitemStateById(this.thisseccion._id, this.thismenuitem._id);
               this.$thisMenuItem.subscribe(
-                (menuitem) =>{
-                  this.thismenuitem = menuitem;
+                (menuitemModified) =>{
+                    if(menuitemModified){
+                    //console.log('thismenuitem del Observable', menuitemModified)
+                    this.thismenuitem = menuitemModified;
+                    //console.log('thismenuitem', this.thismenuitem);
+                  }
                 }
               )
           })

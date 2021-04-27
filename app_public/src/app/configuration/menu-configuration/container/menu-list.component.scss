@@ -4,9 +4,6 @@
   color: #8B8989;
   
 }
-.titulo_seccion{
-  flex-grow: 4;
-}
 
 mat-panel-title{
   display: flex;
@@ -18,17 +15,22 @@ mat-panel-title{
   flex-direction: row;
   justify-content: flex-start;
 }
-
 mat-icon-button{
-  font-size: 48px;
-  padding: 10px;
+  margin-right: 20px;
 }
 
-.seccion_description{
-  text-align: end;
+button mat-icon{
+  font-size: 48px;
+ 
+}
+
+.action_seccion{
+  height: 60px;
 }
 
 img{
   width: 250px;
   height: 250px;
 }
+
+

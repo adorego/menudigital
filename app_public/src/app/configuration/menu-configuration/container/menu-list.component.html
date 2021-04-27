@@ -16,26 +16,37 @@
         <mat-accordion *ngIf="secciones$|async as secciones else sinSecciones">
             <mat-expansion-panel *ngFor="let seccion of secciones" (opened)="true">
                 <mat-expansion-panel-header>
-                                <mat-panel-title class="mat-h4">
-                                    <div class="titulo_seccion">
-                                        {{seccion.titulo}}
-                                    </div>
-                                    <button mat-icon-button aria-label="Editar seccion"  matTooltip="Editar Seccion">
-                                        <mat-icon>create</mat-icon>
-                                    </button>
-                                    <button mat-icon-button aria-label="Eliminar seccion" 
-                                    (click)="eliminar_seccion(seccion)" matTooltip="Eliminar Seccion">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
+                                <mat-panel-title class="titulo_seccion">
+                                    Sección: {{seccion.titulo}}
                                 </mat-panel-title>
+                        
+                            <div fxHide.lt-md>
+                                <mat-panel-description  class="mat-small seccion_descripcion">
+                                        {{seccion.descripcion}}
+                                    
+                                </mat-panel-description>
+                            </div>
                             
 
                         
                 </mat-expansion-panel-header>
                 <ng-template matExpansionPanelContent>
-                    <div class="mat-small seccion_descripcion" fxFlexAlign="center">
-                            {{seccion.descripcion}}
+                    <div class="action_seccion" fxShow.lt-md fxLayout="row" fxLayoutAlign="center center">
+                        <mat-panel-description fxFlex="60%" class="mat-small">
+                                {{seccion.descripcion}}
+                            
+                        </mat-panel-description>
+                        <div fxFlex="40%">
+                            <button mat-icon-button aria-label="Editar MenuItem"  matTooltip="Editar Sección">
+                                <mat-icon>create</mat-icon>
+                            </button>
+                            <button mat-icon-button aria-label="Eliminar MenuItem" (click)="eliminar_seccion(seccion)" matTooltip="Eliminar Sección">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                        
                     </div>
+                    
                     <app-nueva-propiedad
                         [tituloNuevaPropiedad]="tituloNuevoMenuItem" (nuevaPropiedadEvent)="nuevo_item(seccion)">
                     

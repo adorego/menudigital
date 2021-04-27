@@ -94,13 +94,13 @@ export class MenuListFacade{
             ),
             tap(
                 (secciones) =>{
-                    console.log('Secciones:', secciones);
+                    //console.log('Secciones:', secciones);
                     this.seccionesStateService.setSecciones(secciones);
                 }
             )
         )
         .subscribe(
-            (secciones) => console.log('Subscripcion en updateSeccionState:', secciones)
+            //(secciones) => console.log('Subscripcion en updateSeccionState:', secciones)
         )
            
         
@@ -129,6 +129,7 @@ export class MenuListFacade{
     }
 
     public menuitemStateById(seccionIdParam:string, menuitemId:string){
+        console.log('Parametro menuid:', menuitemId);
         return this.seccionesStateService.secciones$.pipe(
             switchMap(
                 (secciones) => {
@@ -138,11 +139,16 @@ export class MenuListFacade{
                     (seccion) => {
                         if(seccion._id === seccionIdParam){
                           seccionmenuFound = seccion;
-                          menuitemFound = seccionmenuFound.menuitems.find(
+                          console.log('Seccion encontrada: seccionmenuFound', seccionmenuFound);
+                          
+                          seccionmenuFound.menuitems.forEach(
                               (item) => {
-                                  item._id = menuitemId;
+                                  if(item._id = menuitemId){
+                                      menuitemFound = item;
+                                  }
                               }
                           )
+                          console.log('MenuItem encontrado: menuitemFound', menuitemFound);
                         }
                           
                     })
