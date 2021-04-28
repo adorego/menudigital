@@ -1,0 +1,12 @@
+@import '../../../../styles/colors.scss';
+
+.boton_siguiente{
+    background-color: $menuDigital-secondary;
+    display: block;
+    margin: auto;
+    color: white;
+    width: 203px;
+    height: 60px;
+    font-size: 24px;
+    margin-top: 24px;
+}

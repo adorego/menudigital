@@ -20,8 +20,8 @@ export class MenuListFacade{
         private toastr: ToastrService)
         {}
 
-    public createSeccion(nuevaSeccionMenu:SeccionMenu):void{
-        this.localConfigurationFacade.updateLocalState()
+    public createSeccion(nuevaSeccionMenu:SeccionMenu):Observable<SeccionMenu>{
+        return this.localConfigurationFacade.updateLocalState()
         .pipe(
             switchMap(
                 (local) => {
@@ -47,11 +47,7 @@ export class MenuListFacade{
                 }
             )
         )
-        .subscribe(
-            (nuevaSeccion) => {
-                console.log('Nueva Seccion creada:', nuevaSeccion);
-            }
-        )
+        
                 
         
     

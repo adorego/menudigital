@@ -22,51 +22,35 @@
     </mat-form-field>
     
     <div class="mat-h3">{{tituloAtributosAdicionales}}</div>
-    <mat-accordion>
-        <mat-expansion-panel *ngIf="tieneSabores">
-            <mat-expansion-panel-header>
-                <mat-checkbox>Cant. de Sabores</mat-checkbox>
-            </mat-expansion-panel-header>
-            <mat-form-field class="full-width" appearance="outline">
+        <mat-form-field  *ngIf="tieneSabores" class="full-width" appearance="outline">
                 <div class="mat-small requiredText">(*requerido)</div>
                 <mat-label>Cantidad de Sabores</mat-label>
                 <input matInput type="number" min="1" formControlName="cantidadDeSabores" placeholder="Cantidad de Sabores">
                 <mat-hint>Ejemplo: 1, 2, 3</mat-hint>
-            </mat-form-field>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-checkbox>Cant. de Comensales</mat-checkbox>
-            </mat-expansion-panel-header>
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Cantidad de Comensales</mat-label>
-                <input matInput type="number" min="1" formControlName="cantidadDeComensales" placeholder="Cantidad de Comensales">
-                <mat-hint>Ejemplo: 1, 2, 3...</mat-hint>
-            </mat-form-field>
+        </mat-form-field>
+       
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Cantidad de Comensales</mat-label>
+            <input matInput type="number" min="1" formControlName="cantidadDeComensales" placeholder="Cantidad de Comensales">
+            <mat-hint>Ejemplo: 1, 2, 3...</mat-hint>
+        </mat-form-field>
+        
+    
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Cantidad de Porciones</mat-label>
+            <input matInput type="number" min="1" formControlName="cantidadDePorciones" placeholder="Cantidad de Porciones">
+            <mat-hint>Ejemplo: 1, 2, 3...</mat-hint>
+        </mat-form-field>
+        
+    
+        
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Peso en gramoss</mat-label>
+            <input matInput type="number" min="1" formControlName="pesoEnGr" placeholder="Peso en gramos">
+            <mat-hint>Ejemplo: 100, 200, 300...</mat-hint>
+        </mat-form-field>
             
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-checkbox>Cant. de Porciones</mat-checkbox>
-            </mat-expansion-panel-header>
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Cantidad de Porciones</mat-label>
-                <input matInput type="number" min="1" formControlName="cantidadDePorciones" placeholder="Cantidad de Porciones">
-                <mat-hint>Ejemplo: 1, 2, 3...</mat-hint>
-            </mat-form-field>
             
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-checkbox>Peso en gramos</mat-checkbox>
-            </mat-expansion-panel-header>
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Peso en gramoss</mat-label>
-                <input matInput type="number" min="1" formControlName="pesoEnGr" placeholder="Peso en gramos">
-                <mat-hint>Ejemplo: 100, 200, 300...</mat-hint>
-            </mat-form-field>
-            
-        </mat-expansion-panel>
-    </mat-accordion>
+        
     <button mat-raised-button   disabled="{{!nuevoTamanoFormGroup.valid}}" class="boton_crear" type="submit">Crear<mat-icon class="icon_next">add_circle_outline</mat-icon></button>
 </form>
