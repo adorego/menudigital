@@ -1,24 +1,63 @@
     <div class="mat-subheading-4 titulo">{{titulo}}</div> 
         <div class="container">
             <div *ngIf="tipo==1">
-                <mat-accordion *ngIf="arrayTamanos.length > 0; else noDataTamanos">
+                <mat-accordion *ngIf="arrayTamanos.length > 0; else sinDatos">
                 
                     <mat-expansion-panel *ngFor="let tam of arrayTamanos" (opened)="true">
                         <mat-expansion-panel-header>
                             <mat-checkbox>{{tam.nombre}}</mat-checkbox>
                         </mat-expansion-panel-header>
                         <ng-template matExpansionPanelContent>
-                            <div fxLayout="column">
-                                <img src="{{tam.fotoUrl}}" alt="">
-                            </div>
+                            <app-nuevo-tamano [conEncabezado]=false [editable]=false [tamanoParam]=tam></app-nuevo-tamano>
+                                
+                            
+                        </ng-template>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div *ngIf="tipo==2">
+                <mat-accordion *ngIf="arraySabores.length > 0; else sinDatos">
+                
+                    <mat-expansion-panel *ngFor="let sabor of arraySabores" (opened)="true">
+                        <mat-expansion-panel-header>
+                            <mat-checkbox>{{sabor.nombre}}</mat-checkbox>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            
+                        </ng-template>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div *ngIf="tipo==3">
+                <mat-accordion *ngIf="arrayAgregados.length > 0; else sinDatos">
+                
+                    <mat-expansion-panel *ngFor="let agregado of arrayAgregados" (opened)="true">
+                        <mat-expansion-panel-header>
+                            <mat-checkbox>{{agregado.nombre}}</mat-checkbox>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            
+                        </ng-template>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div *ngIf="tipo==4">
+                <mat-accordion *ngIf="arrayGuarniciones.length > 0; else sinDatos">
+                
+                    <mat-expansion-panel *ngFor="let guarnicion of arrayGuarniciones" (opened)="true">
+                        <mat-expansion-panel-header>
+                            <mat-checkbox>{{guarnicion.nombre}}</mat-checkbox>
+                        </mat-expansion-panel-header>
+                        <ng-template matExpansionPanelContent>
+                            
                         </ng-template>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
         </div>
     
-    <ng-template #noDataTamanos>
-        <div class="mat-header sindatos">No tiene tamaños definidos</div>
+    <ng-template #sinDatos>
+        <div class="mat-header sindatos">{{mensajeSinDatos}}</div>
     </ng-template>
     
    

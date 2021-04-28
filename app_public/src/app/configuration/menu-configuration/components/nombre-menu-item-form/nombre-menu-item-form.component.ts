@@ -77,7 +77,7 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
     });
     this.thismenuitem = {} as MenuItem;
     this.thismenuitem.tamanos = new Array<PropiedadTamano>();
-    console.log('Variable this.thismenuitem.tamanos:', this.thismenuitem.tamanos);
+    
   }
 
   
@@ -123,7 +123,6 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
           this.showListaAgregados = false;
           this.showListaGuarniciones = false;
           this.showNuevoTamano = false;
-          console.log("Lista de Tamaños");
           this.currentPage = 'listatamanosmenuitem';
           break;
 
@@ -163,26 +162,80 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
       this.tipoDeWizard = 2;
       
     }
+
+    //Caso diferentes sabores solamente
+    if((this.questionsSelection.tamano==0) && (this.questionsSelection.sabores==1) && (this.questionsSelection.agregados==0) && (this.questionsSelection.guarniciones==0))
+    {
+      this.tipoDeWizard = 3;
+      
+    }
+
+    //Caso diferentes agregados solamente
+    if((this.questionsSelection.tamano==0) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==1) && (this.questionsSelection.guarniciones==0))
+    {
+      this.tipoDeWizard = 4;
+      
+    }
+
+    //Caso tiene guarniciones solamente
+    if((this.questionsSelection.tamano==0) && (this.questionsSelection.sabores==0) && (this.questionsSelection.agregados==1) && (this.questionsSelection.guarniciones==0))
+    {
+      this.tipoDeWizard = 5;
+      
+    }
    
-    this.showPage(this.defineNextState());
+    //Caso tiene tamaño y sabores
+    if((this.questionsSelection.tamano==1) && (this.questionsSelection.sabores==1) && (this.questionsSelection.agregados==1) && (this.questionsSelection.guarniciones==0))
+    {
+      this.tipoDeWizard = 6;
+      
+    }
+    this.showPage(this.defineNextState("siguiente"));
 
 
   }
 
   
-  private defineNextState(action:string=null):string{
+  private defineNextState(action:string=""):string{
     switch (this.currentPage){
       case 'propiedadesmenuitem':
         if(this.tipoDeWizard==1){
-          return 'nuevoTamanomenuitem';
+          if(action.localeCompare("siguiente")==0)
+            return 'nuevoTamanomenuitem';
+          else if(action.localeCompare("return")==0)
+            return 'nombremenuitem';
+          else
+            return "";  
         }else if(this.tipoDeWizard==2){
-          return 'listatamanosmenuitem';
+          if(action.localeCompare("siguiente")==0)
+            return 'listatamanosmenuitem';
+          else if(action.localeCompare("return")==0)
+            return 'nombremenuitem';
+          else
+            return "";
+          
         }else if(this.tipoDeWizard==3){
-          return 'listasaboresmenuitem';
+          if(action.localeCompare("siguiente")==0)
+              return 'listasaboresmenuitem';
+          else if(action.localeCompare("return")==0)
+              return 'nombremenuitem';
+          else
+              return "";
+
         }else if(this.tipoDeWizard==4){
-          return 'listasagregadosmenuitem';
+          if(action.localeCompare("siguiente")==0)
+            return 'listasagregadosmenuitem';
+          else if(action.localeCompare("return")==0)
+            return 'nombremenuitem';
+          else
+            return "";
         }else if(this.tipoDeWizard==5){
-          return 'listasguarnicionesmenuitem';
+          if(action.localeCompare("siguiente")==0)
+            return 'listasguarnicionesmenuitem';
+            else if(action.localeCompare("return")==0)
+            return 'nombremenuitem';
+          else
+            return "";
         }else{ 
           return 'nombremenuitem';
         }
@@ -209,7 +262,7 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
         }else{
           return '';
         }
-        break;
+        
           
         
         
@@ -232,26 +285,18 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
       this.menulistFacade.createItemMenu(this.thismenuitem)
         .subscribe(
           (menuitem) => {
-              //console.log("menuitem guardado:", menuitem);
               this.thismenuitem = menuitem;
-              //console.log('thismenuitem', this.thismenuitem);
               this.$thisMenuItem = this.menulistFacade.menuitemStateById(this.thisseccion._id, this.thismenuitem._id);
               this.$thisMenuItem.subscribe(
                 (menuitemModified) =>{
                     if(menuitemModified){
-                    //console.log('thismenuitem del Observable', menuitemModified)
-                    this.thismenuitem = menuitemModified;
-                    //console.log('thismenuitem', this.thismenuitem);
+                      this.thismenuitem = menuitemModified;
+                    
                   }
                 }
               )
           })
-      //this.$thisMenuItem = this.menulistFacade.createItemMenu(this.thisMenuItem);
-      //this.$thisMenuItem.subscribe(
-      //  (menuitem) => {
-      //    this.thisMenuItem = menuitem;
-      //  }
-      //)
+      
       if(this.tipoDeWizard==1){
         this.closeNombreMenuItemEvent();
       }else{
@@ -267,29 +312,9 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
 
   }
 
-  
-
-  //*Este metodo retorna todos los tamaños utilizados en esta sección
-  public getTamanosSeccion():PropiedadTamano[]{
-    let listTamanos:PropiedadTamano[] = new Array<PropiedadTamano>();
-    this.thisseccion.menuitems.forEach(
-      (menuitem) => {
-        if(menuitem.tamanos && menuitem.tamanos.length > 0){
-          menuitem.tamanos.forEach(
-            (tamanoOrigen) => {
-              if(!listTamanos.some(
-                (tamano) => {
-                  tamano._id === tamanoOrigen._id
-                }
-              )){
-                listTamanos.push(tamanoOrigen);
-              }
-              
-            }
-          )
-        }
-      }
-    )
-    return listTamanos;
+  public returnPropiedadesEvent(){
+    this.showPage(this.defineNextState("return"));
   }
+
+  
 }

@@ -1,5 +1,5 @@
-<app-actions-header [showReturn]=true (closeEvent)="closeNuevoTamanoEvent()" (returnEvent)="returnNuevoTamanoPressed()"></app-actions-header>
-<app-dialog-header [titulo]="tituloHeader" [subtitulo]="subtitulo"></app-dialog-header>
+<app-actions-header *ngIf="conEncabezado" [showReturn]=true (closeEvent)="closeNuevoTamanoEvent()" (returnEvent)="returnNuevoTamanoPressed()"></app-actions-header>
+<app-dialog-header *ngIf="conEncabezado" [titulo]="tituloHeader" [subtitulo]="subtitulo"></app-dialog-header>
 
 <form [formGroup]="nuevoTamanoFormGroup" (ngSubmit)="submitTamano()" fxLayout="column" fxLayoutAlign="center">
     <div class="mat-small requiredText">(*requerido)</div>

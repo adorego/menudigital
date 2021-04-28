@@ -1,3 +1,4 @@
+import { NuevoTamanoComponent } from './nuevo-tamano/nuevo-tamano.component';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -72,7 +73,8 @@ export const customCurrencyMaskConfig = {
     ActionsHeaderComponent,
     DialogHeaderComponent,
     NuevaPropiedadComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    NuevoTamanoComponent
     
   ],
   imports: 
@@ -141,7 +143,8 @@ export const customCurrencyMaskConfig = {
     ActionsHeaderComponent,
     DialogHeaderComponent,
     NuevaPropiedadComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    NuevoTamanoComponent
     
     
 

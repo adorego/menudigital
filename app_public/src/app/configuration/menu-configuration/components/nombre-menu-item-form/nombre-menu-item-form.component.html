@@ -16,12 +16,19 @@
 </div>
 
 <div *ngIf="showPropiedades">
-    <app-propiedades-menu-item [nombre]="nombre.value" [seccion]="thisseccion.titulo" (selectionQuestions)="questionsSelectedCall($event)"></app-propiedades-menu-item>
+    <app-propiedades-menu-item [nombre]="nombre.value" [seccion]="thisseccion.titulo" (selectionQuestions)="questionsSelectedCall($event)"
+    (returnPropiedadesEvent)="returnPropiedadesEvent()"></app-propiedades-menu-item>
 </div>
 
 <div *ngIf="showListaTamanos">
-    <app-list-propiedad [nombreMenuItem]="nombre.value" [seccion]="thisseccion.titulo" [tipo]=1 [arrayTamano]="thismenuitem.tamanos" (nuevaPropiedadEvent)="nuevoTamanoEvent()"></app-list-propiedad>
+    <app-list-propiedad [nombreMenuItem]="nombre.value" [seccion]="thisseccion.titulo" [tipo]=1 [arrayTamano]="thismenuitem.tamanos" (nuevaPropiedadEvent)="nuevoTamanoEvent()"
+    (botonSiguienteEvent)="boton_siguiente()"></app-list-propiedad>
     
+</div>
+
+<div *ngIf="showListaSabores">
+    <app-list-propiedad [nombreMenuItem]="nombre.value" [seccion]="thisseccion.titulo" [tipo]=1 [arraySabores]="thismenuitem.sabores" (nuevaPropiedadEvent)="nuevoTamanoEvent()"
+    (botonSiguienteEvent)="boton_siguiente()"></app-list-propiedad>
 </div>
 
 <div *ngIf="showNuevoTamano">

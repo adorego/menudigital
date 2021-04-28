@@ -9,7 +9,7 @@ import { MenuListFacade } from '../../services/menuListFacade.service';
 import { FormMenuItemComponent } from '../components/form-menu-item/form-menu-item.component';
 import { FormSeccionComponent } from '../components/form-seccion/form-seccion.component';
 import { NombreMenuItemFormComponent } from '../components/nombre-menu-item-form/nombre-menu-item-form.component';
-import { NuevoTamanoComponent } from '../components/nuevo-tamano/nuevo-tamano.component';
+import { NuevoTamanoComponent } from '../../../shared/nuevo-tamano/nuevo-tamano.component';
 
 @Component({
   selector: 'app-menu-list',

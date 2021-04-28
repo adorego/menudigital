@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PropiedadTamano } from 'src/app/core/models/propiedad-tamano.model';
 import { FileUploadComponent } from 'src/app/shared/file-upload/file-upload.component';
-import { NombreMenuItemFormComponent } from '../nombre-menu-item-form/nombre-menu-item-form.component';
+import { NombreMenuItemFormComponent } from '../../configuration/menu-configuration/components/nombre-menu-item-form/nombre-menu-item-form.component';
 
 /*
 Este componente es el que tiene el formulario de alta de los Menú-Items
@@ -23,6 +23,8 @@ Parametros de entrada:
 export class NuevoTamanoComponent implements OnInit {
   @ViewChild(FileUploadComponent) fileupload:FileUploadComponent;
   nuevoTamanoFormGroup:FormGroup;
+  @Input() conEncabezado:boolean=true;
+  @Input() editable:boolean=true;
   @Input() seccion:string = "";
   @Input() nombre:string = "";
   @Input() tipo:number = 1;
@@ -69,10 +71,10 @@ export class NuevoTamanoComponent implements OnInit {
         descripcion:[this.tamanoParam.descripcion],
         precio:[this.tamanoParam.precio, Validators.required],
         foto:[this.tamanoParam.foto],
-        cantidadDeSabores:["0"],
-        cantidadDeComensales:["1"],
-        cantidadDePorciones:["1"],
-        pesoEnGr:[""]
+        cantidadDeSabores:[this.tamanoParam.cantidadDeSabores],
+        cantidadDeComensales:[this.tamanoParam.cantidadDeComensales],
+        cantidadDePorciones:[this.tamanoParam.cantidadDePorciones],
+        pesoEnGr:[this.tamanoParam.pesoEnGramo]
       });
     }else{
       this.nuevoTamanoFormGroup = this.fb.group({
