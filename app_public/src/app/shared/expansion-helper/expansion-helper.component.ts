@@ -25,6 +25,7 @@ export class ExpansionHelperComponent implements OnInit {
 
   ngOnInit(): void {
     this.inicializar_mensajes();
+    this.verificar_inputs();
     
   }
 
@@ -41,6 +42,31 @@ export class ExpansionHelperComponent implements OnInit {
         break;
       case(4):
         this.mensajeSinDatos = "No tiene guarniciones definidas";
+        break;
+    }
+  }
+
+  private verificar_inputs(){
+    switch(this.tipo){
+      case(1):
+        if(this.arrayTamanos == null || this.arrayTamanos == undefined ){
+          this.arrayTamanos = new Array<PropiedadTamano>();
+        } 
+        break;
+      case(2):
+        if(this.arraySabores == null || this.arraySabores == undefined ){
+          this.arraySabores = new Array<PropiedadSabor>();
+        } 
+        break;
+      case(3):
+        if(this.arrayAgregados == null || this.arrayAgregados == undefined ){
+          this.arrayAgregados = new Array<PropiedadAgregados>();
+        } 
+        break;
+      case(4):
+        if(this.arrayGuarniciones == null || this.arrayGuarniciones == undefined ){
+          this.arrayTamanos = new Array<PropiedadTamano>();
+        } 
         break;
     }
   }

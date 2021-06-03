@@ -59,7 +59,15 @@ export class MenuListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(FormSeccionComponent, dialogConfig);   
     this.seccionSubscription = dialogRef.componentInstance.onSaveSeccion.subscribe(
       (seccionMenu) => {
-        this.menuListFacade.createSeccion(seccionMenu);
+        this.menuListFacade.createSeccion(seccionMenu)
+        .subscribe(
+          (nuevaSeccion) => {
+              if(nuevaSeccion){
+                dialogRef.close();
+              }
+          }
+      )
+
       }
     )
     

@@ -37,6 +37,9 @@ import { ActionsHeaderComponent } from './actions-header/actions-header.componen
 import { DialogHeaderComponent } from './dialog-header/dialog-header.component';
 import { NuevaPropiedadComponent } from './nueva-propiedad/nueva-propiedad.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { NuevoSaborComponent } from './nuevo-sabor/nuevo-sabor.component';
+import { NuevoAgregadoComponent } from './nuevo-agregado/nuevo-agregado.component';
+import { NuevaGuarnicionComponent } from './nueva-guarnicion/nueva-guarnicion.component';
 
 
 
@@ -74,7 +77,10 @@ export const customCurrencyMaskConfig = {
     DialogHeaderComponent,
     NuevaPropiedadComponent,
     FileUploadComponent,
-    NuevoTamanoComponent
+    NuevoTamanoComponent,
+    NuevoSaborComponent,
+    NuevoAgregadoComponent,
+    NuevaGuarnicionComponent
     
   ],
   imports: 

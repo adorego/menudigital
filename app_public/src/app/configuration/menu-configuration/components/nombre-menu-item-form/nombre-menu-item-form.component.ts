@@ -91,6 +91,18 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
     this.showPage(this.defineNextState('nuevoTamano'));
   }
 
+  public nuevoSaborEvent(){
+    this.showPage(this.defineNextState('nuevoSabor'));
+  }
+
+  public nuevoAgregadoEvent(){
+    this.showPage(this.defineNextState('nuevoAgregado'));
+  }
+
+  public nuevaGuarnicion(){
+    this.showPage(this.defineNextState('nuevaGuaranicion'));
+  }
+
   //Metodo que actualiza las variables de visibilidad de Pagina
   private showPage(page:string){
     switch (page){
@@ -137,6 +149,16 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
             this.currentPage = 'nuevoTamanomenuitem';
             break;
 
+      case 'listasaboresmenuitem':
+            this.showNombre = false;
+            this.showPropiedades = false;
+            this.showListaTamanos = false;
+            this.showListaSabores = true;
+            this.showListaAgregados = false;
+            this.showListaGuarniciones = false;
+            this.showNuevoTamano = false;
+            this.currentPage = 'listasaboresmenuitem';
+            break;
       
 
     }
@@ -216,7 +238,7 @@ export class NombreMenuItemFormComponent implements OnInit,OnDestroy {
           
         }else if(this.tipoDeWizard==3){
           if(action.localeCompare("siguiente")==0)
-              return 'listasaboresmenuitem';
+              return 'nuevoTamanomenuitem';
           else if(action.localeCompare("return")==0)
               return 'nombremenuitem';
           else

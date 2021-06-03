@@ -41,6 +41,15 @@ export class NuevoTamanoComponent implements OnInit {
     this.generar_header();
     this.actualizar_campos();
     this.enfocar_elemento();
+    this.verificartieneSabores();
+
+  }
+
+  private verificartieneSabores(){
+    if(this.tipo == 3){
+      this.tieneSabores = true;
+      this.nuevoTamanoFormGroup.get('cantidadDeSabores').setValidators(Validators.required);
+    }
   }
 
   private enfocar_elemento(){
@@ -48,12 +57,12 @@ export class NuevoTamanoComponent implements OnInit {
   }
 
   private actualizar_campos(){
-    if(this.tipo == 1){//Casi simple
+    if(this.tipo == 1 || this.tipo == 3){//Caso sin diferentes tamaños
       this.nuevoTamanoFormGroup.get('nombre').setValue(this.nombre);
     }
   }
   private generar_header(){
-    if(this.tipo == 1){//Caso simple
+    if(this.tipo == 1 || this.tipo == 3){//Caso simple sin tamaños
       this.tituloHeader = "Datos de:"+ this.nombre;
       this.subtitulo = "Sección:" + this.seccion;
       this.tituloAtributosAdicionales = "Descripción adicional para tu cliente (*opcional):";
