@@ -1,13 +1,18 @@
-.heading_icon{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    font-size: 20px;
+@import '../../styles/colors.scss' ;
+
+.container{
+    background-color: $menuDigital-background;
 }
-.icon{
+.container_mobile{
+    height: 56px;
+    
+}
+.mat-icon{
       font-size: 36px;
       vertical-align: middle;
+}
+
+.mat-icon-desktop{
+    font-size: 56px;
+    vertical-align: middle;
 }

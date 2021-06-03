@@ -1,18 +1,11 @@
 <app-layout>
-    <div class="mat-headline">Mi MenúDigital</div>
-    
+    <h1 class="secciones_header">Mi MenúDigital</h1>
     <app-nueva-propiedad
     [tituloNuevaPropiedad]="tituloNuevaSeccion" (nuevaPropiedadEvent)="nueva_seccion()">
 
     </app-nueva-propiedad>
-    <!--div class="mat-subheading-2 heading_icon">
-        <a (click)="nueva_seccion()">
-            <mat-icon class="material-icons" aria-hidden="false" aria-label="Icono de add">add_circle_outline</mat-icon>
-        
-            Nueva Sección del Menú
-        </a>
-    </div-->
-    <div class="secciones_del_menu">
+    
+    <!--div class="secciones_del_menu">
         <mat-accordion *ngIf="secciones$|async as secciones else sinSecciones">
             <mat-expansion-panel *ngFor="let seccion of secciones" (opened)="true">
                 <mat-expansion-panel-header>
@@ -104,7 +97,7 @@
                 </ng-template>    
             </mat-expansion-panel>
         </mat-accordion>
-    </div>
+    </div-->
     <ng-template #sinSecciones>
         <div class="mat-h4">No tiene secciones en su Menú</div>
     </ng-template>

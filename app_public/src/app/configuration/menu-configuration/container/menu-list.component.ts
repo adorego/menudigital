@@ -38,7 +38,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.tituloNuevaSeccion = " Nueva Sección";
+    this.tituloNuevaSeccion = "Secciones";
     this.tituloNuevoMenuItem = "Nuevo Menú Item"
     this.secciones$ = this.menuListFacade.seccionesState();
     this.menuListFacade.updateSeccionState();

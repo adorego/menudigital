@@ -1,8 +1,8 @@
 @import '../../../styles/colors.scss' ;
 
-.mat-headline{
+.secciones_header{
   color: #8B8989;
-  
+  font-size: calc(24px + 24 * ((100vw - 320px) / 680));
 }
 
 mat-panel-title{

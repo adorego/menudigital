@@ -1,8 +1,7 @@
-<div  class=" mat-subheading-4 heading_icon">
+<div class="container"  fxLayout="row" fxLayoutAlign="start" fxLayoutGap="20px">
+    <h2>{{tituloNuevaPropiedad}}</h2>
     <a (click)="nuevaPropiedadCall()">
-        <mat-icon class="icon" [inline]="true" aria-hidden="false" aria-label="Icono de add">add_circle_outline</mat-icon>
-    
-        {{tituloNuevaPropiedad}}
+        <mat-icon ngClass.gt-md="mat-icon-desktop" aria-hidden="false" aria-label="Icono de add">add_circle_outline</mat-icon>
     </a>
 </div>
 
